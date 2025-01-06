@@ -1,2 +1,0 @@
-# uzin
-Uzin - the game
