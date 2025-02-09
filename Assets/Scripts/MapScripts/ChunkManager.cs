@@ -12,19 +12,19 @@ namespace MapScripts
         private int renderDistance = 2;
         private float noiseScale = 0.1f;
         private Vector2Int lastPlayerChunkPos;
-        
+
         public NetworkVariable<float> mapSeedX = new NetworkVariable<float>();
         public NetworkVariable<float> mapSeedY = new NetworkVariable<float>();
-        
-        
-        public static int width = 100;  // Largeur de la grille
+
+
+        public static int width = 100; // Largeur de la grille
         public static int height = 100; // Hauteur de la grille
         public static float scale = 5f;
         public static float OffsetX;
         public static float OffsetY;
         private GameObject[,] grid; // Tableau 2D pour stocker les tiles placés
-        
-        
+
+
         private Tile waterTile;
         private Tile grassTile;
         private Tile BottomEdgeTile;
@@ -43,7 +43,7 @@ namespace MapScripts
         private Tile weirdhybrid_top;
         private Tile weirdhybrid_left;
         private Tile weirdhybrid_right;
-        
+
         public Tilemap tilemap;
         public TileBase[] tiles; // Assign different tiles in the inspector
 
@@ -57,18 +57,18 @@ namespace MapScripts
                 mapSeedX.Value = (Random.Range(-1000000f, 1000000f));
                 mapSeedY.Value = (Random.Range(-1000000f, 1000000f));
             }
-            
+
             OffsetX = Random.Range(-1000000f, 1000000f);
             OffsetY = Random.Range(-1000000f, 1000000f);
-            
+
             //essai avec une seed convenant a un serveur
             //OffsetX = seed.Item1;
             //OffsetY = seed.Item2; 
-            
+
             LoadTiles();
-            
+
             Vector2Int playerChunkPos = GetChunkCoords(player.position);
-            
+
             lastPlayerChunkPos = GetChunkCoords(player.position);
 
             // Charger les chunks autour du joueur au démarrage
@@ -85,7 +85,7 @@ namespace MapScripts
                 }
             }
         }
-        
+
         void Update()
         {
             // Get the current player chunk position
@@ -98,7 +98,7 @@ namespace MapScripts
                 UpdateChunksAroundPlayer();
             }
         }
-        
+
         void UpdateChunksAroundPlayer()
         {
             // Load new chunks around the player
@@ -133,13 +133,11 @@ namespace MapScripts
         }
 
 
-
-
         Vector2Int GetChunkCoords(Vector3 worldPos)
         {
             return new Vector2Int(Mathf.FloorToInt(worldPos.x / chunkSize), Mathf.FloorToInt(worldPos.y / chunkSize));
         }
-    
+
         void LoadChunk(Vector2Int chunkPos)
         {
             Chunk newChunk = new Chunk(chunkPos, chunkSize);
@@ -147,13 +145,13 @@ namespace MapScripts
             RenderChunk(newChunk);
             loadedChunks.Add(chunkPos, newChunk);
         }
-    
+
         void UnloadChunk(Vector2Int chunkPos)
         {
             loadedChunks.Remove(chunkPos);
             ClearChunkFromTilemap(chunkPos);
         }
-    
+
         void GenerateChunk(Chunk chunk)
         {
             for (int x = 0; x < chunkSize; x++)
@@ -167,69 +165,91 @@ namespace MapScripts
 
                     TileBase selectedTile = GenerateTile(x, y, chunk, noiseValue); // Adjust tile selection
                     //TileBase newTile = GenerateTile(x, y);
-    
+
                     chunk.tiles[x, y] = new TileData(noiseValue, selectedTile);
                 }
             }
         }
-        
+
         public TileBase GenerateTile(int x, int y, Chunk chunk, float sample)
         {
-            //generate terrain color
+            // Calculer les coordonnées mondiales de la tuile actuelle
             float xCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OffsetX;
             float yCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OffsetY;
-            //float sample = Mathf.PerlinNoise(xCoord, yCoord);
-    
-            //ici, implémenter les conditions pour générer les rebords
-            float up = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y+1) * noiseScale) + OffsetY);
-            float down = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y-1) * noiseScale) + OffsetY);
-            float right = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x+1) * noiseScale) + OffsetX, yCoord);
-            float left = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x-1) * noiseScale) + OffsetX, yCoord);
-    
-            float topRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x+1) * noiseScale) + OffsetX, (((chunk.position.y * chunkSize) + y+1) * noiseScale) + OffsetY);
-            float topLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x+1) * noiseScale) + OffsetX, (((chunk.position.y * chunkSize) + y-1) * noiseScale) + OffsetY);
-            float bottomRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x-1) * noiseScale) + OffsetX, (((chunk.position.y * chunkSize) + y+1) * noiseScale) + OffsetY);
-            float bottomLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x-1) * noiseScale) + OffsetX, (((chunk.position.y * chunkSize) + y-1) * noiseScale) + OffsetY);
-    
+
+            // Calcul des voisins orthogonaux
+            float up = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
+            float down = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
+            float right = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX, yCoord);
+            float left = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX, yCoord);
+
+            // Calcul des voisins diagonaux corrigés
+            float topRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX,
+                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
+            float topLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX,
+                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
+            float bottomRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX,
+                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
+            float bottomLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX,
+                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
+
+            // Si le sample est inférieur à 0.2f, on considère qu'il s'agit d'eau et on vérifie les voisins
             if (sample < 0.2f)
             {
-                // On check les corners tah valo prime
-                
-    
-                if (!IsWater(right) && !IsWater(up) && IsWater(down) && IsWater(left)) return tiles[2];
-                if (IsWater(right) && !IsWater(up) && IsWater(down) && !IsWater(left)) return tiles[3];
-                if (!IsWater(right) && IsWater(up) && !IsWater(down) && IsWater(left)) return tiles[4];
-                if (IsWater(right) && IsWater(up) && !IsWater(down) && !IsWater(left)) return tiles[5];
-                
-                if (IsWater(right) && !IsWater(left) && !IsWater(up) && !IsWater(down)) return tiles[6];
-                if (!IsWater(right) && IsWater(left) && !IsWater(up) && !IsWater(down)) return tiles[7];
-                if (!IsWater(right) && !IsWater(left) && IsWater(up) && !IsWater(down)) return tiles[8];
-                if (!IsWater(right) && !IsWater(left) && !IsWater(up) && IsWater(down)) return tiles[9];
-                
-                if (IsWater(up) && !IsWater(down)) return tiles[10];
-                if (IsWater(left) && !IsWater(right)) return tiles[11];
-                if (!IsWater(left) && IsWater(right)) return tiles[12];
-                if (!IsWater(up) && IsWater(down)) return tiles[13];
-                
-                if (IsWater(right) && IsWater(up) && !IsWater(topRight)) return tiles[14];
-                if (IsWater(left) && IsWater(up) && !IsWater(topLeft)) return tiles[15];
-                if (IsWater(left) && IsWater(down) && !IsWater(bottomLeft)) return tiles[16];
-                if (IsWater(right) && IsWater(down) && !IsWater(bottomRight)) return tiles[17];
+                // Coins « internes » en forme de L
+                if (!IsWater(right) && !IsWater(up) && IsWater(down) && IsWater(left))
+                    return tiles[2];
+                if (IsWater(right) && !IsWater(up) && IsWater(down) && !IsWater(left))
+                    return tiles[3];
+                if (!IsWater(right) && IsWater(up) && !IsWater(down) && IsWater(left))
+                    return tiles[4];
+                if (IsWater(right) && IsWater(up) && !IsWater(down) && !IsWater(left))
+                    return tiles[5];
+
+                // Bords hybrides : un seul côté en eau parmi les voisins
+                if (IsWater(right) && !IsWater(left) && !IsWater(up) && !IsWater(down))
+                    return tiles[6];
+                if (!IsWater(right) && IsWater(left) && !IsWater(up) && !IsWater(down))
+                    return tiles[7];
+                if (!IsWater(right) && !IsWater(left) && IsWater(up) && !IsWater(down))
+                    return tiles[8];
+                if (!IsWater(right) && !IsWater(left) && !IsWater(up) && IsWater(down))
+                    return tiles[9];
+
+                // Bords simples (un seul côté adjacent différent)
+                if (IsWater(up) && !IsWater(down))
+                    return tiles[10];
+                if (IsWater(left) && !IsWater(right))
+                    return tiles[11];
+                if (!IsWater(left) && IsWater(right))
+                    return tiles[12];
+                if (!IsWater(up) && IsWater(down))
+                    return tiles[13];
+
+                // Coins « extérieurs » avec vérification de la diagonale
+                if (IsWater(left) && IsWater(down) && !IsWater(bottomLeft))
+                    return tiles[14];
+                if (IsWater(right) && IsWater(down) && !IsWater(bottomRight))
+                    return tiles[15];
+                if (IsWater(right) && IsWater(up) && !IsWater(topRight))
+                    return tiles[16];
+                if (IsWater(left) && IsWater(up) && !IsWater(topLeft))
+                    return tiles[17];
             }
-    
-            if (sample < 0.2f) return tiles[0];
-    
+
+            // Si aucune condition de bord n'est remplie, on retourne une tuile d'eau (si sample < 0.2)
+            // ou une tuile de terre par défaut
+            if (sample < 0.2f)
+                return tiles[0];
             return tiles[1];
-    
-            bool IsWater(float sample)
+
+            // Fonction locale pour déterminer si un échantillon correspond à de l'eau
+            bool IsWater(float val)
             {
-                // Corrected logic
-                return sample < 0.2f;
+                return val < 0.2f;
             }
-            
-            
         }
-        
+
         void LoadTiles()
         {
             waterTile = Resources.Load("Prefabs/sol_eau_0") as Tile;
@@ -251,20 +271,21 @@ namespace MapScripts
             weirdhybrid_right = Resources.Load("Prefabs/weirdhybrid_right") as Tile;
             weirdhybrid_top = Resources.Load("Prefabs/weirdhybrid_top") as Tile;
         }
-    
+
         void RenderChunk(Chunk chunk)
         {
             for (int x = 0; x < chunkSize; x++)
             {
                 for (int y = 0; y < chunkSize; y++)
                 {
-                    Vector3Int tilePos = new Vector3Int(chunk.position.x * chunkSize + x, chunk.position.y * chunkSize + y, 0);
+                    Vector3Int tilePos = new Vector3Int(chunk.position.x * chunkSize + x,
+                        chunk.position.y * chunkSize + y, 0);
 
                     tilemap.SetTile(tilePos, chunk.tiles[x, y].Tilebase);
                 }
             }
         }
-    
+
         void ClearChunkFromTilemap(Vector2Int chunkPos)
         {
             for (int x = 0; x < chunkSize; x++)
@@ -276,8 +297,5 @@ namespace MapScripts
                 }
             }
         }
-        
-        
     }
-    
 }

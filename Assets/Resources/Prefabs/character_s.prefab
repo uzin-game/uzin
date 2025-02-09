@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 2410438185290534069}
   - component: {fileID: 366650005471092835}
   - component: {fileID: -1399619759998439056}
-  - component: {fileID: -3872402415307773339}
   m_Layer: 0
   m_Name: character_s
   m_TagString: Player
@@ -147,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 3
+  moveSpeed: 5
   player: {fileID: 1002487300160079691}
   tilemap: {fileID: 5424337661515561372, guid: 72ba7a983e9363347984268a4bfec48b, type: 3}
   waterTile: {fileID: 11400000, guid: c7ba4ab2db1daea49b11d25fd3b3d262, type: 2}
@@ -244,20 +243,6 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!114 &-3872402415307773339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f69f99cfb86c041b803f87e9d95958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  correctScale: {x: 10, y: 10, z: 10}
 --- !u!1 &2078462829634794110
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +314,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -466,6 +451,9 @@ MonoBehaviour:
   playerTransform: {fileID: 2470092113831464885}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 0.125
+  zoomSpeed: 5
+  minZoom: 1
+  maxZoom: 4
 --- !u!114 &6389479665569633332
 MonoBehaviour:
   m_ObjectHideFlags: 0
