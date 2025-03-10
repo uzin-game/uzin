@@ -1,43 +1,52 @@
-using UnityEngine;
 using Unity.Netcode;
-using System;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class NetworkmanagerUI : NetworkBehaviour
+namespace UIScrpits
 {
-    [SerializeField] private Button ServerButton;
-    [SerializeField] private Button ClientButton;
-    [SerializeField] private Button HostButton;
-    [SerializeField] private GameObject NetworkManagerUI;
-
-
-    private void Awake()
+    public class NetworkmanagerUI : NetworkBehaviour
     {
-        ServerButton.onClick.AddListener(() =>
+        public static NetworkmanagerUI Instance { get; private set; }
+
+        [SerializeField] private Button ServerButton;
+        [SerializeField] private Button ClientButton;
+        [SerializeField] private Button HostButton;
+        [SerializeField] private GameObject NetworkManagerUI;
+
+        private void Awake()
         {
-            if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
+            if (Instance == null)
             {
-                NetworkManager.Singleton.StartServer();
-                NetworkManagerUI.SetActive(false);
-
+                Instance = this;
             }
-        });
-        
-        ClientButton.onClick.AddListener(() =>
-        {
-            if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
+            else
             {
-                NetworkManager.Singleton.StartClient();
-                NetworkManagerUI.SetActive(false);
-
+                Destroy(gameObject);
             }
-        });
-        
-        HostButton.onClick.AddListener(() =>
-        {
-            NetworkManager.Singleton.StartHost();
-            NetworkManagerUI.SetActive(false);
 
-        });
+            ServerButton.onClick.AddListener(() =>
+            {
+                if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
+                {
+                    NetworkManager.Singleton.StartServer();
+                    NetworkManagerUI.SetActive(false);
+                }
+            });
+
+            ClientButton.onClick.AddListener(() =>
+            {
+                if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
+                {
+                    NetworkManager.Singleton.StartClient();
+                    NetworkManagerUI.SetActive(false);
+                }
+            });
+
+            HostButton.onClick.AddListener(() =>
+            {
+                NetworkManager.Singleton.StartHost();
+                NetworkManagerUI.SetActive(false);
+            });
+        }
     }
 }

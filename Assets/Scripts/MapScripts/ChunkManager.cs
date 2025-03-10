@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Unity.Netcode;
-//using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace MapScripts
 {
@@ -13,18 +14,15 @@ namespace MapScripts
         private float noiseScale = 0.1f;
         private Vector2Int lastPlayerChunkPos;
 
-        public NetworkVariable<float> mapSeedX = new NetworkVariable<float>();
-        public NetworkVariable<float> mapSeedY = new NetworkVariable<float>();
+        // Les variables width et height ne sont plus utilisées pour un monde infini.
+        // public static int width = 100;
+        // public static int height = 100;
 
+        // NetworkVariables pour les seeds de génération
+        [SerializeField] public NetworkVariable<float> SeedX;
+        [SerializeField] public NetworkVariable<float> SeedY;
 
-        public static int width = 100; // Largeur de la grille
-        public static int height = 100; // Hauteur de la grille
-        public static float scale = 5f;
-        public static float OffsetX;
-        public static float OffsetY;
-        private GameObject[,] grid; // Tableau 2D pour stocker les tiles placés
-
-
+        // Déclarations des tuiles
         private Tile waterTile;
         private Tile grassTile;
         private Tile BottomEdgeTile;
@@ -45,39 +43,41 @@ namespace MapScripts
         private Tile weirdhybrid_right;
 
         public Tilemap tilemap;
-        public TileBase[] tiles; // Assign different tiles in the inspector
+        public TileBase[] tiles; // Assignez les différentes tuiles dans l'inspecteur
 
+        // Dictionnaire pour stocker les chunks chargés
         private Dictionary<Vector2Int, Chunk> loadedChunks = new Dictionary<Vector2Int, Chunk>();
+
+        // Référence au joueur pour déterminer sa position
         public Transform player;
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
-            if (IsHost || IsServer)
+            // Générer la seed uniquement côté serveur ou host
+            if (IsServer || IsHost)
             {
-                mapSeedX.Value = (Random.Range(-1000000f, 1000000f));
-                mapSeedY.Value = (Random.Range(-1000000f, 1000000f));
+                if (SeedX.Value == 0 && SeedY.Value == 0)
+                {
+                    SeedX.Value = Random.Range(-1000000f, 1000000f);
+                    SeedY.Value = Random.Range(-1000000f, 1000000f);
+                }
+
+                Debug.Log($"(Server/Host) Seeds générées: {SeedX.Value}, {SeedY.Value}");
+            }
+            else
+            {
+                Debug.Log($"(Client) Seeds reçues: {SeedX.Value}, {SeedY.Value}");
             }
 
-            OffsetX = Random.Range(-1000000f, 1000000f);
-            OffsetY = Random.Range(-1000000f, 1000000f);
-
-            //essai avec une seed convenant a un serveur
-            //OffsetX = seed.Item1;
-            //OffsetY = seed.Item2; 
-
-            LoadTiles();
-
+            // Déterminer le chunk dans lequel se trouve le joueur et charger les chunks autour
             Vector2Int playerChunkPos = GetChunkCoords(player.position);
+            lastPlayerChunkPos = playerChunkPos;
 
-            lastPlayerChunkPos = GetChunkCoords(player.position);
-
-            // Charger les chunks autour du joueur au démarrage
             for (int x = -renderDistance; x <= renderDistance; x++)
             {
                 for (int y = -renderDistance; y <= renderDistance; y++)
                 {
                     Vector2Int chunkPos = new Vector2Int(playerChunkPos.x + x, playerChunkPos.y + y);
-
                     if (!loadedChunks.ContainsKey(chunkPos))
                     {
                         LoadChunk(chunkPos);
@@ -86,12 +86,16 @@ namespace MapScripts
             }
         }
 
-        void Update()
+        private void Start()
         {
-            // Get the current player chunk position
-            Vector2Int currentChunkPos = GetChunkCoords(player.position);
+            // Charger les tuiles depuis les ressources
+            LoadTiles();
+        }
 
-            // Only update if the player moves to a new chunk
+        private void Update()
+        {
+            // Mettre à jour dynamiquement les chunks en fonction du déplacement du joueur
+            Vector2Int currentChunkPos = GetChunkCoords(player.position);
             if (currentChunkPos != lastPlayerChunkPos)
             {
                 lastPlayerChunkPos = currentChunkPos;
@@ -101,13 +105,12 @@ namespace MapScripts
 
         void UpdateChunksAroundPlayer()
         {
-            // Load new chunks around the player
+            // Charger de nouveaux chunks autour du joueur
             for (int x = -renderDistance; x <= renderDistance; x++)
             {
                 for (int y = -renderDistance; y <= renderDistance; y++)
                 {
                     Vector2Int chunkPos = new Vector2Int(lastPlayerChunkPos.x + x, lastPlayerChunkPos.y + y);
-
                     if (!loadedChunks.ContainsKey(chunkPos))
                     {
                         LoadChunk(chunkPos);
@@ -115,9 +118,8 @@ namespace MapScripts
                 }
             }
 
-            // Unload chunks that are too far
+            // Décharger les chunks qui sont trop éloignés pour économiser la mémoire
             List<Vector2Int> chunksToRemove = new List<Vector2Int>();
-
             foreach (var chunk in loadedChunks.Keys)
             {
                 if (Vector2Int.Distance(chunk, lastPlayerChunkPos) > renderDistance + 1)
@@ -131,7 +133,6 @@ namespace MapScripts
                 UnloadChunk(chunkPos);
             }
         }
-
 
         Vector2Int GetChunkCoords(Vector3 worldPos)
         {
@@ -158,14 +159,12 @@ namespace MapScripts
             {
                 for (int y = 0; y < chunkSize; y++)
                 {
-                    // Apply a random offset to remove symmetry & change map every time
-                    float worldX = (((chunk.position.x * chunkSize) + x) * noiseScale) + OffsetX;
-                    float worldY = (((chunk.position.y * chunkSize) + y) * noiseScale) + OffsetY;
+                    // Calculer les coordonnées mondiales en fonction du chunk et de la seed
+                    float worldX = (((chunk.position.x * chunkSize) + x) * noiseScale) + SeedX.Value;
+                    float worldY = (((chunk.position.y * chunkSize) + y) * noiseScale) + SeedY.Value;
                     float noiseValue = Mathf.PerlinNoise(worldX, worldY);
 
-                    TileBase selectedTile = GenerateTile(x, y, chunk, noiseValue); // Adjust tile selection
-                    //TileBase newTile = GenerateTile(x, y);
-
+                    TileBase selectedTile = GenerateTile(x, y, chunk, noiseValue);
                     chunk.tiles[x, y] = new TileData(noiseValue, selectedTile);
                 }
             }
@@ -173,30 +172,31 @@ namespace MapScripts
 
         public TileBase GenerateTile(int x, int y, Chunk chunk, float sample)
         {
-            // Calculer les coordonnées mondiales de la tuile actuelle
-            float xCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OffsetX;
-            float yCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OffsetY;
+            // Calculer les coordonnées mondiales de la tuile
+            float xCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + SeedX.Value;
+            float yCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + SeedY.Value;
 
-            // Calcul des voisins orthogonaux
-            float up = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
-            float down = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
-            float right = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX, yCoord);
-            float left = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX, yCoord);
+            // Calculer les valeurs de bruit pour les voisins
+            float up = Mathf.PerlinNoise(xCoord, (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + SeedY.Value);
+            float down = Mathf.PerlinNoise(xCoord,
+                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + SeedY.Value);
+            float right = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + SeedX.Value,
+                yCoord);
+            float left = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + SeedX.Value,
+                yCoord);
 
-            // Calcul des voisins diagonaux corrigés
-            float topRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX,
-                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
-            float topLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX,
-                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + OffsetY);
-            float bottomRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + OffsetX,
-                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
-            float bottomLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + OffsetX,
-                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + OffsetY);
+            float topRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + SeedX.Value,
+                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + SeedY.Value);
+            float topLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + SeedX.Value,
+                (((chunk.position.y * chunkSize) + y + 1) * noiseScale) + SeedY.Value);
+            float bottomRight = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x + 1) * noiseScale) + SeedX.Value,
+                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + SeedY.Value);
+            float bottomLeft = Mathf.PerlinNoise((((chunk.position.x * chunkSize) + x - 1) * noiseScale) + SeedX.Value,
+                (((chunk.position.y * chunkSize) + y - 1) * noiseScale) + SeedY.Value);
 
-            // Si le sample est inférieur à 0.2f, on considère qu'il s'agit d'eau et on vérifie les voisins
+            // Déterminer le type de tuile selon la valeur de bruit (sample)
             if (sample < 0.2f)
             {
-                // Coins « internes » en forme de L
                 if (!IsWater(right) && !IsWater(up) && IsWater(down) && IsWater(left))
                     return tiles[2];
                 if (IsWater(right) && !IsWater(up) && IsWater(down) && !IsWater(left))
@@ -206,7 +206,6 @@ namespace MapScripts
                 if (IsWater(right) && IsWater(up) && !IsWater(down) && !IsWater(left))
                     return tiles[5];
 
-                // Bords hybrides : un seul côté en eau parmi les voisins
                 if (IsWater(right) && !IsWater(left) && !IsWater(up) && !IsWater(down))
                     return tiles[6];
                 if (!IsWater(right) && IsWater(left) && !IsWater(up) && !IsWater(down))
@@ -216,7 +215,6 @@ namespace MapScripts
                 if (!IsWater(right) && !IsWater(left) && !IsWater(up) && IsWater(down))
                     return tiles[9];
 
-                // Bords simples (un seul côté adjacent différent)
                 if (IsWater(up) && !IsWater(down))
                     return tiles[10];
                 if (IsWater(left) && !IsWater(right))
@@ -226,7 +224,6 @@ namespace MapScripts
                 if (!IsWater(up) && IsWater(down))
                     return tiles[13];
 
-                // Coins « extérieurs » avec vérification de la diagonale
                 if (IsWater(left) && IsWater(down) && !IsWater(bottomLeft))
                     return tiles[14];
                 if (IsWater(right) && IsWater(down) && !IsWater(bottomRight))
@@ -237,13 +234,11 @@ namespace MapScripts
                     return tiles[17];
             }
 
-            // Si aucune condition de bord n'est remplie, on retourne une tuile d'eau (si sample < 0.2)
-            // ou une tuile de terre par défaut
             if (sample < 0.2f)
                 return tiles[0];
             return tiles[1];
 
-            // Fonction locale pour déterminer si un échantillon correspond à de l'eau
+            // Fonction locale pour vérifier si une valeur correspond à de l'eau
             bool IsWater(float val)
             {
                 return val < 0.2f;
@@ -280,7 +275,6 @@ namespace MapScripts
                 {
                     Vector3Int tilePos = new Vector3Int(chunk.position.x * chunkSize + x,
                         chunk.position.y * chunkSize + y, 0);
-
                     tilemap.SetTile(tilePos, chunk.tiles[x, y].Tilebase);
                 }
             }
