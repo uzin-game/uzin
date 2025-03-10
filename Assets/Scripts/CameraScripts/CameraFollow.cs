@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
     Camera cam;
     public float zoom = 5f;
     public float minZoom = 1f;
-    public float maxZoom = 4f;
+    public float maxZoom = 20f;
 
     void Start()
     {

@@ -1,3 +1,4 @@
+using MapScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Unity.Netcode;
@@ -36,6 +37,16 @@ namespace PlayerScripts
         public override void OnNetworkSpawn()
         {
             AdjustPlayerSize(player);
+
+            if (IsOwner)
+            {
+                var chunkManager = FindObjectOfType<ChunkManager>();
+
+                if (chunkManager != null)
+                {
+                    chunkManager.player = transform;
+                }
+            }
         }
 
         void AdjustPlayerSize(GameObject tile)

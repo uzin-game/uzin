@@ -96,6 +96,7 @@ namespace MapScripts
         {
             // Mettre à jour dynamiquement les chunks en fonction du déplacement du joueur
             Vector2Int currentChunkPos = GetChunkCoords(player.position);
+
             if (currentChunkPos != lastPlayerChunkPos)
             {
                 lastPlayerChunkPos = currentChunkPos;
