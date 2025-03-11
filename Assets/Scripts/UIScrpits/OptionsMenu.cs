@@ -52,4 +52,12 @@ public class OptionsMenu : MonoBehaviour
     {
         Screen.SetResolution(resolutions[resolutionIndex].width, resolutions[resolutionIndex].height, Screen.fullScreen);
     }
+    
+    public void SetFps(int fps)
+    {
+        if (fps == 0) Application.targetFrameRate = 1000;
+        fps *= 30;
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = fps;
+    }
 }

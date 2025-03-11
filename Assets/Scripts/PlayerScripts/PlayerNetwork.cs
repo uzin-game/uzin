@@ -1,3 +1,4 @@
+using System;
 using MapScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -24,7 +25,7 @@ namespace PlayerScripts
         {
             // Get the Rigidbody2D component
             rb = GetComponent<Rigidbody2D>();
-            AdjustPlayerSize(player);
+            AdjustPlayerSize();
 
             // Find a safe spawn point
             Vector3 safeSpawn = FindSafeSpawn();
@@ -33,14 +34,14 @@ namespace PlayerScripts
 
             //player.transform.position = new Vector3(spawnX, spawnY, player.transform.position.z);
         }
-
+        
         public override void OnNetworkSpawn()
         {
-            AdjustPlayerSize(player);
+            AdjustPlayerSize();
 
             if (IsOwner)
             {
-                var chunkManager = FindObjectOfType<ChunkManager>();
+                var chunkManager = FindFirstObjectByType<ChunkManager>();
 
                 if (chunkManager != null)
                 {
@@ -49,7 +50,7 @@ namespace PlayerScripts
             }
         }
 
-        void AdjustPlayerSize(GameObject tile)
+        void AdjustPlayerSize()
         {
             player.transform.localScale = new Vector3(1f, 1f, 1f);
         }
