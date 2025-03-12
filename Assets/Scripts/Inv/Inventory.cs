@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : NetworkBehaviour
 {
     // Liste synchronisée des items
-    public NetworkList<Itemss> items;
+    public NetworkList<Item> items;
 
     private void Awake()
     {
@@ -14,7 +14,7 @@ public class Inventory : NetworkBehaviour
     }
 
     // Ajouter un item à l'inventaire
-    public void AddItem(Itemss item)
+    public void AddItem(Item item)
     {
         if (!IsServer) return; // Seul le serveur peut modifier l'inventaire
 
@@ -23,7 +23,7 @@ public class Inventory : NetworkBehaviour
     }
 
     // Retirer un item de l'inventaire
-    public void RemoveItem(Itemss item)
+    public void RemoveItem(Item item)
     {
         if (!IsServer) return; // Seul le serveur peut modifier l'inventaire
 
