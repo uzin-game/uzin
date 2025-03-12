@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 142dec6d0ed87b2468c2179bee431b36
+guid: b8975c7de61e19b4bb80b7054263ce6a
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "Carr\xE9_rouge.svg_0": -270187726104259247
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
