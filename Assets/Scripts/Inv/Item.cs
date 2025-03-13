@@ -42,7 +42,7 @@ public struct Item : INetworkSerializable, IEquatable<Item>
 
     public static bool operator ==(Item left, Item right)
     {
-        return left.Equals(right);
+        return left.itemName == right.itemName;
     }
 
     public static bool operator !=(Item left, Item right)

@@ -8,12 +8,21 @@ public class ItemDatabase : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         iconLibrary = new Dictionary<int, Sprite>
         {
-            { 0, Resources.Load<Sprite>("Icons/default_icon") },
-            { 1, Resources.Load<Sprite>("Icons/sword_icon") },
-            { 2, Resources.Load<Sprite>("Icons/shield_icon") }
+            { 0, Resources.Load<Sprite>("Icons/Carré_rouge") },
+            { 1, Resources.Load<Sprite>("Icons/Fer") },
+            { 2, Resources.Load<Sprite>("Icons/Cuivre") }
         };
     }
 

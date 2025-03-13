@@ -4,21 +4,36 @@ using UnityEngine;
 
 public class Inventory : NetworkBehaviour
 {
-    // Liste synchronisée des items
     public NetworkList<Item> items;
+    public NetworkList<int> quantity;
 
     private void Awake()
     {
         // Initialiser la NetworkList
         items = new();
+        quantity = new();
     }
 
     // Ajouter un item à l'inventaire
     public void AddItem(Item item)
     {
-        if (!IsServer) return; // Seul le serveur peut modifier l'inventaire
+        if (!IsServer) return; 
+        bool found = false;
 
-        items.Add(item);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemName == item.itemName)
+            {
+                found = true;
+                quantity[i] += 1;
+            }
+        }
+        
+        if (!found)
+        {
+            quantity.Add(1);
+            items.Add(item);
+        }
         Debug.Log($"Added {item.itemName} to inventory.");
     }
 
@@ -27,10 +42,19 @@ public class Inventory : NetworkBehaviour
     {
         if (!IsServer) return; // Seul le serveur peut modifier l'inventaire
 
-        if (items.Contains(item))
+        for (int i = 0; i < items.Count; i++)
         {
-            items.Remove(item);
-            Debug.Log($"Removed {item.itemName} from inventory.");
+            if (items[i].itemName == item.itemName)
+            {
+                if (quantity[i] == 1)
+                {
+                    items.RemoveAt(i);
+                }
+                else
+                {
+                    quantity[i] -= 1;
+                }
+            }
         }
     }
 

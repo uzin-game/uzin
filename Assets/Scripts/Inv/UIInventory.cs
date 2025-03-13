@@ -7,7 +7,18 @@ public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory; // Référence à l'inventaire
     public Transform itemPanel;  // Panel parent pour les slots d'items
-    public GameObject itemUIPrefab; // Prefab pour l'UI d'un item
+    public GameObject itemPrefab1;
+    public GameObject itemPrefab2;
+    public GameObject itemPrefab3;
+    public GameObject itemPrefab4;
+    public GameObject itemPrefab5;
+    public GameObject itemPrefab6;
+    public GameObject itemPrefab7;
+    public GameObject itemPrefab8;
+    public GameObject itemPrefab9;
+    public GameObject itemPrefab10;
+    public GameObject itemPrefab11;
+    public ItemDatabase itemDatabase;
 
     private void Start()
     {
@@ -17,11 +28,58 @@ public class InventoryUI : MonoBehaviour
             return;
         }
 
-        // S'abonner aux changements de l'inventaire
-        inventory.items.OnListChanged += UpdateUI;
+        inventory.items.OnListChanged += _ => UpdateUI();
+        inventory.quantity.OnListChanged += _ => UpdateUI();
 
-        // Mise à jour initiale de l'UI
-        UpdateUI(default);
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        foreach (Transform child in itemPanel)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < inventory.items.Count; i++)
+        {
+            Item item = inventory.items[i];
+            GameObject itemUI = Instantiate(GetUIPrefab(i), itemPanel);
+
+            Image itemImage = itemUI.GetComponent<Image>();
+            if (itemImage != null)
+            {
+                itemImage.sprite = itemDatabase.GetSprite(item.iconId);
+            }
+
+            TMP_Text itemNameText = itemUI.transform.Find("ItemName")?.GetComponent<TMP_Text>();
+            if (itemNameText != null) itemNameText.text = item.itemName.ToString();
+
+            TMP_Text itemNbText = itemUI.transform.Find("ItemNb")?.GetComponent<TMP_Text>();
+            if (itemNbText != null) itemNbText.text = inventory.quantity[i].ToString();
+        }
+    }
+    public GameObject GetUIPrefab(int i)
+    {
+        switch (i)
+        {
+            case 0: return itemPrefab1;
+            case 1: return itemPrefab2;
+            case 2: return itemPrefab3;
+            case 3: return itemPrefab4;
+            case 4: return itemPrefab5;
+            case 5: return itemPrefab6;
+            case 6: return itemPrefab7;
+            case 7: return itemPrefab8;
+            case 8: return itemPrefab9;
+            case 9: return itemPrefab10;
+            case 10: return itemPrefab11;
+            default:
+            {
+                Debug.LogError($"Unknown item type {i}");
+                return itemPrefab1;
+            }
+        }
     }
 
     // Mettre à jour l'UI lorsque l'inventaire change
@@ -34,15 +92,15 @@ public class InventoryUI : MonoBehaviour
         }
 
         // Recréer l'UI pour chaque item
-        foreach (var item in inventory.items)
+        for (int i = 0; i < inventory.items.Count; i++)
         {
-            GameObject itemUI = Instantiate(itemUIPrefab, itemPanel); // Créer un nouvel élément UI
+            Item item = inventory.items[i];
+            GameObject itemUI = Instantiate(GetUIPrefab(i), itemPanel); 
 
-            // Mettre à jour l'image
             Image itemImage = itemUI.GetComponent<Image>();
             if (itemImage != null)
             {
-                itemImage.sprite = ItemDatabase.Instance.GetSprite(item.iconId);
+                itemImage.sprite = itemDatabase.GetSprite(item.iconId);
             }
             else
             {
@@ -50,14 +108,24 @@ public class InventoryUI : MonoBehaviour
             }
 
             // Mettre à jour le texte (nom de l'item)
-            TMP_Text itemText = itemUI.GetComponentInChildren<TMP_Text>();
-            if (itemText != null)
+            TMP_Text itemNameText = itemUI.transform.Find("ItemName")?.GetComponent<TMP_Text>();
+            if (itemNameText != null)
             {
-                itemText.text = item.itemName.ToString();
+                itemNameText.text = item.itemName.ToString();
             }
             else
             {
-                Debug.LogWarning("L'élément UI ne contient pas de TMP_Text.");
+                Debug.LogWarning("L'élément UI ne contient pas de ItemNB");
+            }
+            
+            TMP_Text itemNbText = itemUI.transform.Find("ItemNb")?.GetComponent<TMP_Text>();
+            if (itemNbText != null)
+            {
+                itemNbText.text = inventory.quantity[i].ToString();
+            }
+            else
+            {
+                Debug.LogWarning("L'élément UI ne contient pas de ItemNB");
             }
         }
     }

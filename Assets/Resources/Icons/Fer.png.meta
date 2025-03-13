@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1f2e7970d4805d04aa4c8e1d5d20d072
+guid: 83df43ddf721db04b87ce429267c4782
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5160551831037241196
-    second: furnace_0
+      213: -9106165563400203513
+    second: Fer_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: furnace_0
+      name: Fer_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 498980293790268b0800000000000000
-      internalID: -5160551831037241196
+      spriteID: 703d2a7aaa660a180800000000000000
+      internalID: -9106165563400203513
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      furnace_0: -5160551831037241196
+      Fer_0: -9106165563400203513
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
