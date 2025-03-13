@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2410438185290534069}
   - component: {fileID: 366650005471092835}
   - component: {fileID: -1399619759998439056}
+  - component: {fileID: 2141097867871324799}
   m_Layer: 0
   m_Name: character_s
   m_TagString: Player
@@ -107,7 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346712abb6f0f964daf2f367845a111c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Machine: {fileID: 0}
+  machinePrefabs: []
+  machineMenuUI: {fileID: 0}
 --- !u!114 &1350909027293849919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +245,18 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &2141097867871324799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3fc341ab33c4859aa03a5b3713ef3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2078462829634794110
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MachinePlacementManager : MonoBehaviour
 {
@@ -7,7 +9,6 @@ public class MachinePlacementManager : MonoBehaviour
 
     public GameObject machineMenuUI;
     private GameObject selectedMachinePrefab;
-    [SerializeField] private Transform player;
 
     private Vector3 mosPos;
 
@@ -27,11 +28,6 @@ public class MachinePlacementManager : MonoBehaviour
     public void Start()
     {
         machineMenuUI.SetActive(false);
-    }
-
-    public void SetPlayerTransform(Transform newPlayerTransform)
-    {
-        player = newPlayerTransform;
     }
 
     public void CancelSelection()
@@ -55,11 +51,13 @@ public class MachinePlacementManager : MonoBehaviour
 
     public void PlaceMachine()
     {
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mosPos);
+        Vector3 worldPos = Camera.main!.ScreenToWorldPoint(mosPos);
 
         worldPos.z = -1;
 
-        Instantiate(selectedMachinePrefab, worldPos, Quaternion.identity);
+        var objectplacer = FindObjectOfType<ObjectPlacer>();
+
+        objectplacer.PlaceObject(worldPos);
 
         Debug.Log("Machine placée à : " + worldPos);
 
