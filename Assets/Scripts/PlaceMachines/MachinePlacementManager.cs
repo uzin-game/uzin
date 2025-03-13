@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MachinePlacementManager : MonoBehaviour
+public class MachinePlacementManager : NetworkBehaviour
 {
     [Header("Configuration des Machines")] public List<GameObject> machinePrefabs;
 
