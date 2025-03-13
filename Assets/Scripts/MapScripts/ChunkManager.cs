@@ -24,6 +24,7 @@ namespace MapScripts
 
         // Déclarations des tuiles
         private Tile waterTile;
+        private Tile furnace;
         private Tile grassTile;
         private Tile BottomEdgeTile;
         private Tile I_BottomLeftTile;
@@ -266,6 +267,7 @@ namespace MapScripts
             weirdhybrid_bottom = Resources.Load("Prefabs/weirdhybrid_bottom") as Tile;
             weirdhybrid_right = Resources.Load("Prefabs/weirdhybrid_right") as Tile;
             weirdhybrid_top = Resources.Load("Prefabs/weirdhybrid_top") as Tile;
+            furnace = Resources.Load("Prefabs/furnace") as Tile;
         }
 
         void RenderChunk(Chunk chunk)

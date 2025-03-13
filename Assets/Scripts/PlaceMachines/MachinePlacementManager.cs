@@ -9,6 +9,8 @@ public class MachinePlacementManager : MonoBehaviour
     private GameObject selectedMachinePrefab;
     [SerializeField] private Transform player;
 
+    private Vector3 mosPos;
+
     public void SelectMachine(int machineIndex)
     {
         if (machineIndex >= 0 && machineIndex < machinePrefabs.Count)
@@ -46,14 +48,14 @@ public class MachinePlacementManager : MonoBehaviour
     {
         if (!machineMenuUI.activeSelf && Input.GetKeyDown(KeyCode.P))
         {
+            mosPos = Input.mousePosition;
             ToggleMenu();
         }
     }
 
     public void PlaceMachine()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mosPos);
 
         worldPos.z = -1;
 
