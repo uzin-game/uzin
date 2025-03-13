@@ -30,7 +30,7 @@ public class CameraFollow : MonoBehaviour
         if (cam.orthographic)
         {
             cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * zoom;
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, minZoom, maxZoom);
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, minZoom, maxZoom+20);
         }
         else
         {

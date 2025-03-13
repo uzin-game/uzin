@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2470092113831464885}
   - component: {fileID: 9089392349526116671}
-  - component: {fileID: -5873886472683683366}
   - component: {fileID: 1350909027293849919}
+  - component: {fileID: -5873886472683683366}
   - component: {fileID: 2614881168650197882}
   - component: {fileID: 5019814960975939728}
   - component: {fileID: 2410438185290534069}
@@ -96,20 +96,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5873886472683683366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 346712abb6f0f964daf2f367845a111c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  machinePrefabs: []
-  machineMenuUI: {fileID: 0}
 --- !u!114 &1350909027293849919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +121,21 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &-5873886472683683366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 346712abb6f0f964daf2f367845a111c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  machinePrefabs: []
+  machineMenuUI: {fileID: 0}
 --- !u!114 &2614881168650197882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  moveSpeed: 5
+  moveSpeed: 10
   player: {fileID: 1002487300160079691}
   tilemap: {fileID: 5424337661515561372, guid: 72ba7a983e9363347984268a4bfec48b, type: 3}
   waterTile: {fileID: 11400000, guid: c7ba4ab2db1daea49b11d25fd3b3d262, type: 2}
@@ -467,7 +468,7 @@ MonoBehaviour:
   smoothSpeed: 0.125
   zoomSpeed: 5
   minZoom: 1
-  maxZoom: 4
+  maxZoom: 100
 --- !u!114 &6389479665569633332
 MonoBehaviour:
   m_ObjectHideFlags: 0

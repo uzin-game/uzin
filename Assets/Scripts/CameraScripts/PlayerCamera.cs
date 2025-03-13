@@ -9,8 +9,8 @@ namespace CameraScripts
         public float smoothSpeed = 0.125f; // Vitesse de lissage du suivi
 
         [Header("Zoom Settings")] public float zoomSpeed = 5f; // Vitesse du zoom (multiplicateur)
-        public float minZoom = 1f; // Zoom minimum (pour une caméra orthographique, correspond à orthographicSize)
-        public float maxZoom = 4f; // Zoom maximum (pour une caméra orthographique)
+        [SerializeField] private float minZoom = 1f; // Zoom minimum (pour une caméra orthographique, correspond à orthographicSize)
+        [SerializeField] private float maxZoom = 20f; // Zoom maximum (pour une caméra orthographique)
 
         private Camera cam;
 

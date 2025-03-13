@@ -9,8 +9,8 @@ namespace MapScripts
 {
     public class ChunkManager : NetworkBehaviour
     {
-        private int chunkSize = 16;
-        private int renderDistance = 2;
+        private int chunkSize = 3;
+        private int renderDistance = 10;
         private float noiseScale = 0.1f;
         private Vector2Int lastPlayerChunkPos;
 
