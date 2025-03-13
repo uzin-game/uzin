@@ -34,7 +34,7 @@ namespace PlayerScripts
 
             //player.transform.position = new Vector3(spawnX, spawnY, player.transform.position.z);
         }
-        
+
         public override void OnNetworkSpawn()
         {
             AdjustPlayerSize();
