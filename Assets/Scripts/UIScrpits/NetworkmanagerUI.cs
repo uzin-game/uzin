@@ -12,7 +12,11 @@ namespace UIScrpits
         [SerializeField] private Button ClientButton;
         [SerializeField] private Button HostButton;
         [SerializeField] private Button GoBackButton;
-        [SerializeField] private GameObject NetworkManagerUI;
+        [SerializeField] private GameObject StartGameUI;
+        [SerializeField] private GameObject MainMenuUI;
+        [SerializeField] private GameObject MenuCanvas;
+
+
 
         private void Awake()
         {
@@ -30,19 +34,22 @@ namespace UIScrpits
                 if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
                 {
                     NetworkManager.Singleton.StartClient();
-                    NetworkManagerUI.SetActive(false);
+                    StartGameUI.SetActive(false);
+                    MenuCanvas.SetActive(false);
                 }
             });
 
             HostButton.onClick.AddListener(() =>
             {
                 NetworkManager.Singleton.StartHost();
-                NetworkManagerUI.SetActive(false);
+                StartGameUI.SetActive(false);
+                MenuCanvas.SetActive(false);
             });
             
             GoBackButton.onClick.AddListener(() =>
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+                MainMenuUI.SetActive(true);
+                StartGameUI.SetActive(false);
             });
         }
     }
