@@ -244,6 +244,7 @@ namespace MapScripts
             System.Random random = new System.Random();
             if (sample < 0.2f) return tiles[0];
             if (random.Next(0,6) == 0) return tiles[18];
+            if (sample >= 0.85f) return tiles[19];
             return tiles[1];
 
             // Fonction locale pour vérifier si une valeur correspond à de l'eau
