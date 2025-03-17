@@ -41,6 +41,7 @@ namespace MapScripts
         private Tile weirdhybrid_top;
         private Tile weirdhybrid_left;
         private Tile weirdhybrid_right;
+        private Tile ground_variation;
 
         public Tilemap tilemap;
         public TileBase[] tiles; // Assignez les différentes tuiles dans l'inspecteur
@@ -240,8 +241,9 @@ namespace MapScripts
                     return tiles[17];
             }
 
-            if (sample < 0.2f)
-                return tiles[0];
+            System.Random random = new System.Random();
+            if (sample < 0.2f) return tiles[0];
+            if (random.Next(0,6) == 0) return tiles[18];
             return tiles[1];
 
             // Fonction locale pour vérifier si une valeur correspond à de l'eau
@@ -271,6 +273,7 @@ namespace MapScripts
             weirdhybrid_bottom = Resources.Load("Prefabs/weirdhybrid_bottom") as Tile;
             weirdhybrid_right = Resources.Load("Prefabs/weirdhybrid_right") as Tile;
             weirdhybrid_top = Resources.Load("Prefabs/weirdhybrid_top") as Tile;
+            ground_variation = Resources.Load("Prefabs/sol_basique_variation_0") as Tile;
         }
 
         void RenderChunk(Chunk chunk)

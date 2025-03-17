@@ -4,6 +4,7 @@ public class FurnaceInteraction : MonoBehaviour
 {
     public bool IsInteracting;
     [SerializeField] private GameObject FurnaceUI;
+    
 
     public void Interact()
     {
