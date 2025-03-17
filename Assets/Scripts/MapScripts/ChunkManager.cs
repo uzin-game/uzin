@@ -10,7 +10,7 @@ namespace MapScripts
     public class ChunkManager : NetworkBehaviour
     {
         private int chunkSize = 3;
-        private int renderDistance = 10;
+        private int renderDistance = 5;
         private float noiseScale = 0.1f;
         private Vector2Int lastPlayerChunkPos;
 
@@ -243,7 +243,7 @@ namespace MapScripts
 
             System.Random random = new System.Random();
             if (sample < 0.2f) return tiles[0];
-            if (random.Next(0,6) == 0) return tiles[18];
+            if (random.Next(0, 6) == 0) return tiles[18];
             if (sample >= 0.85f) return tiles[19];
             return tiles[1];
 
@@ -292,14 +292,10 @@ namespace MapScripts
 
         void ClearChunkFromTilemap(Vector2Int chunkPos)
         {
-            for (int x = 0; x < chunkSize; x++)
-            {
-                for (int y = 0; y < chunkSize; y++)
-                {
-                    Vector3Int tilePos = new Vector3Int(x + chunkPos.x * chunkSize, y + chunkPos.y * chunkSize, 0);
-                    tilemap.SetTile(tilePos, null);
-                }
-            }
+            BoundsInt bounds =
+                new BoundsInt(chunkPos.x * chunkSize, chunkPos.y * chunkSize, 0, chunkSize, chunkSize, 1);
+            TileBase[] emptyTiles = new TileBase[chunkSize * chunkSize];
+            tilemap.SetTilesBlock(bounds, emptyTiles);
         }
     }
 }
