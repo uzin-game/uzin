@@ -18,6 +18,11 @@ public class InventoryUI : MonoBehaviour
     public GameObject itemPrefab9;
     public GameObject itemPrefab10;
     public GameObject itemPrefab11;
+    public GameObject itemPrefab12;
+    public GameObject itemPrefab13;
+    public GameObject itemPrefab14;
+    public GameObject itemPrefab15;
+    public GameObject itemPrefab16;
     public ItemDatabase itemDatabase;
 
     private void Start()
@@ -74,6 +79,11 @@ public class InventoryUI : MonoBehaviour
             case 8: return itemPrefab9;
             case 9: return itemPrefab10;
             case 10: return itemPrefab11;
+            case 11: return itemPrefab12;
+            case 12: return itemPrefab13;
+            case 13: return itemPrefab14;
+            case 14: return itemPrefab15;
+            case 15: return itemPrefab16;
             default:
             {
                 Debug.LogError($"Unknown item type {i}");

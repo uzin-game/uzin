@@ -3,6 +3,7 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject Panel; // Référence au Panel de l'inventaire
+    public GameObject background;
     public Animator inventoryAnimator; // Référence à l'Animator (optionnel)
 
     private bool isInventoryOpen = false; // État de l'inventaire (ouvert/fermé)
@@ -13,6 +14,7 @@ public class InventoryManager : MonoBehaviour
         if (Panel != null)
         {
             Panel.SetActive(false);
+            background.SetActive(false);
         }
     }
 
@@ -38,6 +40,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Panel.SetActive(isInventoryOpen);
+            background.SetActive(isInventoryOpen);
         }
     }
 }

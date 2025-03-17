@@ -23,7 +23,7 @@ public class KeyboardInputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             Debug.Log("L");
-            Item TestItem = new Item("Fer", 1, 200);
+            Item TestItem = new Item("Fer", 4, 200);
             if (inventory != null)
             {
                 inventory.AddItem(TestItem);
@@ -37,7 +37,7 @@ public class KeyboardInputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("O");
-            Item TestItem = new Item("Fer", 1, 200);
+            Item TestItem = new Item("Fer", 4, 200);
             if (inventory != null)
             {
                 inventory.RemoveItem(TestItem);

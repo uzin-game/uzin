@@ -22,7 +22,8 @@ public class ItemDatabase : MonoBehaviour
         {
             { 0, Resources.Load<Sprite>("Icons/Carré_rouge") },
             { 1, Resources.Load<Sprite>("Icons/Fer") },
-            { 2, Resources.Load<Sprite>("Icons/Cuivre") }
+            { 2, Resources.Load<Sprite>("Icons/Cuivre") },
+            { 4, Resources.Load<Sprite>("Icons/minerais fer")}
         };
     }
 
