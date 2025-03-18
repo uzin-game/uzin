@@ -254,6 +254,7 @@ namespace MapScripts
 
             if (sample < 0.2f) return tiles[0];
             if (random.Next(0, 6) == 0) return tiles[18];
+            if (sample > 0.9f) return tiles[21];
             if (sample >= 0.85f) return tiles[19];
             
             float orexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OreSeedX.Value;

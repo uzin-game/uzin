@@ -1690,7 +1690,7 @@ PrefabInstance:
       objectReference: {fileID: 2470092113831464885, guid: af5a6ac6895ab9644bf33e3ecdd3c7f3, type: 3}
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: tiles.Array.size
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: 'tiles.Array.data[18]'
@@ -1703,7 +1703,11 @@ PrefabInstance:
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: 'tiles.Array.data[20]'
       value: 
-      objectReference: {fileID: 11400000, guid: 88df71d0c3b03624694d5fd4b57d4cfc, type: 2}
+      objectReference: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
+    - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
+      propertyPath: 'tiles.Array.data[21]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 78df9b1ed616d4f48bce92f234f01822, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
