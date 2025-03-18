@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using MapScripts;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -21,6 +21,7 @@ namespace PlayerScripts
         public GameObject cameraPrefab;
         private GameObject playerCamera;
 
+
         void Start()
         {
             // Get the Rigidbody2D component
@@ -28,16 +29,19 @@ namespace PlayerScripts
             AdjustPlayerSize();
 
             // Find a safe spawn point
-            Vector3 safeSpawn = FindSafeSpawn();
-            rb.MovePosition(safeSpawn);
-            lastValidPosition = safeSpawn; // Ensure first position is valid
+            //Vector3 safeSpawn = FindSafeSpawn();
+            //rb.MovePosition(safeSpawn);
+            //lastValidPosition = safeSpawn; // Ensure first position is valid
 
             //player.transform.position = new Vector3(spawnX, spawnY, player.transform.position.z);
         }
 
         public override void OnNetworkSpawn()
         {
+            
             AdjustPlayerSize();
+            
+            
 
             if (IsOwner)
             {
@@ -48,6 +52,7 @@ namespace PlayerScripts
                     chunkManager.player = transform;
                 }
             }
+            
         }
 
         void AdjustPlayerSize()
@@ -55,6 +60,7 @@ namespace PlayerScripts
             player.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
+        /*
         Vector3 FindSafeSpawn()
         {
             Vector3Int spawnTilePos = tilemap.WorldToCell(Vector3.zero); // Start searching from (0,0)
@@ -79,7 +85,7 @@ namespace PlayerScripts
 
             // Fallback (if no land found, use default spawn)
             return Vector3.zero;
-        }
+        }*/
 
         private void Update()
         {
@@ -95,15 +101,6 @@ namespace PlayerScripts
             if (movement.magnitude > 1)
             {
                 movement.Normalize();
-            }
-
-            if (currentTile == waterTile)
-            {
-                player.transform.position = lastValidPosition;
-            }
-            else
-            {
-                lastValidPosition = player.transform.position;
             }
         }
 

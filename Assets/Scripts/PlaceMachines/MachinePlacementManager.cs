@@ -54,12 +54,14 @@ public class MachinePlacementManager : NetworkBehaviour
         Vector3 worldPos = Camera.main!.ScreenToWorldPoint(mosPos);
 
         worldPos.z = -1;
+        
+        Vector3 ChunkPos = new Vector3(Mathf.Floor(worldPos.x) + 0.5f, Mathf.Floor(worldPos.y) + 0.5f, worldPos.z);
 
         var objectplacer = FindObjectOfType<ObjectPlacer>();
 
-        objectplacer.PlaceObject(worldPos);
+        objectplacer.PlaceObject(ChunkPos);
 
-        Debug.Log("Machine placée à : " + worldPos);
+        Debug.Log("Machine placée à : " + ChunkPos);
 
         selectedMachinePrefab = null;
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -21,6 +22,9 @@ namespace MapScripts
         // NetworkVariables pour les seeds de génération
         [SerializeField] public NetworkVariable<float> SeedX;
         [SerializeField] public NetworkVariable<float> SeedY;
+        [SerializeField] public NetworkVariable<float> OreSeedX;
+        [SerializeField] public NetworkVariable<float> OreSeedY;
+        private System.Random random = new System.Random();
 
         // Déclarations des tuiles
         private Tile waterTile;
@@ -61,6 +65,12 @@ namespace MapScripts
                 {
                     SeedX.Value = Random.Range(-1000000f, 1000000f);
                     SeedY.Value = Random.Range(-1000000f, 1000000f);
+                }
+                
+                if (OreSeedX.Value == 0 && OreSeedY.Value == 0)
+                {
+                    OreSeedX.Value = Random.Range(-1000000f, 1000000f);
+                    OreSeedY.Value = Random.Range(-1000000f, 1000000f);
                 }
 
                 Debug.Log($"(Server/Host) Seeds générées: {SeedX.Value}, {SeedY.Value}");
@@ -241,10 +251,17 @@ namespace MapScripts
                     return tiles[17];
             }
 
-            System.Random random = new System.Random();
             if (sample < 0.2f) return tiles[0];
             if (random.Next(0, 6) == 0) return tiles[18];
             if (sample >= 0.85f) return tiles[19];
+            
+            float orexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OreSeedX.Value;
+            float oreyCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OreSeedY.Value;
+            
+            float oreSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
+
+            if (oreSample >= 0.9f && sample >= 0.2f) return tiles[20];
+
             return tiles[1];
 
             // Fonction locale pour vérifier si une valeur correspond à de l'eau

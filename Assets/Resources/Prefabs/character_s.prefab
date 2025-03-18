@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: -1399619759998439056}
   - component: {fileID: 2141097867871324799}
   - component: {fileID: -1995591291527849553}
+  - component: {fileID: 7756304754498766929}
   m_Layer: 0
   m_Name: character_s
   m_TagString: Player
@@ -155,6 +156,9 @@ MonoBehaviour:
   tilemap: {fileID: 5424337661515561372, guid: 72ba7a983e9363347984268a4bfec48b, type: 3}
   waterTile: {fileID: 11400000, guid: c7ba4ab2db1daea49b11d25fd3b3d262, type: 2}
   cameraPrefab: {fileID: 2078462829634794110}
+  frames: []
+  frameRate: 0.1
+  animator: {fileID: 0}
 --- !u!114 &5019814960975939728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +241,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
   m_Name: 
@@ -305,6 +309,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.53125, y: 0.9375}
   m_EdgeRadius: 0
+--- !u!95 &7756304754498766929
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 722664f6cb9f6224d83f8a7c090e2e32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2078462829634794110
 GameObject:
   m_ObjectHideFlags: 0

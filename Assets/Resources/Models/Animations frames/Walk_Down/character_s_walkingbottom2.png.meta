@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f8a1feb385e45a942b96f28e88a25e7b
+guid: f468763d2138b654eb99e644022c21d0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7020511119156132458
-    second: minerais fer_0
+      213: 1723187894667810083
+    second: character_s_walkingbottom2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: minerais fer_0
+      name: character_s_walkingbottom2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 7
+        y: 1
+        width: 17
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 695c4095552229e90800000000000000
-      internalID: -7020511119156132458
+      spriteID: 3259de6a24ef9e710800000000000000
+      internalID: 1723187894667810083
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      minerais fer_0: -7020511119156132458
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
