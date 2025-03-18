@@ -13,6 +13,7 @@ namespace MapScripts
         private int chunkSize = 3;
         private int renderDistance = 5;
         private float noiseScale = 0.1f;
+        private float OreNoiseScale = 0.3f;
         private Vector2Int lastPlayerChunkPos;
 
         // Les variables width et height ne sont plus utilisées pour un monde infini.
