@@ -9,11 +9,11 @@ public class ObjectPlacer : MonoBehaviour
         networkSpawner = FindObjectOfType<NetworkSpawner>();
     }
 
-    public void PlaceObject(Vector3 position)
+    public void PlaceObject(Vector3 position, int prefabIndex)
     {
         if (networkSpawner != null)
         {
-            networkSpawner.RequestSpawnObject(position);
+            networkSpawner.RequestSpawnObject(position, prefabIndex);
         }
         else
         {

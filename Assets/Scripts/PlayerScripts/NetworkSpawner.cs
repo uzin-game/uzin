@@ -1,28 +1,30 @@
-﻿using Unity.Netcode;
+﻿using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class NetworkSpawner : NetworkBehaviour
 {
-    public GameObject objectPrefab;
+    [Header("Configuration des Machines")] public List<GameObject> machinePrefabs;
 
+    
     [ServerRpc(RequireOwnership = false)]
-    public void RequestSpawnObjectServerRpc(Vector3 position, ServerRpcParams rpcParams = default)
+    public void RequestSpawnObjectServerRpc(Vector3 position,  int prefabIndex, ServerRpcParams rpcParams = default)
     {
         if (!IsServer) return;
-
-        GameObject obj = Instantiate(objectPrefab, position, Quaternion.identity);
+        
+        GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
         obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
     }
 
-    public void RequestSpawnObject(Vector3 position)
+    public void RequestSpawnObject(Vector3 position,  int machinePrefabindex)
     {
         if (NetworkManager.Singleton.IsServer)
         {
-            RequestSpawnObjectServerRpc(position);
+            RequestSpawnObjectServerRpc(position, machinePrefabindex);
         }
         else
         {
-            RequestSpawnObjectServerRpc(position);
+            RequestSpawnObjectServerRpc(position, machinePrefabindex);
         }
     }
 }

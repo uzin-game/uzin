@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class MachineSelectionDropdown : MonoBehaviour
 {
     [Header("Références")] public MachinePlacementManager placementManager;
+    [Header("Références")] public NetworkSpawner networkSpawner;
+
     public TMP_Dropdown dropdown;
 
     private void Start()
@@ -13,7 +15,7 @@ public class MachineSelectionDropdown : MonoBehaviour
         {
             List<string> options = new List<string>();
 
-            foreach (GameObject machine in placementManager.machinePrefabs)
+            foreach (GameObject machine in networkSpawner.machinePrefabs)
             {
                 options.Add(machine.name);
             }
@@ -32,7 +34,7 @@ public class MachineSelectionDropdown : MonoBehaviour
             int index = dropdown.value;
             placementManager.ToggleMenu();
             placementManager.SelectMachine(index);
-            placementManager.PlaceMachine();
+            placementManager.PlaceMachine(index);
         }
     }
 }
