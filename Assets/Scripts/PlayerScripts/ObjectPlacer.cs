@@ -1,23 +1,26 @@
 ﻿using UnityEngine;
 
-public class ObjectPlacer : MonoBehaviour
+namespace PlayerScripts
 {
-    private NetworkSpawner networkSpawner;
-
-    private void Start()
+    public class ObjectPlacer : MonoBehaviour
     {
-        networkSpawner = FindObjectOfType<NetworkSpawner>();
-    }
+        private NetworkSpawner networkSpawner;
 
-    public void PlaceObject(Vector3 position)
-    {
-        if (networkSpawner != null)
+        private void Start()
         {
-            networkSpawner.RequestSpawnObject(position);
+            networkSpawner = FindObjectOfType<NetworkSpawner>();
         }
-        else
+
+        public void PlaceObject(Vector3 position)
         {
-            Debug.LogError("NetworkSpawner non trouvé !");
+            if (networkSpawner != null)
+            {
+                networkSpawner.RequestSpawnObject(position);
+            }
+            else
+            {
+                Debug.LogError("NetworkSpawner non trouvé !");
+            }
         }
     }
 }

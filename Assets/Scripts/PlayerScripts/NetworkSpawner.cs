@@ -1,28 +1,31 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class NetworkSpawner : NetworkBehaviour
+namespace PlayerScripts
 {
-    public GameObject objectPrefab;
-
-    [ServerRpc(RequireOwnership = false)]
-    public void RequestSpawnObjectServerRpc(Vector3 position, ServerRpcParams rpcParams = default)
+    public class NetworkSpawner : NetworkBehaviour
     {
-        if (!IsServer) return;
+        public GameObject objectPrefab;
 
-        GameObject obj = Instantiate(objectPrefab, position, Quaternion.identity);
-        obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
-    }
-
-    public void RequestSpawnObject(Vector3 position)
-    {
-        if (NetworkManager.Singleton.IsServer)
+        [ServerRpc(RequireOwnership = false)]
+        public void RequestSpawnObjectServerRpc(Vector3 position, ServerRpcParams rpcParams = default)
         {
-            RequestSpawnObjectServerRpc(position);
+            if (!IsServer) return;
+
+            GameObject obj = Instantiate(objectPrefab, position, Quaternion.identity);
+            obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
         }
-        else
+
+        public void RequestSpawnObject(Vector3 position)
         {
-            RequestSpawnObjectServerRpc(position);
+            if (NetworkManager.Singleton.IsServer)
+            {
+                RequestSpawnObjectServerRpc(position);
+            }
+            else
+            {
+                RequestSpawnObjectServerRpc(position);
+            }
         }
     }
 }
