@@ -3580,7 +3580,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  objectPrefab: {fileID: 1101976631762626561, guid: 3adba0280be642f4bb0727861d02fb3c, type: 3}
+  machinePrefabs:
+  - {fileID: 1101976631762626561, guid: 3adba0280be642f4bb0727861d02fb3c, type: 3}
+  - {fileID: 7823472476007205890, guid: cbadbaef06412614185df01df11195a6, type: 3}
 --- !u!4 &866409922
 Transform:
   m_ObjectHideFlags: 0
@@ -4463,6 +4465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementManager: {fileID: 1232507854}
+  networkSpawner: {fileID: 0}
   dropdown: {fileID: 1265390903}
 --- !u!1 &1020741447
 GameObject:
@@ -5772,6 +5775,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   machinePrefabs:
   - {fileID: 1101976631762626561, guid: 3adba0280be642f4bb0727861d02fb3c, type: 3}
+  - {fileID: 7823472476007205890, guid: cbadbaef06412614185df01df11195a6, type: 3}
   machineMenuUI: {fileID: 1673820755}
 --- !u!114 &1232507855
 MonoBehaviour:
@@ -5955,6 +5959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   placementManager: {fileID: 1232507854}
+  networkSpawner: {fileID: 866409921}
   dropdown: {fileID: 1265390903}
 --- !u!1 &1285258757
 GameObject:
