@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 2410438185290534069}
   - component: {fileID: 366650005471092835}
   - component: {fileID: -1399619759998439056}
-  - component: {fileID: 2141097867871324799}
   - component: {fileID: -1995591291527849553}
   - component: {fileID: 7756304754498766929}
   - component: {fileID: 7246741603679104588}
@@ -250,18 +249,6 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
---- !u!114 &2141097867871324799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3fc341ab33c4859aa03a5b3713ef3ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &-1995591291527849553
 BoxCollider2D:
   m_ObjectHideFlags: 0
