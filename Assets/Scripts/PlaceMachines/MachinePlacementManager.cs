@@ -10,6 +10,7 @@ public class MachinePlacementManager : NetworkBehaviour
 
     public GameObject machineMenuUI;
     private GameObject selectedMachinePrefab;
+    private NetworkSpawner networkSpawner;
 
     private Vector3 mosPos;
 
@@ -18,7 +19,7 @@ public class MachinePlacementManager : NetworkBehaviour
         if (machineIndex >= 0 && machineIndex < machinePrefabs.Count)
         {
             selectedMachinePrefab = machinePrefabs[machineIndex];
-            Debug.Log("Machine sélectionnée : " + selectedMachinePrefab.name);
+            Debug.Log("Machine sélectionnée : " + selectedMachinePrefab.name + " a l'indice : " + machineIndex );
         }
         else
         {
@@ -29,6 +30,8 @@ public class MachinePlacementManager : NetworkBehaviour
     public void Start()
     {
         machineMenuUI.SetActive(false);
+        networkSpawner = FindObjectOfType<NetworkSpawner>();
+
     }
 
     public void CancelSelection()
@@ -58,14 +61,26 @@ public class MachinePlacementManager : NetworkBehaviour
         
         Vector3 ChunkPos = new Vector3(Mathf.Floor(worldPos.x) + 0.5f, Mathf.Floor(worldPos.y) + 0.5f, worldPos.z);
 
-        var objectplacer = FindObjectOfType<ObjectPlacer>();
+        //var objectplacer = FindObjectOfType<ObjectPlacer>();
 
-        Debug.Log("placing " + selectedMachinePrefab.name);
+        Debug.Log("placing " + selectedMachinePrefab.name + " with index : " + index);
         
-        objectplacer.PlaceObject(ChunkPos, index);
+        PlaceTheObject(ChunkPos, index);
 
         Debug.Log("Machine placée à : " + ChunkPos);
 
         selectedMachinePrefab = null;
+    }
+    
+    public void PlaceTheObject(Vector3 position, int prefabIndex)
+    {
+        if (networkSpawner != null)
+        {
+            networkSpawner.RequestSpawnObject(position, prefabIndex);
+        }
+        else
+        {
+            Debug.LogError("NetworkSpawner non trouvé !");
+        }
     }
 }

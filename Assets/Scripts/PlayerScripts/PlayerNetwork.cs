@@ -108,7 +108,7 @@ namespace PlayerScripts
         {
             if (!IsOwner) return;
             // Apply movement to the Rigidbody2D
-            rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime));
+            rb.MovePosition(rb.position + movement * (moveSpeed * Time.fixedDeltaTime) + rb.linearVelocity);
         }
     }
 }

@@ -17,7 +17,7 @@ public class ObjectPlacer : MonoBehaviour
         }
         else
         {
-            Debug.LogError("NetworkSpawner non trouvé !");
+            Debug.LogError("NetworkSpawner non trouvÃ© !");
         }
     }
 }

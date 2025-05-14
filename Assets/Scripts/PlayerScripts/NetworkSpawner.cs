@@ -12,8 +12,12 @@ public class NetworkSpawner : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
-        obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
+        if (machinePrefabs[prefabIndex] == null) Debug.Log("bah ntm fdp");
+        else
+        {
+            GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
+            obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
+        }
     }
 
     public void RequestSpawnObject(Vector3 position, int machinePrefabindex)
