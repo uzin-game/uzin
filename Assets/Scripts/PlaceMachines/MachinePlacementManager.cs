@@ -30,7 +30,7 @@ public class MachinePlacementManager : NetworkBehaviour
     public void Start()
     {
         machineMenuUI.SetActive(false);
-        networkSpawner = FindObjectOfType<NetworkSpawner>();
+        networkSpawner = FindFirstObjectByType<NetworkSpawner>();
 
     }
 
