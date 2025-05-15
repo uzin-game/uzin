@@ -14,10 +14,12 @@ public class FlySpawner : MonoBehaviour
 
     private NetworkSpawner netSpawner;
     private Transform player;
+    private Camera cam;
 
     private void Awake()
     {
         netSpawner = FindFirstObjectByType<NetworkSpawner>();
+        cam = Camera.main;
 
         if (netSpawner == null)
         {
@@ -43,10 +45,6 @@ public class FlySpawner : MonoBehaviour
         {
             NetworkManager.Singleton.OnServerStarted -= OnServerStarted;
         }
-    }
-
-    private void Start()
-    {
     }
 
     private void OnServerStarted()

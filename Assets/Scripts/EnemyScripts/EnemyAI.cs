@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using PlayerScripts;
@@ -7,13 +6,18 @@ using PlayerScripts;
 public class FlyAI : NetworkBehaviour
 {
     public float roamSpeed = 1.5f;
-    public float attackSpeed = 4f;
+    public float attackSpeed = 5f;
     public float roamRadius = 5f;
     public float minTimeToAttack = 30f;
     public float maxTimeToAttack = 50f;
     public float damageAmount = 5f;
 
-    private enum State { Roam, Attack }
+    private enum State
+    {
+        Roam,
+        Attack
+    }
+
     private State currentState = State.Roam;
     private Vector3 roamTarget;
     private Transform player;
@@ -31,29 +35,30 @@ public class FlyAI : NetworkBehaviour
 
         SetNextRoamTarget();
         ScheduleNextAttack();
-        StartCoroutine(StateMachine());
     }
 
-    IEnumerator StateMachine()
+    void FixedUpdate()
     {
-        while (true)
+        if (!IsServer)
         {
-            yield return new WaitForFixedUpdate();
+            return;
+        }
 
-            if (currentState == State.Roam)
-            {
-                DoRoam();
-            }
-            else
-            {
-                DoAttack();
-            }
+
+        if (currentState == State.Roam)
+        {
+            DoRoam();
+        }
+        else
+        {
+            DoAttack();
         }
     }
 
     void DoRoam()
     {
         Vector3 newPos = Vector3.MoveTowards(transform.position, roamTarget, roamSpeed * Time.fixedDeltaTime);
+
         rb.MovePosition(newPos);
 
         if (Vector3.Distance(transform.position, roamTarget) < 0.1f)
@@ -70,11 +75,13 @@ public class FlyAI : NetworkBehaviour
         }
 
         Vector3 newPos = Vector3.MoveTowards(transform.position, player.position, attackSpeed * Time.fixedDeltaTime);
+
         rb.MovePosition(newPos);
 
         if (Vector3.Distance(transform.position, player.position) < 0.5f)
         {
             currentState = State.Roam;
+
             SetNextRoamTarget();
             ScheduleNextAttack();
         }
@@ -83,12 +90,14 @@ public class FlyAI : NetworkBehaviour
     void SetNextRoamTarget()
     {
         Vector2 offset = Random.insideUnitCircle * roamRadius;
+
         roamTarget = transform.position + (Vector3)offset;
     }
 
     void ScheduleNextAttack()
     {
         float delay = Random.Range(minTimeToAttack, maxTimeToAttack);
+
         Invoke(nameof(StartAttack), delay);
     }
 
@@ -99,16 +108,17 @@ public class FlyAI : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!IsServer) return;
+        if (!IsServer || currentState != State.Attack)
+        {
+            return;
+        }
 
         var netHealth = other.GetComponent<NetworkHealth>();
 
         if (netHealth != null)
         {
             netHealth.ApplyDamageServerRpc(damageAmount);
-
             currentState = State.Roam;
-
             SetNextRoamTarget();
             ScheduleNextAttack();
         }
