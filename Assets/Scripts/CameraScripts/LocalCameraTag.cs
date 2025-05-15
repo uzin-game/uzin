@@ -15,7 +15,7 @@ public class LocalCamera : MonoBehaviour
         {
             // Disable the camera for remote players
             GetComponent<Camera>().enabled = false;
-            GetComponent<AudioListener>().enabled = false; // Disable audio listener for remote players
+            //GetComponent<AudioListener>().enabled = false; // Disable audio listener for remote players
         }
     }
 }
