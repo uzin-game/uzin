@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 10
+  animator: {fileID: 7756304754498766929}
   player: {fileID: 1002487300160079691}
   tilemap: {fileID: 5424337661515561372, guid: 72ba7a983e9363347984268a4bfec48b, type: 3}
   waterTile: {fileID: 11400000, guid: c7ba4ab2db1daea49b11d25fd3b3d262, type: 2}
@@ -307,7 +308,7 @@ Animator:
   m_GameObject: {fileID: 1002487300160079691}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 722664f6cb9f6224d83f8a7c090e2e32, type: 2}
+  m_Controller: {fileID: 9100000, guid: e78149549a3774b40a9a6d2f35c3e4cc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
