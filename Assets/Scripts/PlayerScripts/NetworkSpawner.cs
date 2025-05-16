@@ -5,6 +5,8 @@ using UnityEngine;
 public class NetworkSpawner : NetworkBehaviour
 {
     [Header("Configuration des Machines")] public List<GameObject> machinePrefabs;
+    [Header("Configuration des Ennemis")] public List<GameObject> enemyPrefabs;
+
 
 
     [ServerRpc(RequireOwnership = false)]
@@ -29,6 +31,31 @@ public class NetworkSpawner : NetworkBehaviour
         else
         {
             RequestSpawnObjectServerRpc(position, machinePrefabindex);
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void RequestSpawnFlyServerRpc(Vector3 position, int enemyIndex, ServerRpcParams rpcParams = default)
+    {
+        if (!IsServer) return;
+
+        if (enemyPrefabs[enemyIndex] == null) Debug.Log("bah ntm fdp");
+        else
+        {
+            GameObject obj = Instantiate(enemyPrefabs[enemyIndex], position, Quaternion.identity);
+            obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
+        }
+    }
+
+    public void RequestSpawnFly(Vector3 position, int enemyIndex)
+    {
+        if (NetworkManager.Singleton.IsServer)
+        {
+            RequestSpawnFlyServerRpc(position, enemyIndex);
+        }
+        else
+        {
+            RequestSpawnFlyServerRpc(position, enemyIndex);
         }
     }
 }

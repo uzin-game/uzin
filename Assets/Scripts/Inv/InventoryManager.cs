@@ -39,8 +39,8 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            Panel.SetActive(isInventoryOpen);
-            background.SetActive(isInventoryOpen);
+            Panel.SetActive(!Panel.activeSelf);
+            background.SetActive(!background.activeSelf);
         }
     }
 }

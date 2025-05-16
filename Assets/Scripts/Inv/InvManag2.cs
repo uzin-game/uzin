@@ -3,7 +3,7 @@ using UnityEngine;
 public class InvManag2 : MonoBehaviour
 {
     public GameObject inventoryPanel;
-    private bool isOpen = false;
+    //private bool isOpen = false;
 
     void Update()
     {
@@ -15,7 +15,7 @@ public class InvManag2 : MonoBehaviour
 
     public void ToggleInventory()
     {
-        isOpen = !isOpen;
-        inventoryPanel.SetActive(isOpen);
+        //isOpen = !isOpen;
+        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
     }
 }

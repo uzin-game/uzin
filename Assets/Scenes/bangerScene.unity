@@ -792,7 +792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &133918705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,7 +3382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnIntervalMin: 2
   spawnIntervalMax: 5
-  flyPrefabIndex: 6
+  flyPrefabIndex: 0
 --- !u!4 &764825079
 Transform:
   m_ObjectHideFlags: 0
@@ -3634,6 +3634,7 @@ MonoBehaviour:
   - {fileID: 2010583506259515902, guid: d732e372c75d91246b3267e54e09a2c6, type: 3}
   - {fileID: 2010583506259515902, guid: 7ea0c3c8a06adde478cf1780dc57d0fb, type: 3}
   - {fileID: 2010583506259515902, guid: 25d93bfd114c5a74cb6eaabb60e700d8, type: 3}
+  enemyPrefabs:
   - {fileID: 7252339214165580020, guid: 02432641b0c7ea042ab7eb9e2b187c8a, type: 3}
 --- !u!4 &866409922
 Transform:

@@ -10,7 +10,7 @@ public class FlySpawner : MonoBehaviour
     public float spawnIntervalMax = 20f;
 
     [Header("Fly Prefab Index")]
-    public int flyPrefabIndex = 3;
+    public int flyPrefabIndex = 0;
 
     private NetworkSpawner netSpawner;
     private Transform player;
@@ -81,7 +81,7 @@ public class FlySpawner : MonoBehaviour
         Vector2 dir = Random.insideUnitCircle.normalized;
         Vector3 spawnPos = player.position + (Vector3)(dir * 10f);
 
-        netSpawner.RequestSpawnObject(spawnPos, flyPrefabIndex);
+        netSpawner.RequestSpawnFly(spawnPos, flyPrefabIndex);
 
         Debug.Log("[FlySpawner] Fly spawned at " + Time.time);
     }

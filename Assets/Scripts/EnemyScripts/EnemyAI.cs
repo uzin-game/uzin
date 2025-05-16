@@ -44,6 +44,7 @@ public class FlyAI : NetworkBehaviour
             return;
         }
 
+        
 
         if (currentState == State.Roam)
         {

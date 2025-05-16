@@ -37,6 +37,8 @@ public class InventoryUI : MonoBehaviour
         inventory.quantity.OnListChanged += _ => UpdateUI();
 
         UpdateUI();
+        
+        itemPanel.gameObject.SetActive(false);
     }
 
     private void UpdateUI()
