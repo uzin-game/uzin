@@ -3380,8 +3380,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140e2072b825bff4a8d0cdddede735fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervalMin: 2
-  spawnIntervalMax: 5
+  spawnIntervalMin: 15
+  spawnIntervalMax: 30
   flyPrefabIndex: 0
 --- !u!4 &764825079
 Transform:

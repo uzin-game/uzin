@@ -254,6 +254,8 @@ MonoBehaviour:
   minTimeToAttack: 20
   maxTimeToAttack: 30
   damageAmount: 5
+  hoverAmplitude: 0.5
+  hoverFrequency: 3
 --- !u!114 &8013597840516668396
 MonoBehaviour:
   m_ObjectHideFlags: 0

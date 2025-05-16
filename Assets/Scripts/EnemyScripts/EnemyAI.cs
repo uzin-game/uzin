@@ -22,6 +22,12 @@ public class FlyAI : NetworkBehaviour
     private Vector3 roamTarget;
     private Transform player;
     private Rigidbody2D rb;
+    
+    //Hover animation variable
+    public float hoverAmplitude = 0.2f;   // height of the hover
+    public float hoverFrequency = 2f; 
+    private Vector3 basePosition; // Position from movement logic
+
 
     void Start()
     {
@@ -33,6 +39,8 @@ public class FlyAI : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = FindFirstObjectByType<PlayerNetwork>().transform;
 
+        basePosition = transform.position;
+
         SetNextRoamTarget();
         ScheduleNextAttack();
     }
@@ -43,9 +51,7 @@ public class FlyAI : NetworkBehaviour
         {
             return;
         }
-
         
-
         if (currentState == State.Roam)
         {
             DoRoam();
@@ -54,10 +60,17 @@ public class FlyAI : NetworkBehaviour
         {
             DoAttack();
         }
+        
+        // Hover effect added to base position
+        float hoverOffset = Mathf.Sin(Time.time * hoverFrequency) * hoverAmplitude;
+        Vector3 finalPosition = basePosition + new Vector3(0, hoverOffset, 0);
+
+        rb.MovePosition(finalPosition);
     }
 
     void DoRoam()
     {
+        /*
         Vector3 newPos = Vector3.MoveTowards(transform.position, roamTarget, roamSpeed * Time.fixedDeltaTime);
 
         rb.MovePosition(newPos);
@@ -65,12 +78,19 @@ public class FlyAI : NetworkBehaviour
         if (Vector3.Distance(transform.position, roamTarget) < 0.1f)
         {
             SetNextRoamTarget();
+        }*/
+        
+        basePosition = Vector3.MoveTowards(basePosition, roamTarget, roamSpeed * Time.fixedDeltaTime);
+
+        if (Vector3.Distance(basePosition, roamTarget) < 0.1f)
+        {
+            SetNextRoamTarget();
         }
     }
 
     void DoAttack()
     {
-        if (player == null)
+        /*if (player == null)
         {
             return;
         }
@@ -86,13 +106,30 @@ public class FlyAI : NetworkBehaviour
             SetNextRoamTarget();
             ScheduleNextAttack();
         }
+        */
+        
+        if (player == null) return;
+
+        basePosition = Vector3.MoveTowards(basePosition, player.position, attackSpeed * Time.fixedDeltaTime);
+
+        if (Vector3.Distance(basePosition, player.position) < 0.5f)
+        {
+            currentState = State.Roam;
+            SetNextRoamTarget();
+            ScheduleNextAttack();
+        }
     }
 
     void SetNextRoamTarget()
     {
+        /*
         Vector2 offset = Random.insideUnitCircle * roamRadius;
 
         roamTarget = transform.position + (Vector3)offset;
+        */
+        Vector2 offset = Random.insideUnitCircle * roamRadius;
+        roamTarget = basePosition + (Vector3)offset;
+        
     }
 
     void ScheduleNextAttack()
