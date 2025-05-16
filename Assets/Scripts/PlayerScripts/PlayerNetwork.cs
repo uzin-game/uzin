@@ -11,6 +11,7 @@ namespace PlayerScripts
         public float moveSpeed = 3f; // Speed of movement
         private Rigidbody2D rb;
         private Vector2 movement;
+        public Animator animator;
         public GameObject player;
 
         public Tilemap tilemap; // Reference to the Tilemap
@@ -94,7 +95,8 @@ namespace PlayerScripts
             // Capture input for movement
             Vector3Int playerTilePos = tilemap.WorldToCell(player.transform.position);
             TileBase currentTile = tilemap.GetTile(playerTilePos);
-
+            float inputTop = Input.GetAxis("Vertical");
+            float inputSidesOrBottom = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical");
             movement.x = Input.GetAxisRaw("Horizontal"); // Left/Right
             movement.y = Input.GetAxisRaw("Vertical"); // Up/Down
 
@@ -102,7 +104,20 @@ namespace PlayerScripts
             {
                 movement.Normalize();
             }
+
+            if (inputTop > 0)
+            {
+                animator.SetBool("IsRunningTop", true);
+            }
+            else
+            {
+                animator.SetBool("IsRunningTop", false);
+                if (inputSidesOrBottom != 0) animator.SetBool("IsRunningBottom", true);
+                else animator.SetBool("IsRunningBottom", false);
+            }
         }
+        
+        
 
         void FixedUpdate()
         {
