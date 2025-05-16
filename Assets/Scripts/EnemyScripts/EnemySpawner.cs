@@ -14,12 +14,10 @@ public class FlySpawner : MonoBehaviour
 
     private NetworkSpawner netSpawner;
     private Transform player;
-    private Camera cam;
 
     private void Awake()
     {
         netSpawner = FindFirstObjectByType<NetworkSpawner>();
-        cam = Camera.main;
 
         if (netSpawner == null)
         {
@@ -49,26 +47,23 @@ public class FlySpawner : MonoBehaviour
 
     private void OnServerStarted()
     {
-        Debug.Log("[FlySpawner] Server started, beginning spawn.");
-        StartCoroutine(SpawnLoop());
+        Debug.Log("[FlySpawner] Server started, scheduling spawn.");
+        StartCoroutine(WaitForPlayerThenSchedule());
     }
 
-    private IEnumerator SpawnLoop()
+    private IEnumerator WaitForPlayerThenSchedule()
     {
-        yield return new WaitUntil(() =>
-        {
-            return FindFirstObjectByType<PlayerNetwork>() != null;
-        });
-
+        yield return new WaitUntil(() => FindFirstObjectByType<PlayerNetwork>() != null);
         player = FindFirstObjectByType<PlayerNetwork>().transform;
 
-        Debug.Log("[FlySpawner] Player found, starting continuous spawn.");
+        Debug.Log("[FlySpawner] Player found, scheduling first spawn.");
+        ScheduleNextSpawn();
+    }
 
-        while (true)
-        {
-            SpawnFly();
-            yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
-        }
+    private void ScheduleNextSpawn()
+    {
+        float delay = Random.Range(spawnIntervalMin, spawnIntervalMax);
+        Invoke(nameof(SpawnFly), delay);
     }
 
     private void SpawnFly()
@@ -82,7 +77,8 @@ public class FlySpawner : MonoBehaviour
         Vector3 spawnPos = player.position + (Vector3)(dir * 10f);
 
         netSpawner.RequestSpawnFly(spawnPos, flyPrefabIndex);
-
         Debug.Log("[FlySpawner] Fly spawned at " + Time.time);
+
+        ScheduleNextSpawn();
     }
 }
