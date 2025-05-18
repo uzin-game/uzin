@@ -20,6 +20,7 @@ namespace RedstoneinventeGameStudio
         [SerializeField] TMP_Text itemNb;
         [SerializeField] Image itemIcon;
         
+        
 
         private void Awake()
         {
