@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Effects;
 
 public class OnShoot : MonoBehaviour {
 
@@ -35,7 +36,9 @@ public class OnShoot : MonoBehaviour {
         if (hit.collider != null && hit.collider.CompareTag("Enemy")) 
         {
             Debug.Log("nice shot : " + hit.collider.name);
-            target = hit.collider.transform.position;
+            //target = hit.collider.transform.position;
+            hit.collider.GetComponent<FadeOut>().enabled = true;
+            hit.collider.GetComponent<FlyAI>().IsFrozen = true;
         }
         float distance = Vector3.Distance(from, target);
         float eulerZ = UtilsClass.GetAngleFromVectorFloat(direction);

@@ -27,6 +27,7 @@ public class FlyAI : NetworkBehaviour
     public float hoverAmplitude = 0.2f;   // height of the hover
     public float hoverFrequency = 2f; 
     private Vector3 basePosition; // Position from movement logic
+    public bool IsFrozen = false;
 
 
     void Start()
@@ -47,7 +48,7 @@ public class FlyAI : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (!IsServer)
+        if (!IsServer || IsFrozen)
         {
             return;
         }
