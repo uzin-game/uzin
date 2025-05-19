@@ -75,6 +75,7 @@ public class FlySpawner : MonoBehaviour
 
         Vector2 dir = Random.insideUnitCircle.normalized;
         Vector3 spawnPos = player.position + (Vector3)(dir * 10f);
+        spawnPos.z = 0f;
 
         netSpawner.RequestSpawnFly(spawnPos, flyPrefabIndex);
         Debug.Log("[FlySpawner] Fly spawned at " + Time.time);

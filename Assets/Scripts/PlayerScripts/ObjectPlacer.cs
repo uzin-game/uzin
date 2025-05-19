@@ -6,7 +6,7 @@ public class ObjectPlacer : MonoBehaviour
 
     private void Start()
     {
-        networkSpawner = FindObjectOfType<NetworkSpawner>();
+        networkSpawner = FindFirstObjectByType<NetworkSpawner>();
     }
 
     public void PlaceObject(Vector3 position, int prefabIndex)

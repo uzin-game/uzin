@@ -6,6 +6,24 @@ namespace RedstoneinventeGameStudio
     [CreateAssetMenu(fileName = "Inventory Item", menuName = "Inventory Item")]
     public class InventoryItemData : ScriptableObject, IComparable<InventoryItemData>
     {
+        protected bool Equals(InventoryItemData other)
+        {
+            return base.Equals(other) && itemName == other.itemName && itemDescription == other.itemDescription && itemNb == other.itemNb && itemTooltip == other.itemTooltip && Equals(itemIcon, other.itemIcon);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((InventoryItemData)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), itemName, itemDescription, itemNb, itemTooltip, itemIcon);
+        }
+
         public string itemName;
         public string itemDescription;
         public int itemNb;
@@ -25,6 +43,7 @@ namespace RedstoneinventeGameStudio
 
         public static bool operator ==(InventoryItemData a, InventoryItemData b)
         {
+            if (a is null || b is null) return false;
             if (a.itemName == b.itemName) return true;
             return false;
         }

@@ -88,11 +88,12 @@ namespace RedstoneinventeGameStudio
             }
 
             this.itemData = itemData;
-            this.itemName.text = itemData.name;
-            this.itemNb.text = itemData.itemNb.ToString();
-            this.itemIcon.sprite = itemData.itemIcon;
+            /*
+            itemName.text = itemData.name;
+            itemNb.text = itemData.itemNb.ToString();
+            itemIcon.sprite = itemData.itemIcon;*/
 
-            this.isOccupied = true;
+            isOccupied = true;
 
             RefreshDisplay();
 
