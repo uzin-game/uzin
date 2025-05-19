@@ -654,7 +654,6 @@ MonoBehaviour:
   cam: {fileID: 9086033649777340681}
   shakeAmount: 0.1
   weaponTracerMaterial: {fileID: 2100000, guid: e882b5e7e37d5cb4e808d2e91e483f62, type: 2}
-  meshHeight: 1
   meshWidth: 1
 --- !u!1 &3173074800879264016
 GameObject:
@@ -1461,6 +1460,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3583255329991624802, guid: 16bd0840007d01542adee77677654797, type: 3}
+      propertyPath: isOccupied
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3643322537389288765, guid: 16bd0840007d01542adee77677654797, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1721,6 +1724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventaire
       objectReference: {fileID: 0}
+    - target: {fileID: 5897885587707677767, guid: 16bd0840007d01542adee77677654797, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5897933707115332495, guid: 16bd0840007d01542adee77677654797, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -1841,6 +1848,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.031784058
       objectReference: {fileID: 0}
+    - target: {fileID: 7458414595418717535, guid: 16bd0840007d01542adee77677654797, type: 3}
+      propertyPath: inventoryUsing
+      value: 
+      objectReference: {fileID: 80838437020248295}
+    - target: {fileID: 7458414595418717535, guid: 16bd0840007d01542adee77677654797, type: 3}
+      propertyPath: inventoryItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6315a301620e89f4eb709329958b7b6b, type: 2}
     - target: {fileID: 7476252418453918855, guid: 16bd0840007d01542adee77677654797, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.031784058

@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace RedstoneinventeGameStudio
@@ -11,9 +12,10 @@ namespace RedstoneinventeGameStudio
 #nullable enable
         public InventoryItemData? itemData;
         public bool isOccupied;
+        [FormerlySerializedAs("MachineProperty")] public bool machineProperty;
 #nullable disable
 
-        [SerializeField] bool useAsDrag;
+        [SerializeField] public bool useAsDrag;
         [SerializeField] GameObject emptyCard;
 
         [SerializeField] TMP_Text itemName;
@@ -28,9 +30,9 @@ namespace RedstoneinventeGameStudio
             {
                 ItemDraggingManager.dragCard = this;
                 isOccupied = true;
-
                 gameObject.SetActive(false);
             }
+
 
             if (itemData == null)
             {
@@ -82,16 +84,16 @@ namespace RedstoneinventeGameStudio
 
         public bool SetItem(InventoryItemData itemData)
         {
-            if ((isOccupied && !useAsDrag) || itemData == null)
+            Debug.Log("trying to set item");
+            if ((isOccupied && !useAsDrag) || itemData is null)
             {
                 return false;
             }
-
             this.itemData = itemData;
-            /*
+           
             itemName.text = itemData.name;
             itemNb.text = itemData.itemNb.ToString();
-            itemIcon.sprite = itemData.itemIcon;*/
+            itemIcon.sprite = itemData.itemIcon;
 
             isOccupied = true;
 

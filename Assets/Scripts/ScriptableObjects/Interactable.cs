@@ -8,6 +8,7 @@ namespace ScriptableObjects
         public bool IsInRange;
         public KeyCode InteractKey;
         public UnityEvent InteractAction;
+        [SerializeField] public FurnaceInteraction furnaceInteraction;
 
 
         void Update()
@@ -26,6 +27,7 @@ namespace ScriptableObjects
             if (collision.gameObject.CompareTag("Player"))
             {
                 IsInRange = true;
+                furnaceInteraction.playerInRange = collision.gameObject;
                 Debug.Log("Interacted with " + collision.gameObject.name + ",now in range");
             }
         }
@@ -35,6 +37,11 @@ namespace ScriptableObjects
             if (collision.gameObject.CompareTag("Player"))
             {
                 IsInRange = false;
+                if (furnaceInteraction.IsInteracting)
+                {
+                    furnaceInteraction.Interact();
+                }
+                furnaceInteraction.playerInRange = null;
                 Debug.Log("Interacted with " + collision.gameObject.name + ",now out of range");
             }
         }
