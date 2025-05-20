@@ -84,7 +84,6 @@ namespace RedstoneinventeGameStudio
 
         public bool SetItem(InventoryItemData itemData)
         {
-            Debug.Log("trying to set item");
             if ((isOccupied && !useAsDrag) || itemData is null)
             {
                 return false;

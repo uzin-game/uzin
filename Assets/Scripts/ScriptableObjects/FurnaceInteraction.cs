@@ -20,8 +20,6 @@ public class FurnaceInteraction : MonoBehaviour
             IsInteracting = true;
             SetFurnaceInventory();
             FurnaceUI.SetActive(true);
-            Debug.Log("");
-            Debug.Log("childs open :" + playerInRange.transform.childCount);
         }
 
         else if (IsInteracting)
@@ -34,7 +32,6 @@ public class FurnaceInteraction : MonoBehaviour
 
     public void SetFurnaceInventory()
     {
-        Debug.Log("SetFurnaceInventory");
 
         if (playerInRange == null || Panel == null) return;
 
@@ -42,14 +39,12 @@ public class FurnaceInteraction : MonoBehaviour
         Transform inventaireTransform = FindDeepChild(playerInRange.transform, "Inventaire");
         if (inventaireTransform == null)
         {
-            Debug.LogError("Inventaire introuvable !");
             return;
         }
 
         Transform panelTransform = inventaireTransform.Find("Panel");
         if (panelTransform == null)
         {
-            Debug.LogError("Panel introuvable dans Inventaire !");
             return;
         }
 
@@ -81,14 +76,12 @@ public class FurnaceInteraction : MonoBehaviour
         Transform inventaireTransform = FindDeepChild(playerInRange.transform, "Inventaire");
         if (inventaireTransform == null)
         {
-            Debug.LogError("Inventaire introuvable !");
             return;
         }
 
         Transform panelTransform = inventaireTransform.Find("Panel");
         if (panelTransform == null)
         {
-            Debug.LogError("Panel introuvable dans Inventaire !");
             return;
         }
 
@@ -108,6 +101,7 @@ public class FurnaceInteraction : MonoBehaviour
 
         foreach (var cm in Panel.GetComponentsInChildren<CardManager>())
         {
+            if (cm.machineProperty) continue;
             cm.UnSetItem();
         }
     }

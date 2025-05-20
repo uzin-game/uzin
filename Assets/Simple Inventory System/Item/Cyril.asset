@@ -15,6 +15,6 @@ MonoBehaviour:
   itemName: Cyril
   itemDescription: A thick and flavorful bean soup, brimming with a variety of beans,
     vegetables, and savory broth. A warming and filling meal.
-  itemNb: 16384
+  itemNb: 512
   itemTooltip: Restores 30 Hunger
   itemIcon: {fileID: 6346810634596611254, guid: 49582edcb35483641a11ea09429484a4, type: 3}
