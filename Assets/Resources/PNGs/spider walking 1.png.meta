@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 04500e5a2c8b28e439c925652c9ab7f1
+guid: 1de70c6a194e54546a9939813ff1d243
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3873087697204469031
-    second: spider_0
+      213: -1074613952806473067
+    second: spider walking 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spider_0
+      name: spider walking 1_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 1
-        width: 31
+        width: 32
         height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 72ddec77db8ffb530800000000000000
-      internalID: 3873087697204469031
+      spriteID: 592ba40bd443611f0800000000000000
+      internalID: -1074613952806473067
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spider_0: 3873087697204469031
+      spider walking 1_0: -1074613952806473067
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

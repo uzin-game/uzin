@@ -11,6 +11,7 @@ public class FlyAI : NetworkBehaviour
     public float minTimeToAttack = 30f;
     public float maxTimeToAttack = 50f;
     public float damageAmount = 5f;
+    public Animator animator;
 
     private enum State
     {
@@ -52,6 +53,7 @@ public class FlyAI : NetworkBehaviour
         {
             return;
         }
+        animator.SetBool("IsWalking", true);
         
         if (currentState == State.Roam)
         {

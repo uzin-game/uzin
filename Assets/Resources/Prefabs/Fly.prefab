@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 8368444099696312067}
   - component: {fileID: -5551451996752120764}
   - component: {fileID: -5739448260095928414}
+  - component: {fileID: 5210794841552263853}
   m_Layer: 3
   m_Name: Fly
   m_TagString: Enemy
@@ -258,6 +259,7 @@ MonoBehaviour:
   minTimeToAttack: 20
   maxTimeToAttack: 30
   damageAmount: 5
+  animator: {fileID: 5210794841552263853}
   hoverAmplitude: 0.5
   hoverFrequency: 3
   IsFrozen: 0
@@ -319,6 +321,28 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth:
     m_InternalValue: 0
+--- !u!95 &5210794841552263853
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7252339214165580020}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 333b578fc81d7024b8fc441ad572c458, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5609774830654210169
 PrefabInstance:
   m_ObjectHideFlags: 0
