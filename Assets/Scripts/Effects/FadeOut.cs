@@ -1,74 +1,115 @@
 ﻿using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Effects
 {
-    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(NetworkObject))]
     public class FadeOut : NetworkBehaviour
     {
-        [Tooltip("Duration of the fade-in in seconds")]
+        [Tooltip("Duration of the fade-out in seconds")]
         public float duration = 1f;
+
         public Rigidbody2D rb;
+
         private SpriteRenderer spriteRenderer;
+        private Graphic[] uiGraphics;
 
         private void Awake()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            var c = spriteRenderer.color;
-            c.a = 1f;
-            spriteRenderer.color = c;
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+            uiGraphics = GetComponentsInChildren<Graphic>(true);
+
+            if (spriteRenderer != null)
+            {
+                var c = spriteRenderer.color;
+                c.a = 1f;
+                spriteRenderer.color = c;
+            }
+
+            foreach (var g in uiGraphics)
+            {
+                var c = g.color;
+                c.a = 1f;
+                g.color = c;
+            }
+
             rb = GetComponent<Rigidbody2D>();
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            rb.isKinematic = true;
-            StartCoroutine(FadeAndDespawnCoroutine()); 
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+                rb.isKinematic = true;
+            }
+
+            StartCoroutine(FadeAndDespawn());
         }
 
-        private IEnumerator FadeAndDespawnCoroutine()
+        private IEnumerator FadeAndDespawn()
         {
-            StartCoroutine(FadeCoroutine()); // Start fading
-            yield return new WaitForSeconds(duration); // Wait for the fade to complete
+            yield return StartCoroutine(FadeCoroutine());
             RequestDeSpawnFly();
         }
 
         private IEnumerator FadeCoroutine()
         {
             float elapsed = 0f;
-            var c = spriteRenderer.color;
-            float startAlpha = c.a; // starting alpha (usually 1)
+            float startAlpha = 1f;
 
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float t = Mathf.Clamp01(elapsed / duration);
-                c.a = Mathf.Lerp(startAlpha, 0f, t); // fade from current alpha to 0
-                spriteRenderer.color = c;
+                float newAlpha = Mathf.Lerp(startAlpha, 0f, t);
+
+                if (spriteRenderer != null)
+                {
+                    var c = spriteRenderer.color;
+                    c.a = newAlpha;
+                    spriteRenderer.color = c;
+                }
+
+                foreach (var g in uiGraphics)
+                {
+                    var c = g.color;
+                    c.a = newAlpha;
+                    g.color = c;
+                }
+
                 yield return null;
             }
 
-            c.a = 0f;
-            spriteRenderer.color = c;
+            if (spriteRenderer != null)
+            {
+                var c = spriteRenderer.color;
+                c.a = 0f;
+                spriteRenderer.color = c;
+            }
+
+            foreach (var g in uiGraphics)
+            {
+                var c = g.color;
+                c.a = 0f;
+                g.color = c;
+            }
         }
-        
+
         [ServerRpc(RequireOwnership = false)]
         public void RequestDeSpawnFlyServerRpc()
         {
             if (!IsServer) return;
-
             GetComponent<NetworkObject>().Despawn();
         }
 
         public void RequestDeSpawnFly()
         {
             if (IsClient)
-            {
                 RequestDeSpawnFlyServerRpc();
-            }
         }
     }
 }

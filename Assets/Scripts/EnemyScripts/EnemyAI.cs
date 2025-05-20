@@ -70,17 +70,7 @@ public class FlyAI : NetworkBehaviour
     }
 
     void DoRoam()
-    {
-        /*
-        Vector3 newPos = Vector3.MoveTowards(transform.position, roamTarget, roamSpeed * Time.fixedDeltaTime);
-
-        rb.MovePosition(newPos);
-
-        if (Vector3.Distance(transform.position, roamTarget) < 0.1f)
-        {
-            SetNextRoamTarget();
-        }*/
-        
+    {       
         basePosition = Vector3.MoveTowards(basePosition, roamTarget, roamSpeed * Time.fixedDeltaTime);
 
         if (Vector3.Distance(basePosition, roamTarget) < 0.1f)
@@ -90,25 +80,7 @@ public class FlyAI : NetworkBehaviour
     }
 
     void DoAttack()
-    {
-        /*if (player == null)
-        {
-            return;
-        }
-
-        Vector3 newPos = Vector3.MoveTowards(transform.position, player.position, attackSpeed * Time.fixedDeltaTime);
-
-        rb.MovePosition(newPos);
-
-        if (Vector3.Distance(transform.position, player.position) < 0.5f)
-        {
-            currentState = State.Roam;
-
-            SetNextRoamTarget();
-            ScheduleNextAttack();
-        }
-        */
-        
+    {       
         if (player == null) return;
 
         basePosition = Vector3.MoveTowards(basePosition, player.position, attackSpeed * Time.fixedDeltaTime);
@@ -123,11 +95,6 @@ public class FlyAI : NetworkBehaviour
 
     void SetNextRoamTarget()
     {
-        /*
-        Vector2 offset = Random.insideUnitCircle * roamRadius;
-
-        roamTarget = transform.position + (Vector3)offset;
-        */
         Vector2 offset = Random.insideUnitCircle * roamRadius;
         roamTarget = basePosition + (Vector3)offset;
         
