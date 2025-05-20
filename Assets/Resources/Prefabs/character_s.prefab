@@ -701,7 +701,6 @@ MonoBehaviour:
   cam: {fileID: 9086033649777340681}
   shakeAmount: 0.1
   weaponTracerMaterial: {fileID: 2100000, guid: e882b5e7e37d5cb4e808d2e91e483f62, type: 2}
-  meshWidth: 1
 --- !u!1 &3173074800879264016
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +726,7 @@ Transform:
   m_GameObject: {fileID: 3173074800879264016}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.558, y: -0.013, z: 0}
+  m_LocalPosition: {x: 0.891, y: -0.051, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -808,8 +807,8 @@ Transform:
   m_GameObject: {fileID: 9032028209582335403}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.42, y: -0, z: -1}
-  m_LocalScale: {x: 0.2716773, y: 0.0925, z: 1}
+  m_LocalPosition: {x: 0.647, y: -0.032, z: -1}
+  m_LocalScale: {x: 0.5595866, y: 0.7074515, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8853522907160372651}
@@ -858,7 +857,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -4490792387337359081, guid: b8f26ef91f651f74ab37ea318f6d2e8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

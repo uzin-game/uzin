@@ -13,8 +13,7 @@ public class OnShoot : MonoBehaviour {
     public Camera cam;
     public float shakeAmount;
     public Material weaponTracerMaterial;
-    //public float meshHeight;
-    public float meshWidth;
+    //public float meshHeight
 
     private void Start() {
         playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;

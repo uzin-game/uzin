@@ -27,8 +27,11 @@ public class PlayerAimWeapon : MonoBehaviour {
     }
 
     private void Update() {
-        HandleAiming();
-        HandleShooting();
+        if (Time.deltaTime != 0)
+        {
+            HandleAiming();
+            HandleShooting();
+        }
     }
 
     private void HandleAiming() {
@@ -36,6 +39,18 @@ public class PlayerAimWeapon : MonoBehaviour {
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimTransform.eulerAngles = new Vector3(0, 0, angle);
+
+        Vector3 a = Vector3.one;
+        if (angle > 90 || angle < -90)
+        {
+            a.y = -1f;
+        }
+        else
+        {
+            a.y = 1f;
+        }
+        
+        aimTransform.localScale = a;
     }
 
     private void HandleShooting() {
