@@ -11,6 +11,10 @@ public class PlayerAimWeapon : MonoBehaviour {
     private Animator aimAnimator;
     public event EventHandler<OnShootEventArgs> OnShoot;
     private Transform aimGunEndPos;
+    
+    private float shootCooldown = 0.5f;
+    private float lastShootTime = -Mathf.Infinity;
+
 
 
     public class OnShootEventArgs : EventArgs
@@ -53,15 +57,18 @@ public class PlayerAimWeapon : MonoBehaviour {
         aimTransform.localScale = a;
     }
 
-    private void HandleShooting() {
-        if (Input.GetMouseButtonDown(0))
+    private void HandleShooting() 
+    {
+        if (Input.GetMouseButtonDown(0) && Time.time >= lastShootTime + shootCooldown)
         {
+            lastShootTime = Time.time;
+            
             Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 1f;
-            //aimAnimator.SetTrigger("Shoot");
-            OnShoot?.Invoke(this,new OnShootEventArgs
+            
+            OnShoot?.Invoke(this, new OnShootEventArgs
             {
-                gunEndPos = new Vector3(aimGunEndPos.position.x,aimGunEndPos.position.y, 1f),
+                gunEndPos = new Vector3(aimGunEndPos.position.x, aimGunEndPos.position.y, 1f),
                 shootPos = mousePosition
             });
         }

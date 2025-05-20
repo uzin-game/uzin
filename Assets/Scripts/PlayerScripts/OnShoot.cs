@@ -22,7 +22,6 @@ public class OnShoot : MonoBehaviour
     {
         cameraShake.shakeDuration = 0.2f;
         cameraShake.shakeAmount = shakeAmount;
-        //Debug.DrawLine(e.gunEndPos,e.shootPos, Color.white, 0.1f);
         CreateWeaponTracer(e.gunEndPos, e.shootPos);
     }
 
@@ -30,24 +29,26 @@ public class OnShoot : MonoBehaviour
     {
         Vector3 direction = (target - from).normalized;
         float ogDistance = Vector3.Distance(from, target);
-        RaycastHit2D hit = Physics2D.Raycast(from, direction, ogDistance, LayerMask.GetMask("Enemy"));
+        RaycastHit2D[] hits = Physics2D.RaycastAll(from, direction, ogDistance, LayerMask.GetMask("Enemy"));
 
-        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+        foreach (var hit in hits)
         {
-            Debug.Log("nice shot : " + hit.collider.name);
-
-            var enemy = hit.collider;
-
-            enemy.GetComponent<NetworkHealth>().ApplyDamageServerRpc(100);
-
-            if (enemy.GetComponent<NetworkHealth>().CurrentHealth.Value == 0)
+            if (hit.collider != null && hit.collider.CompareTag("Enemy"))
             {
-                enemy.GetComponent<FadeOut>().enabled = true;
-                enemy.GetComponent<FlyAI>().IsFrozen = true;
+                Debug.Log("nice shot : " + hit.collider.name);
 
+                var enemy = hit.collider;
+
+                enemy.GetComponent<NetworkHealth>().ApplyDamageServerRpc(100);
+
+                if (enemy.GetComponent<NetworkHealth>().CurrentHealth.Value == 0)
+                {
+                    enemy.GetComponent<FadeOut>().enabled = true;
+                    enemy.GetComponent<FlyAI>().IsFrozen = true;
+
+                }
             }
         }
-
         float distance = Vector3.Distance(from, target);
         float eulerZ = UtilsClass.GetAngleFromVectorFloat(direction);
 

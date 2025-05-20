@@ -255,17 +255,21 @@ namespace MapScripts
                     return tiles[17];
             }
 
-            if (sample < 0.2f) return tiles[0];
-            if (random.Next(0, 6) == 0) return tiles[18];
+            if (sample < 0.2f) return tiles[0];                      //wtf
+            if (random.Next(0, 6) == 0) return tiles[18];            //c'est bien on comprend ce qui se passe et tt
             if (sample > 0.9f) return tiles[21];
             if (sample >= 0.85f) return tiles[19];
             
             float orexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OreSeedX.Value;
             float oreyCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OreSeedY.Value;
             
-            float oreSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
+            float coalSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
+            float ironSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
 
-            if (oreSample >= 0.9f && sample >= 0.2f) return tiles[20];
+
+            if (coalSample >= 0.9f && sample >= 0.2f) return tiles[20];
+            if (ironSample < 0.1f && sample >= 0.2f && coalSample < 90) return tiles[22];
+
 
             return tiles[1];
 
