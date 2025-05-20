@@ -145,6 +145,9 @@ namespace MapScripts
             {
                 UnloadChunk(chunkPos);
             }
+            GameObject playerObj = player.gameObject;
+            playerObj.GetComponent<Mining>().tile = GetTileAtCell(tilemap.WorldToCell(player.position));
+            Debug.Log($"(Server) Player {playerObj.name} at {GetTileAtCell(tilemap.WorldToCell(player.position))}");
         }
 
         Vector2Int GetChunkCoords(Vector3 worldPos)

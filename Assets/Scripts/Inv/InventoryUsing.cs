@@ -10,17 +10,18 @@ public class InventoryUsing : MonoBehaviour
 
     public bool AddItem(InventoryItemData it)
     {
-        Debug.Log("Trying to add item: " + it.itemName);
+        Debug.Log("Trying to add item: " + it.itemName + ", quantité = " + it.itemNb);
 
         for (int i = 0; i < Panel.transform.childCount; i++)
         {
             var child = Panel.transform.GetChild(i);
             var card = child.GetComponent<CardManager>();
-        
+
             if (card != null && card.itemData != null && card.itemData.itemName == it.itemName)
             {
-                it.itemNb += card.itemData.itemNb;
-                card.SetItem(it);
+                // Crée une nouvelle copie avec la quantité totale (ajout)
+                InventoryItemData combined = it.CreateCopyWithQuantity(card.itemData.itemNb + it.itemNb);
+                card.SetItem(combined);
                 return true;
             }
         }
@@ -32,6 +33,7 @@ public class InventoryUsing : MonoBehaviour
 
             if (card != null && card.itemData == null)
             {
+                // On peut directement mettre l'item (1ère fois)
                 card.SetItem(it);
                 return true;
             }
@@ -39,6 +41,7 @@ public class InventoryUsing : MonoBehaviour
 
         return false;
     }
+
 
 
 

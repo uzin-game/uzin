@@ -54,7 +54,6 @@ public class FurnaceInteraction : MonoBehaviour
         int count = Mathf.Min(playerCards.Count, furnaceCards.Count);
         for (int i = 0, j = 0; i < count; i++, j++)
         {
-            // Ignore les slots machine
             while (j < furnaceCards.Count && furnaceCards[j].machineProperty)
                 j++;
 
@@ -111,7 +110,6 @@ public class FurnaceInteraction : MonoBehaviour
         List<CardManager> cards = new();
         foreach (var cm in root.GetComponentsInChildren<CardManager>())
         {
-            // Optionnel : filtrer si tu veux ignorer ceux qui sont dans la machine
             if (!cm.machineProperty)
                 cards.Add(cm);
         }

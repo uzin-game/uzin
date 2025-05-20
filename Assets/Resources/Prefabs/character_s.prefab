@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 7246741603679104588}
   - component: {fileID: 4734241707681891813}
   - component: {fileID: 7809589785558961639}
+  - component: {fileID: 461903451214844063}
+  - component: {fileID: 4483512554127415249}
   m_Layer: 0
   m_Name: character_s
   m_TagString: Player
@@ -366,6 +368,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 9086033649777340681}
+--- !u!114 &461903451214844063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac74b2cddd730074f924f9a3ceb1eab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryUsing: {fileID: 80838437020248295}
+  tile: {fileID: 0}
+  coal: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
+  charbonTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
+--- !u!114 &4483512554127415249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 927edd11220808c46abd6941381ea06f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractKey: 113
+  InteractAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 461903451214844063}
+        m_TargetAssemblyTypeName: Mining, Assembly-CSharp
+        m_MethodName: Mine
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  MiningScript: {fileID: 461903451214844063}
 --- !u!1 &2078462829634794110
 GameObject:
   m_ObjectHideFlags: 0

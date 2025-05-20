@@ -16,8 +16,6 @@ public class InvManag2 : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Debug.Log("H pressed: trying to add item");
-            inventoryUsing.AddItem(inventoryItemData);
             ToggleInventory();
         }
     }

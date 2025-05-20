@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
+  m_Name: Coal
+  m_EditorClassIdentifier: 
+  itemName: Charbon
+  itemDescription: Carburant
+  itemNb: 1
+  itemTooltip: Carburant
+  itemIcon: {fileID: 798439794387184213, guid: 0a744b2e4de88cc4a8fc875225802673, type: 3}
