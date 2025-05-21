@@ -8,6 +8,8 @@ public class Mining : MonoBehaviour
     public InventoryUsing InventoryUsing;
     public TileBase tile;
     public InventoryItemData coal;
+    public InventoryItemData Iron;
+    public TileBase ironTile;
 
     public TileBase charbonTile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,8 +35,12 @@ public class Mining : MonoBehaviour
 
         if (charbonTile == tile)
         {
-            InventoryItemData itemToAdd = coal.CreateCopyWithQuantity(1);
-            InventoryUsing.AddItem(itemToAdd);
+            InventoryUsing.Increment(coal);
+        }
+
+        if (ironTile == tile)
+        {
+            InventoryUsing.Increment(Iron);
         }
     }
 

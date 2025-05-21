@@ -1,11 +1,16 @@
 using System.Collections.Generic;
+using MapScripts;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class NetworkSpawner : NetworkBehaviour
 {
     [Header("Configuration des Machines")] public List<GameObject> machinePrefabs;
     [Header("Configuration des Ennemis")] public List<GameObject> enemyPrefabs;
+    [SerializeField] private GameObject DrillPrefab;
+    [SerializeField] private GameObject TileMap;
+    public Tilemap tilemap;
 
 
 
@@ -19,6 +24,12 @@ public class NetworkSpawner : NetworkBehaviour
         {
             GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
             obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
+            if (machinePrefabs[prefabIndex] == DrillPrefab)
+            {
+                Transform drillUsingTransform = obj.transform.Find("DrillUsing");
+                GameObject DrillUsingGameObject = drillUsingTransform.gameObject;
+                DrillUsingGameObject.GetComponent<DrillUsing>().Tile = TileMap.GetComponent<ChunkManager>().GetTileAtCell(tilemap.WorldToCell(position));
+            }
         }
     }
 

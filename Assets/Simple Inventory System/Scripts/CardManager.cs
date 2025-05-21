@@ -15,14 +15,16 @@ namespace RedstoneinventeGameStudio
         [FormerlySerializedAs("MachineProperty")] public bool machineProperty;
 #nullable disable
 
-        [SerializeField] public bool useAsDrag;
+        public bool useAsDrag;
         [SerializeField] GameObject emptyCard;
 
         [SerializeField] TMP_Text itemName;
         [SerializeField] TMP_Text itemNb;
         [SerializeField] Image itemIcon;
-        
-        
+
+        public bool InputCard;
+        public bool CoalCard;
+        public bool OutputCard;
 
         private void Awake()
         {
@@ -42,6 +44,11 @@ namespace RedstoneinventeGameStudio
             {
                 SetItem(itemData);
             }
+        }
+
+        public int GetNb()
+        {
+            return int.Parse(itemNb.text);
         }
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)

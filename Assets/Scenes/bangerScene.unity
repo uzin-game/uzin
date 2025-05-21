@@ -3740,6 +3740,9 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 7252339214165580020, guid: 02432641b0c7ea042ab7eb9e2b187c8a, type: 3}
   - {fileID: 7252339214165580020, guid: b972e8e9b246d11478a18f88d3401aec, type: 3}
+  DrillPrefab: {fileID: 7823472476007205890, guid: cbadbaef06412614185df01df11195a6, type: 3}
+  TileMap: {fileID: 1589580474}
+  tilemap: {fileID: 1589580485}
 --- !u!4 &866409922
 Transform:
   m_ObjectHideFlags: 0
@@ -7604,6 +7607,11 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!1839735485 &1589580485 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 630729307683152506, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
+  m_PrefabInstance: {fileID: 364929355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1593449437
 GameObject:
   m_ObjectHideFlags: 0

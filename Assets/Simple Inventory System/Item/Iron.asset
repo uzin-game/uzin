@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Coal
+  m_Name: Iron
   m_EditorClassIdentifier: 
-  itemName: Charbon
-  itemDescription: Carburant
+  itemName: Minerais de Fer
+  itemDescription: minerais basique
   itemNb: 1
-  itemTooltip: Carburant
-  itemIcon: {fileID: -1948996143909678700, guid: b153a599f7ccc634c9a4e50963738549, type: 3}
+  itemTooltip: minerais basique
+  itemIcon: {fileID: -5886882897428026250, guid: e8efbed0d9122e347a22f251bd4ea81f, type: 3}

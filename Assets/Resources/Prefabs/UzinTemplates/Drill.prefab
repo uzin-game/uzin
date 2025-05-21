@@ -333,6 +333,7 @@ Transform:
   m_Children:
   - {fileID: 4365089861178433494}
   - {fileID: 4902346716715043774}
+  - {fileID: 3099095390015979383}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5720786059120787950
@@ -477,6 +478,77 @@ MonoBehaviour:
   FurnaceUI: {fileID: 3340503315394566720}
   playerInRange: {fileID: 0}
   Panel: {fileID: 2494084873144365963}
+--- !u!1 &8297871336941214050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3099095390015979383}
+  - component: {fileID: 66819651986542262}
+  - component: {fileID: 5839488992992388631}
+  m_Layer: 0
+  m_Name: DrillUsing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3099095390015979383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297871336941214050}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5445912687084575769}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &66819651986542262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297871336941214050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b42110efab5b0045bccbb3c17d3b173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoalCard: {fileID: 4940404454810596807}
+  OutputCard: {fileID: 6414316935224642474}
+  Tile: {fileID: 0}
+  IronTile: {fileID: 11400000, guid: 7cf127abd0234f04b99aacdb0c13ce9c, type: 2}
+  CoalTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
+  CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
+  IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
+--- !u!114 &5839488992992388631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297871336941214050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b42110efab5b0045bccbb3c17d3b173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoalCard: {fileID: 4940404454810596807}
+  OutputCard: {fileID: 6414316935224642474}
+  Tile: {fileID: 0}
+  IronTile: {fileID: 11400000, guid: 7cf127abd0234f04b99aacdb0c13ce9c, type: 2}
+  CoalTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
+  CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
+  IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
 --- !u!1001 &566691527303225193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3003,6 +3075,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3758996512733004053}
     - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: CoalCard
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: itemData
       value: 
       objectReference: {fileID: 0}
@@ -3268,6 +3344,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4090679324895429076}
     - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: CoalCard
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: itemData
       value: 
       objectReference: {fileID: 0}
@@ -3403,6 +3483,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4940404454810596807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+  m_PrefabInstance: {fileID: 5589334923088041726}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5359185882692835428 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
@@ -3541,6 +3626,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: OutputCard
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
@@ -3675,6 +3764,11 @@ MonoBehaviour:
 --- !u!224 &6328766678198494729 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+  m_PrefabInstance: {fileID: 5772104637594298515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6414316935224642474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
   m_PrefabInstance: {fileID: 5772104637594298515}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6404339592876532906
