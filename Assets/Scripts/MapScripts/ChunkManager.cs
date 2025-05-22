@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using QuestsScrpit;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,6 +16,8 @@ namespace MapScripts
         private float noiseScale = 0.1f;
         //private float OreNoiseScale = 0.3f;
         private Vector2Int lastPlayerChunkPos;
+        
+        [SerializeField] private QuestManager questManager;
 
         // Les variables width et height ne sont plus utilisées pour un monde infini.
         // public static int width = 100;
@@ -102,6 +105,7 @@ namespace MapScripts
         {
             // Charger les tuiles depuis les ressources
             LoadTiles();
+            questManager = FindFirstObjectByType<QuestManager>();
         }
 
         private void Update()
@@ -146,7 +150,18 @@ namespace MapScripts
                 UnloadChunk(chunkPos);
             }
             GameObject playerObj = player.gameObject;
-            playerObj.GetComponent<Mining>().tile = GetTileAtCell(tilemap.WorldToCell(player.position));
+            questManager = playerObj.GetComponent<QuestManager>();
+            var currtile = GetTileAtCell(tilemap.WorldToCell(player.position));
+            playerObj.GetComponent<Mining>().tile = currtile;
+            if (currtile == questManager.charbon)
+            {
+                if (questManager.currentQuestIndex == 0 &&
+                    !questManager.Quests[questManager.currentQuestIndex].IsCompleted &&
+                    questManager.Quests[questManager.currentQuestIndex].IsActive)
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                }
+            }
             Debug.Log($"(Server) Player {playerObj.name} at {GetTileAtCell(tilemap.WorldToCell(player.position))}");
         }
 
