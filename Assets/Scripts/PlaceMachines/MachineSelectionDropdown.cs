@@ -37,4 +37,9 @@ public class MachineSelectionDropdown : MonoBehaviour
             placementManager.PlaceMachine(index);
         }
     }
+
+    public void OnCancelButtonClicked()
+    {
+        placementManager.CancelSelection();
+    }
 }

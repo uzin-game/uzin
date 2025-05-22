@@ -19,7 +19,7 @@ public class MachinePlacementManager : NetworkBehaviour
         if (machineIndex >= 0 && machineIndex < machinePrefabs.Count)
         {
             selectedMachinePrefab = machinePrefabs[machineIndex];
-            Debug.Log("Machine sélectionnée : " + selectedMachinePrefab.name + " a l'indice : " + machineIndex );
+            Debug.Log("Machine sélectionnée : " + selectedMachinePrefab.name + " a l'indice : " + machineIndex);
         }
         else
         {
@@ -31,12 +31,12 @@ public class MachinePlacementManager : NetworkBehaviour
     {
         machineMenuUI.SetActive(false);
         networkSpawner = FindFirstObjectByType<NetworkSpawner>();
-
     }
 
     public void CancelSelection()
     {
         selectedMachinePrefab = null;
+        machineMenuUI.SetActive(false);
     }
 
     public void ToggleMenu()
@@ -46,6 +46,14 @@ public class MachinePlacementManager : NetworkBehaviour
 
     private void Update()
     {
+        if (machineMenuUI.activeSelf)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+            {
+                ToggleMenu();
+            }
+        }
+
         if (!machineMenuUI.activeSelf && Input.GetKeyDown(KeyCode.P))
         {
             mosPos = Input.mousePosition;
@@ -58,20 +66,18 @@ public class MachinePlacementManager : NetworkBehaviour
         Vector3 worldPos = Camera.main!.ScreenToWorldPoint(mosPos);
 
         worldPos.z = -1;
-        
+
         Vector3 ChunkPos = new Vector3(Mathf.Floor(worldPos.x) + 0.5f, Mathf.Floor(worldPos.y) + 0.5f, worldPos.z);
 
-        //var objectplacer = FindObjectOfType<ObjectPlacer>();
-
         Debug.Log("placing " + selectedMachinePrefab.name + " with index : " + index);
-        
+
         PlaceTheObject(ChunkPos, index);
 
         Debug.Log("Machine placée à : " + ChunkPos);
 
         selectedMachinePrefab = null;
     }
-    
+
     public void PlaceTheObject(Vector3 position, int prefabIndex)
     {
         if (networkSpawner != null)
