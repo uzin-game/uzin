@@ -14,10 +14,11 @@ public class InvManag2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             ToggleInventory();
         }
+        if (inventoryPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ToggleInventory();
     }
 
 

@@ -141,7 +141,7 @@ public class FlyAI : NetworkBehaviour
         }
     }
 
-    void OnDestroy()
+    new void OnDestroy()
     {
         if (HealthNetwork != null)
         {

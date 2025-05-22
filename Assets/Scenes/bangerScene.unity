@@ -3648,12 +3648,15 @@ MonoBehaviour:
   - {fileID: 2010583506259515902, guid: d732e372c75d91246b3267e54e09a2c6, type: 3}
   - {fileID: 2010583506259515902, guid: 7ea0c3c8a06adde478cf1780dc57d0fb, type: 3}
   - {fileID: 2010583506259515902, guid: 25d93bfd114c5a74cb6eaabb60e700d8, type: 3}
+  - {fileID: 5441621220857758090, guid: c2c8138eb8baac44ab175cfa62db4df5, type: 3}
   enemyPrefabs:
   - {fileID: 7252339214165580020, guid: 02432641b0c7ea042ab7eb9e2b187c8a, type: 3}
   - {fileID: 7252339214165580020, guid: b972e8e9b246d11478a18f88d3401aec, type: 3}
   DrillPrefab: {fileID: 7823472476007205890, guid: cbadbaef06412614185df01df11195a6, type: 3}
   TileMap: {fileID: 1589580474}
+  questManager: {fileID: 2677262780634623136, guid: af5a6ac6895ab9644bf33e3ecdd3c7f3, type: 3}
   tilemap: {fileID: 1589580485}
+  player: {fileID: 0}
 --- !u!4 &866409922
 Transform:
   m_ObjectHideFlags: 0
@@ -5987,6 +5990,7 @@ MonoBehaviour:
   - {fileID: 2010583506259515902, guid: d732e372c75d91246b3267e54e09a2c6, type: 3}
   - {fileID: 2010583506259515902, guid: 7ea0c3c8a06adde478cf1780dc57d0fb, type: 3}
   - {fileID: 2010583506259515902, guid: 25d93bfd114c5a74cb6eaabb60e700d8, type: 3}
+  - {fileID: 5441621220857758090, guid: c2c8138eb8baac44ab175cfa62db4df5, type: 3}
   machineMenuUI: {fileID: 1673820755}
 --- !u!114 &1232507855
 MonoBehaviour:

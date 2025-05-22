@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Unity.Netcode;
 using UnityEngine;
 //using CodeMonkey.Utils;
 
-public class PlayerAimWeapon : MonoBehaviour {
+public class PlayerAimWeapon : NetworkBehaviour {
 
     private Transform aimTransform;
     public Camera cam;
@@ -30,7 +31,12 @@ public class PlayerAimWeapon : MonoBehaviour {
         aimGunEndPos = aimTransform.Find("gunEndPos");
     }
 
-    private void Update() {
+    private void Update() 
+    {
+        if (!IsOwner)
+        {
+            return;
+        }
         if (Time.deltaTime != 0)
         {
             HandleAiming();

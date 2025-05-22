@@ -1,13 +1,15 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
+using QuestsScrpit;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Quest
+public class Quest 
 {
     public bool IsActive;
-    public bool IsCompleted;
     public string Title;
     public string Description;
     public GameObject Icon;
@@ -18,12 +20,17 @@ public class Quest
     public TMP_Text QuestTitle;
     public TMP_Text QuestText;
     public Slider QuestProgress;
+    public QuestManager QuestManager;
+    public bool isWaiting = false;
+    
+    public float delay = 1f; // délai en secondes
+    public float timer = 0f;
 
 
-    public Quest(string title, string description, float objectif, TMP_Text questTitle, TMP_Text questText, Slider questProgress)
+
+    public Quest(string title, string description, float objectif, TMP_Text questTitle, TMP_Text questText, Slider questProgress, QuestManager questManager)
     {
         IsActive = false;
-        IsCompleted = false;
         Title = title;
         Description = description;
         currAmount = 0;
@@ -31,6 +38,7 @@ public class Quest
         QuestTitle = questTitle;
         QuestText = questText;
         QuestProgress = questProgress;
+        QuestManager = questManager;
     }
 
     public void Initialize()
@@ -38,12 +46,30 @@ public class Quest
         IsActive = true;
         QuestTitle.text = Title;
         QuestText.text = Description;
+        currAmount = 0;
+        QuestProgress.value = currAmount;
     }
 
-    private void Complete()
+    public void CompleteQuestWithDelay()
     {
         IsActive = false;
-        IsCompleted = true;
+        QuestManager.currentQuestIndex++;
+        timer = delay;
+        isWaiting = true;
+    }
+
+    void Update()
+    {
+        if (isWaiting)
+        {
+            timer -= Time.deltaTime;
+
+            if (timer <= 0f)
+            {
+                isWaiting = false;
+                QuestManager.Quests[QuestManager.currentQuestIndex].Initialize();
+            }
+        }
     }
 
     public void Progress(float progress)
@@ -52,7 +78,7 @@ public class Quest
         QuestProgress.value = currAmount/requiredAmount;
         if (currAmount >= requiredAmount)
         {
-            Complete();
+            QuestManager.CompleteQuestWithDelay();
         }
     }
 }

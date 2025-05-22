@@ -1,3 +1,4 @@
+using QuestsScrpit;
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -10,9 +11,15 @@ public class Mining : MonoBehaviour
     public InventoryItemData coal;
     public InventoryItemData Iron;
     public TileBase ironTile;
-
     public TileBase charbonTile;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+    private QuestManager qM;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        qM = player.GetComponent<QuestManager>();
+    }
     public void Mine()
     {
         if (tile == null)
@@ -36,11 +43,13 @@ public class Mining : MonoBehaviour
         if (charbonTile == tile)
         {
             InventoryUsing.Increment(coal);
+            if (qM != null && qM.currentQuestIndex == 1) qM.Quests[qM.currentQuestIndex].Progress(1f);
         }
 
         if (ironTile == tile)
         {
             InventoryUsing.Increment(Iron);
+            
         }
     }
 

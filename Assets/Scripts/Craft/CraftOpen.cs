@@ -15,6 +15,7 @@ public class CraftOpen : MonoBehaviour
         {
             ToggleInventory();
         }
+        if (CraftPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ToggleInventory();
     }
 
 

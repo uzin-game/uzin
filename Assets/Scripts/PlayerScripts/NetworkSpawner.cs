@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using MapScripts;
+using QuestsScrpit;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -10,9 +12,9 @@ public class NetworkSpawner : NetworkBehaviour
     [Header("Configuration des Ennemis")] public List<GameObject> enemyPrefabs;
     [SerializeField] private GameObject DrillPrefab;
     [SerializeField] private GameObject TileMap;
+    public QuestManager questManager;
     public Tilemap tilemap;
-
-
+    public GameObject player;
 
     [ServerRpc(RequireOwnership = false)]
     public void RequestSpawnObjectServerRpc(Vector3 position, int prefabIndex, ServerRpcParams rpcParams = default)
@@ -24,11 +26,18 @@ public class NetworkSpawner : NetworkBehaviour
         {
             GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
             obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
-            if (machinePrefabs[prefabIndex] == DrillPrefab)
+            if (prefabIndex == 1)
             {
                 Transform drillUsingTransform = obj.transform.Find("DrillUsing");
                 GameObject DrillUsingGameObject = drillUsingTransform.gameObject;
                 DrillUsingGameObject.GetComponent<DrillUsing>().Tile = TileMap.GetComponent<ChunkManager>().GetTileAtCell(tilemap.WorldToCell(position));
+                player = GameObject.FindGameObjectWithTag("Player");
+                questManager = tilemap.GetComponent<ChunkManager>().questManager;
+                if (questManager.currentQuestIndex == 2)
+                {
+                    Debug.Log("progrès quequette");
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                }
             }
         }
     }

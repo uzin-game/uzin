@@ -44,7 +44,7 @@ namespace Effects
             {
                 rb.linearVelocity = Vector2.zero;
                 rb.angularVelocity = 0f;
-                rb.isKinematic = true;
+                rb.bodyType = RigidbodyType2D.Kinematic;
             }
 
             StartCoroutine(FadeAndDespawn());

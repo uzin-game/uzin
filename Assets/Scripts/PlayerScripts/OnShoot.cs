@@ -35,8 +35,6 @@ public class OnShoot : MonoBehaviour
         {
             if (hit.collider != null && hit.collider.CompareTag("Enemy"))
             {
-                Debug.Log("nice shot : " + hit.collider.name);
-
                 var enemy = hit.collider;
 
                 enemy.GetComponent<HealthNetwork>().ApplyDamage(100);

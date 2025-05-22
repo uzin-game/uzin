@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 6143762417187604558}
   - component: {fileID: 8208688499842047460}
   m_Layer: 0
-  m_Name: Drill
+  m_Name: Foreuse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

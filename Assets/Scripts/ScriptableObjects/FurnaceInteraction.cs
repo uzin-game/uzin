@@ -30,6 +30,16 @@ public class FurnaceInteraction : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (IsInteracting && Input.GetKeyDown(KeyCode.Escape))
+        {
+            IsInteracting = false;
+            SetPlayerBackInventory();
+            FurnaceUI.SetActive(false);
+        }
+    }
+
     public void SetFurnaceInventory()
     {
 

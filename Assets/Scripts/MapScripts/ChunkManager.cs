@@ -11,13 +11,13 @@ namespace MapScripts
 {
     public class ChunkManager : NetworkBehaviour
     {
-        private int chunkSize = 3;
+        private int chunkSize = 5;
         private int renderDistance = 5;
         private float noiseScale = 0.1f;
         //private float OreNoiseScale = 0.3f;
         private Vector2Int lastPlayerChunkPos;
         
-        [SerializeField] private QuestManager questManager;
+        [SerializeField] public QuestManager questManager;
 
         // Les variables width et height ne sont plus utilisées pour un monde infini.
         // public static int width = 100;
@@ -156,7 +156,6 @@ namespace MapScripts
             if (currtile == questManager.charbon)
             {
                 if (questManager.currentQuestIndex == 0 &&
-                    !questManager.Quests[questManager.currentQuestIndex].IsCompleted &&
                     questManager.Quests[questManager.currentQuestIndex].IsActive)
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);

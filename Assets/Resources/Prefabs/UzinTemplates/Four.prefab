@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 481878816478706117}
   - component: {fileID: 7483274773902707157}
   m_Layer: 0
-  m_Name: Furnace
+  m_Name: Four
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
