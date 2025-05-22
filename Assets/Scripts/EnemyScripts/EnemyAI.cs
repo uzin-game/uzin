@@ -13,6 +13,8 @@ public class FlyAI : NetworkBehaviour
     public float damageAmount = 5f;
     public Animator animator;
 
+    private HealthNetwork HealthNetwork;
+
     private enum State
     {
         Roam,
@@ -23,13 +25,11 @@ public class FlyAI : NetworkBehaviour
     private Vector3 roamTarget;
     private Transform player;
     private Rigidbody2D rb;
-    
-    //Hover animation variable
-    public float hoverAmplitude = 0.2f;   // height of the hover
-    public float hoverFrequency = 2f; 
-    private Vector3 basePosition; // Position from movement logic
-    public bool IsFrozen = false;
 
+    public float hoverAmplitude = 0.2f;
+    public float hoverFrequency = 2f;
+    private Vector3 basePosition;
+    public bool IsFrozen = false;
 
     void Start()
     {
@@ -41,8 +41,10 @@ public class FlyAI : NetworkBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = FindFirstObjectByType<PlayerNetwork>().transform;
 
-        basePosition = transform.position;
+        HealthNetwork = GetComponent<HealthNetwork>();
+        HealthNetwork.CurrentHealth.OnValueChanged += OnHealthChanged;
 
+        basePosition = transform.position;
         SetNextRoamTarget();
         ScheduleNextAttack();
     }
@@ -53,18 +55,20 @@ public class FlyAI : NetworkBehaviour
         {
             return;
         }
+
         animator.SetBool("IsWalking", true);
-        
-        if (currentState == State.Roam)
+
+        switch (currentState)
         {
-            DoRoam();
+            case State.Roam:
+                DoRoam();
+                break;
+
+            case State.Attack:
+                DoAttack();
+                break;
         }
-        else
-        {
-            DoAttack();
-        }
-        
-        // Hover effect added to base position
+
         float hoverOffset = Mathf.Sin(Time.time * hoverFrequency) * hoverAmplitude;
         Vector3 finalPosition = basePosition + new Vector3(0, hoverOffset, 0);
 
@@ -72,7 +76,7 @@ public class FlyAI : NetworkBehaviour
     }
 
     void DoRoam()
-    {       
+    {
         basePosition = Vector3.MoveTowards(basePosition, roamTarget, roamSpeed * Time.fixedDeltaTime);
 
         if (Vector3.Distance(basePosition, roamTarget) < 0.1f)
@@ -82,36 +86,31 @@ public class FlyAI : NetworkBehaviour
     }
 
     void DoAttack()
-    {       
-        if (player == null) return;
+    {
+        if (player == null)
+        {
+            return;
+        }
 
         basePosition = Vector3.MoveTowards(basePosition, player.position, attackSpeed * Time.fixedDeltaTime);
-
-        if (Vector3.Distance(basePosition, player.position) < 0.5f)
-        {
-            currentState = State.Roam;
-            SetNextRoamTarget();
-            ScheduleNextAttack();
-        }
     }
 
     void SetNextRoamTarget()
     {
         Vector2 offset = Random.insideUnitCircle * roamRadius;
         roamTarget = basePosition + (Vector3)offset;
-        
     }
 
     void ScheduleNextAttack()
     {
         float delay = Random.Range(minTimeToAttack, maxTimeToAttack);
-
         Invoke(nameof(StartAttack), delay);
     }
 
     void StartAttack()
     {
         currentState = State.Attack;
+        basePosition = transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -121,14 +120,39 @@ public class FlyAI : NetworkBehaviour
             return;
         }
 
-        var netHealth = other.GetComponent<NetworkHealth>();
+        if (!other.CompareTag("Player"))
+        {
+            return;
+        }
 
-        if (netHealth != null)
+        if (other.TryGetComponent<HealthNetwork>(out var netHealth))
         {
             netHealth.ApplyDamageServerRpc(damageAmount);
-            currentState = State.Roam;
-            SetNextRoamTarget();
-            ScheduleNextAttack();
+            EndAttackCycle();
         }
+    }
+
+    private void OnHealthChanged(float oldValue, float newValue)
+    {
+        if (newValue < oldValue)
+        {
+            currentState = State.Attack;
+            basePosition = transform.position;
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (HealthNetwork != null)
+        {
+            HealthNetwork.CurrentHealth.OnValueChanged -= OnHealthChanged;
+        }
+    }
+
+    private void EndAttackCycle()
+    {
+        currentState = State.Roam;
+        SetNextRoamTarget();
+        ScheduleNextAttack();
     }
 }

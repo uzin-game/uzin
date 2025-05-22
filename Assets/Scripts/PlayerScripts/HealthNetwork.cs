@@ -3,11 +3,11 @@ using Unity.Netcode;
 using Ilumisoft.HealthSystem;
 
 [RequireComponent(typeof(HealthComponent))]
-public class NetworkHealth : NetworkBehaviour
+public class HealthNetwork : NetworkBehaviour
 {
     public float maxHealth = 100f;
 
-    public NetworkVariable<float> CurrentHealth = new NetworkVariable<float>(
+    public NetworkVariable<float> CurrentHealth = new(
         writePerm: NetworkVariableWritePermission.Server,
         readPerm: NetworkVariableReadPermission.Everyone
     );
@@ -39,10 +39,29 @@ public class NetworkHealth : NetworkBehaviour
         _healthComponent.SetHealth(newValue);
     }
 
+    private void ApplyDamageInternal(float damage)
+    {
+        if (!IsServer) return;
+
+        float h = Mathf.Max(CurrentHealth.Value - damage, 0f);
+        CurrentHealth.Value = h;
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void ApplyDamageServerRpc(float damage)
     {
-        float h = Mathf.Max(CurrentHealth.Value - damage, 0f);
-        CurrentHealth.Value = h;
+        ApplyDamageInternal(damage);
+    }
+
+    public void ApplyDamage(float damage)
+    {
+        if (IsServer)
+        {
+            ApplyDamageInternal(damage);
+        }
+        else
+        {
+            ApplyDamageServerRpc(damage);
+        }
     }
 }

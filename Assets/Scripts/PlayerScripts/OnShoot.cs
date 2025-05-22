@@ -39,9 +39,9 @@ public class OnShoot : MonoBehaviour
 
                 var enemy = hit.collider;
 
-                enemy.GetComponent<NetworkHealth>().ApplyDamageServerRpc(100);
+                enemy.GetComponent<HealthNetwork>().ApplyDamage(100);
 
-                if (enemy.GetComponent<NetworkHealth>().CurrentHealth.Value == 0)
+                if (enemy.GetComponent<HealthNetwork>().CurrentHealth.Value == 0)
                 {
                     enemy.GetComponent<FadeOut>().enabled = true;
                     enemy.GetComponent<FlyAI>().IsFrozen = true;
