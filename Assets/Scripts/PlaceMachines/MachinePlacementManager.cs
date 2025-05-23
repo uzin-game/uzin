@@ -37,10 +37,13 @@ public class MachinePlacementManager : NetworkBehaviour
     {
         selectedMachinePrefab = null;
         machineMenuUI.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void ToggleMenu()
     {
+        if (machineMenuUI.activeSelf) Time.timeScale = 1f;
+        else Time.timeScale = 0f;
         machineMenuUI.SetActive(!machineMenuUI.activeSelf);
     }
 

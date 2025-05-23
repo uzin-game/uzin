@@ -20,6 +20,7 @@ public class FurnaceInteraction : MonoBehaviour
             IsInteracting = true;
             SetFurnaceInventory();
             FurnaceUI.SetActive(true);
+            playerInRange.GetComponent<PlayerAimWeapon>().enabled = false;
         }
 
         else if (IsInteracting)
@@ -27,6 +28,7 @@ public class FurnaceInteraction : MonoBehaviour
             IsInteracting = false;
             SetPlayerBackInventory();
             FurnaceUI.SetActive(false);
+            playerInRange.GetComponent<PlayerAimWeapon>().enabled = true;
         }
     }
 
@@ -37,6 +39,7 @@ public class FurnaceInteraction : MonoBehaviour
             IsInteracting = false;
             SetPlayerBackInventory();
             FurnaceUI.SetActive(false);
+            playerInRange.GetComponent<PlayerAimWeapon>().enabled = true;
         }
     }
 

@@ -9,6 +9,6 @@ public class ProgressScript : MonoBehaviour
     {
         value *= 100f;
         if (targetText != null)
-            targetText.text = value.ToString("0"); // or "0.00" for decimals
+            targetText.text = value.ToString("0") + "%"; // or "0.00" for decimals
     }
 }

@@ -27,6 +27,7 @@ public class OnShoot : MonoBehaviour
 
     private void CreateWeaponTracer(Vector3 from, Vector3 target)
     {
+        
         Vector3 direction = (target - from).normalized;
         float ogDistance = Vector3.Distance(from, target);
         RaycastHit2D[] hits = Physics2D.RaycastAll(from, direction, ogDistance, LayerMask.GetMask("Enemy"));

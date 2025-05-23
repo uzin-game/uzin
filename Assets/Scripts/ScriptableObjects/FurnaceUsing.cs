@@ -1,6 +1,7 @@
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using System.Collections;
+using QuestsScrpit;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     public InventoryItemData IronIngot;
 
     private bool burning = false;
+    public QuestManager questManager;
+
 
     void Update()
     {
@@ -59,6 +62,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
         coal.UnSetItem();
         if (newCoalQty > 0) coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
 
+        var player = GameObject.FindGameObjectWithTag("Player");
+        questManager = player.GetComponent<QuestManager>();
         // Pendant que le charbon brûle (10s), produire toutes les 2s
         while (elapsed < burnDuration)
         {
@@ -78,12 +83,20 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(IronIngot.CreateCopyWithQuantity(1));
+                if (questManager.currentQuestIndex == 4)                                            //TODO
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
             }
             else
             {
                 int outQty = output.itemData.itemNb + 1;
                 output.UnSetItem();
                 output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
+                if (questManager.currentQuestIndex == 4)                                            //TODO
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
             }
 
             // Attendre 2 secondes pour la prochaine production

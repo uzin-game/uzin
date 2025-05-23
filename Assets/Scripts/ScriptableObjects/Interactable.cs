@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace ScriptableObjects
 {
-    public class Interactable : MonoBehaviour
+    public class Interactable : NetworkBehaviour
     {
         public bool IsInRange;
         public KeyCode InteractKey;
@@ -13,7 +15,7 @@ namespace ScriptableObjects
 
         void Update()
         {
-            if (IsInRange)
+            if (IsInRange && IsOwner)
             {
                 if (Input.GetKeyDown(InteractKey))
                 {

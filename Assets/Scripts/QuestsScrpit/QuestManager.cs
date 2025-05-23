@@ -22,6 +22,7 @@ namespace QuestsScrpit
 
         void Start()
         {
+            if (!IsOwner) panel.SetActive(false);
             Quests = new List<Quest>();
             
             
@@ -31,9 +32,15 @@ namespace QuestsScrpit
                 QuestDescription, Porgress, this);
             Quest thrid = new Quest("Posez une foreuse", "appuyez sur `P` pour placer un machine", 1f, QuestText,
                 QuestDescription, Porgress, this);
+            Quest frouth = new Quest("Minez 25 fer a l'aide de la foreuse", "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 25f, QuestText,
+                QuestDescription, Porgress, this);
+            Quest fitfh = new Quest("Faites cuire le fer dans un four", "Commencez par placer un four", 25f, QuestText,
+                QuestDescription, Porgress, this);
             Quests.Add(first);
             Quests.Add(second);
             Quests.Add(thrid);
+            Quests.Add(frouth);
+            Quests.Add(fitfh);
 
             Quests[0].Initialize();
         }

@@ -1,4 +1,5 @@
 using System.Collections;
+using QuestsScrpit;
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,7 +18,8 @@ public class DrillUsing : MonoBehaviour
     private InventoryItemData product;
     private bool CanMine = false;
     private bool burning = false;
-
+    
+    public QuestManager questManager;
     void Update()
     {
         bool notBurning = !burning;
@@ -71,6 +73,9 @@ public class DrillUsing : MonoBehaviour
         coal.UnSetItem();
         if (newCoalQty > 0) coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
 
+        var player = GameObject.FindGameObjectWithTag("Player");
+        questManager = player.GetComponent<QuestManager>();
+        
         // Pendant 10 secondes, produire toutes les 2 secondes
         while (elapsed < burnDuration)
         {
@@ -84,13 +89,21 @@ public class DrillUsing : MonoBehaviour
             // Ajout du produit dans la carte de sortie
             if (output.itemData == null)
             {
-                output.SetItem(product.CreateCopyWithQuantity(1));
+                output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
+                if (questManager.currentQuestIndex == 3)                                            //TODO
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
             }
             else
             {
-                int outQty = output.itemData.itemNb + 1;
+                int outQty = output.itemData.itemNb + 1;                                            //TODO
                 output.UnSetItem();
-                output.SetItem(product.CreateCopyWithQuantity(outQty));
+                output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
+                if (questManager.currentQuestIndex == 3)
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
             }
 
             yield return new WaitForSeconds(productionInterval);
