@@ -18,6 +18,7 @@ public class DrillUsing : MonoBehaviour
     private InventoryItemData product;
     private bool CanMine = false;
     private bool burning = false;
+    private bool advanceQuest;
     
     public QuestManager questManager;
     void Update()
@@ -36,6 +37,7 @@ public class DrillUsing : MonoBehaviour
         {
             product = IronOre;
             CanMine = true;
+            advanceQuest = true;
         }
         
         
@@ -90,7 +92,7 @@ public class DrillUsing : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
-                if (questManager.currentQuestIndex == 3)                                            //TODO
+                if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                 }
@@ -100,7 +102,7 @@ public class DrillUsing : MonoBehaviour
                 int outQty = output.itemData.itemNb + 1;                                            //TODO
                 output.UnSetItem();
                 output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
-                if (questManager.currentQuestIndex == 3)
+                if (questManager.currentQuestIndex == 3 && advanceQuest)
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                 }

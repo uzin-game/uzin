@@ -83,9 +83,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(IronIngot.CreateCopyWithQuantity(1));
-                if (questManager.currentQuestIndex == 4)                                            //TODO
+                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
                 }
             }
             else
@@ -93,9 +93,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
                 int outQty = output.itemData.itemNb + 1;
                 output.UnSetItem();
                 output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
-                if (questManager.currentQuestIndex == 4)                                            //TODO
+                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
                 }
             }
 
