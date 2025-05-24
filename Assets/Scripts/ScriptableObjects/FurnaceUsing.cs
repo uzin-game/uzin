@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using QuestsScrpit;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class FurnaceUsing : MonoBehaviour
 {
     public GameObject InputCard;
     public GameObject CoalCard;
@@ -32,6 +32,23 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             Burn();
         }
+    }
+    public bool ConveyorUsing(InventoryItemData inventoryItem)
+    {
+        if (InputCard.GetComponent<CardManager>().itemData == null)
+        {
+            InputCard.GetComponent<CardManager>().SetItem(inventoryItem);
+            return true;
+        }
+        if (InputCard.GetComponent<CardManager>().itemData.itemName == inventoryItem.itemName)
+        {
+            InputCard.GetComponent<CardManager>().UnSetItem();
+            InputCard.GetComponent<CardManager>()
+                .SetItem(inventoryItem.CreateCopyWithQuantity(InputCard.GetComponent<CardManager>().itemData.itemNb +
+                                                              inventoryItem.itemNb));
+            return true;
+        }
+        return false;
     }
 
     public void Burn()

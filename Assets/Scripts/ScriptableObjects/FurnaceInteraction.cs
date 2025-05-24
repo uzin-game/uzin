@@ -11,6 +11,7 @@ public class FurnaceInteraction : MonoBehaviour
     [SerializeField] private GameObject FurnaceUI;
     public GameObject playerInRange;
     public GameObject Panel;
+    public GameObject FurnaceUsing;
     
 
     public void Interact()

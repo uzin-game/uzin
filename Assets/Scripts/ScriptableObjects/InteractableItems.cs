@@ -1,8 +1,9 @@
+using RedstoneinventeGameStudio;
 using UnityEngine;
 
 public class InteractableItems : MonoBehaviour
 {
-
+    public InventoryItemData inventoryItem;
     public Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,9 +20,11 @@ public class InteractableItems : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Machine")
+        if (other.tag == "Furnace")
         {
-            var inventory = other.GetComponent<Inventory>();
+            bool enter = other.GetComponent<FurnaceInteraction>().FurnaceUsing.GetComponent<FurnaceUsing>()
+                .ConveyorUsing(inventoryItem);
+            if (enter) Destroy(this.gameObject);
         }
     }
 }
