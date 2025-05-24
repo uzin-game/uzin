@@ -79,4 +79,40 @@ public class NetworkSpawner : NetworkBehaviour
             RequestSpawnFlyServerRpc(position, enemyIndex);
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SpawnOutputServerRpc(Vector3 position, int prefabIndex, ServerRpcParams rpcParams = default)
+    {
+        if (!IsServer) return;
+
+        if (outputPrefabs[prefabIndex] == null) Debug.Log("bah ntm fdp");
+        else
+        {
+            GameObject obj = Instantiate(outputPrefabs[prefabIndex], position, Quaternion.identity);
+
+            // Désactiver la physique temporairement
+            var rb = obj.GetComponent<Rigidbody2D>();
+            if (rb != null) rb.simulated = false;
+
+            // Spawn réseau
+            obj.GetComponent<NetworkObject>().Spawn();
+
+            // Maintenant que l’objet est spawn et positionné, on active la physique
+            if (rb != null) rb.simulated = true;
+
+            Debug.Log("Spawned Item at :" + obj.transform.position);
+        }
+    }
+
+    public void RequestSpawnOutput(Vector3 position, int prefabIndex)
+    {
+        if (NetworkManager.Singleton.IsServer)
+        {
+            SpawnOutputServerRpc(position, prefabIndex);
+        }
+        else
+        {
+            SpawnOutputServerRpc(position, prefabIndex);
+        }
+    }
 }

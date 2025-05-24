@@ -14,6 +14,8 @@ public class DrillUsing : MonoBehaviour
 
     public InventoryItemData CoalItem;
     public InventoryItemData IronOre;
+    
+    public FurnaceInteraction furnaceInteraction;
 
     private InventoryItemData product;
     private bool CanMine = false;
@@ -21,6 +23,13 @@ public class DrillUsing : MonoBehaviour
     private bool advanceQuest;
     
     public QuestManager questManager;
+    
+    public NetworkSpawner spawner;
+
+    void Start()
+    {
+        spawner = FindFirstObjectByType<NetworkSpawner>();
+    }
     void Update()
     {
         bool notBurning = !burning;
@@ -46,6 +55,12 @@ public class DrillUsing : MonoBehaviour
             Debug.Log("Drill");
             Burn();
         }
+    }
+    
+    void SpawnOutput(Vector3 position, int prefabindex)
+    {
+        Debug.Log("Spawning Output");
+        spawner.RequestSpawnOutput(position, prefabindex);
     }
 
     public void Burn()
@@ -89,24 +104,34 @@ public class DrillUsing : MonoBehaviour
             }
 
             // Ajout du produit dans la carte de sortie
-            if (output.itemData == null)
+            if (furnaceInteraction.OutputLeTruc)
             {
-                output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
-                if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
-                }
+                int index = 0;
+                if (output.itemData != null && output.itemData.itemName == IronOre.itemName) index = 1;
+                SpawnOutput(furnaceInteraction.ItemOutpusPosition, index);
             }
             else
             {
-                int outQty = output.itemData.itemNb + 1;                                            //TODO
-                output.UnSetItem();
-                output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
-                if (questManager.currentQuestIndex == 3 && advanceQuest)
+                if (output.itemData == null)
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                    output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
+                    if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                    }
+                }
+                else
+                {
+                    int outQty = output.itemData.itemNb + 1;                                            //TODO
+                    output.UnSetItem();
+                    output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
+                    if (questManager.currentQuestIndex == 3 && advanceQuest)
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                    }
                 }
             }
+            
 
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;

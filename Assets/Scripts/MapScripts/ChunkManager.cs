@@ -11,7 +11,7 @@ namespace MapScripts
 {
     public class ChunkManager : NetworkBehaviour
     {
-        private int chunkSize = 5;
+        private int chunkSize = 3;
         private int renderDistance = 5;
         private float noiseScale = 0.1f;
         //private float OreNoiseScale = 0.3f;

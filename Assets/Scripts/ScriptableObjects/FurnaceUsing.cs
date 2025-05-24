@@ -12,10 +12,16 @@ public class FurnaceUsing : MonoBehaviour
     public InventoryItemData CoalItem;
     public InventoryItemData IronOre;
     public InventoryItemData IronIngot;
+    
+    public NetworkSpawner networkSpawner;
 
     private bool burning = false;
     public QuestManager questManager;
 
+    void Start()
+    {
+        networkSpawner = FindFirstObjectByType<NetworkSpawner>();
+    }
 
     void Update()
     {
@@ -33,6 +39,13 @@ public class FurnaceUsing : MonoBehaviour
             Burn();
         }
     }
+
+    void SpawnOutput(Vector3 position, int prefabindex)
+    {
+        Debug.Log("Spawning Output");
+        networkSpawner.RequestSpawnOutput(position, prefabindex);
+    }
+    
     public bool ConveyorUsing(InventoryItemData inventoryItem)
     {
         if (InputCard.GetComponent<CardManager>().itemData == null)
@@ -97,25 +110,37 @@ public class FurnaceUsing : MonoBehaviour
             if (newOreQty > 0) input.SetItem(IronOre.CreateCopyWithQuantity(newOreQty));
 
             // Ajouter 1 lingot dans la sortie
-            if (output.itemData == null)
+
+            if (GetComponent<FurnaceInteraction>().OutputLeTruc)
             {
-                output.SetItem(IronIngot.CreateCopyWithQuantity(1));
-                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
-                }
+                int index = 0;
+                if (input.itemData.itemName == IronOre.itemName) index = 1;
+                SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);
             }
             else
             {
-                int outQty = output.itemData.itemNb + 1;
-                output.UnSetItem();
-                output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
-                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
+                if (output.itemData == null)
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
+                    int index = 0;
+                    if (input.itemData.itemName == IronOre.itemName) index = 1;
+                    SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);
+                    output.SetItem(IronIngot.CreateCopyWithQuantity(1));
+                    if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
+                    }
+                }
+                else
+                {
+                    int outQty = output.itemData.itemNb + 1;
+                    output.UnSetItem();
+                    output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
+                    if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
+                    }
                 }
             }
-
             // Attendre 2 secondes pour la prochaine production
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;

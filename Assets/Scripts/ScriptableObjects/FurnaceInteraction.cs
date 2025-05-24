@@ -4,6 +4,7 @@ using ScriptableObjects;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class FurnaceInteraction : MonoBehaviour
 {
@@ -11,8 +12,79 @@ public class FurnaceInteraction : MonoBehaviour
     [SerializeField] private GameObject FurnaceUI;
     public GameObject playerInRange;
     public GameObject Panel;
-    public GameObject FurnaceUsing;
-    
+    public DrillUsing drillUsing;
+    public Vector3 ItemOutpusPosition;
+    public Button NorthButton;
+    public Button EastButton;
+    public Button SouthButton;
+    public Button WestButton;
+    public bool IsSelecting;
+    public Button SelectButton;
+    public bool OutputLeTruc = false;
+
+    void Start()
+    {
+        IsSelecting = false;
+        NorthButton.onClick.AddListener(delegate
+        {
+            ItemOutpusPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
+            Debug.Log("North");
+            StopSelecting();
+            OutputLeTruc = true;
+        });
+        EastButton.onClick.AddListener(delegate
+        {
+            ItemOutpusPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+            Debug.Log("East");
+            StopSelecting();
+            OutputLeTruc = true;
+        });
+        WestButton.onClick.AddListener(delegate
+        {
+            ItemOutpusPosition = new Vector3(transform.position.x , transform.position.y - 1, transform.position.z);
+            Debug.Log("West");
+            StopSelecting();
+            OutputLeTruc = true;
+        });
+        SouthButton.onClick.AddListener(delegate
+        {
+            ItemOutpusPosition = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
+            Debug.Log("South");
+            StopSelecting();
+            OutputLeTruc = true;
+        });
+        SelectButton.onClick.AddListener(delegate
+        {
+            if (IsSelecting)
+            {
+                Debug.Log("Select");
+                StopSelecting();
+            }
+            else
+            {
+                Debug.Log("UnSelect");
+                Select();
+            }
+        });
+    }
+
+    void Select()
+    {
+        IsSelecting = true;
+        NorthButton.gameObject.SetActive(true);
+        EastButton.gameObject.SetActive(true);
+        WestButton.gameObject.SetActive(true);
+        SouthButton.gameObject.SetActive(true);
+    }
+
+    void StopSelecting()
+    {
+        IsSelecting = false;
+        NorthButton.gameObject.SetActive(false);
+        EastButton.gameObject.SetActive(false);
+        WestButton.gameObject.SetActive(false);
+        SouthButton.gameObject.SetActive(false);
+    }
 
     public void Interact()
     {

@@ -203,6 +203,15 @@ MonoBehaviour:
   FurnaceUI: {fileID: 8266062581438016633}
   playerInRange: {fileID: 0}
   Panel: {fileID: 245900453177969056}
+  drillUsing: {fileID: 0}
+  ItemOutpusPosition: {x: 0, y: 0, z: 0}
+  NorthButton: {fileID: 0}
+  EastButton: {fileID: 0}
+  SouthButton: {fileID: 0}
+  WestButton: {fileID: 0}
+  IsSelecting: 0
+  SelectButton: {fileID: 0}
+  OutputLeTruc: 0
 --- !u!114 &481878816478706117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +387,7 @@ MonoBehaviour:
   CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
   IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
   IronIngot: {fileID: 11400000, guid: 2224cf2360d60da4a9624e2409377dc3, type: 2}
+  networkSpawner: {fileID: 0}
   questManager: {fileID: 0}
 --- !u!1 &6205944139873054995
 GameObject:

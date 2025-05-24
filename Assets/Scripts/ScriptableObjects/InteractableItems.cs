@@ -20,9 +20,9 @@ public class InteractableItems : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Furnace")
+        if (other.CompareTag("Furnace"))
         {
-            bool enter = other.GetComponent<FurnaceInteraction>().FurnaceUsing.GetComponent<FurnaceUsing>()
+            bool enter = other.GetComponent<FurnaceInteraction>().drillUsing.GetComponent<FurnaceUsing>()
                 .ConveyorUsing(inventoryItem);
             if (enter) Destroy(this.gameObject);
         }
