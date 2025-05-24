@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 8208688499842047460}
   m_Layer: 0
   m_Name: Foreuse
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,6 +530,7 @@ MonoBehaviour:
   CoalTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
   CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
   IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
+  questManager: {fileID: 0}
 --- !u!114 &5839488992992388631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +550,7 @@ MonoBehaviour:
   CoalTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
   CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
   IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
+  questManager: {fileID: 0}
 --- !u!1001 &566691527303225193
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class NetworkSpawner : NetworkBehaviour
 {
     [Header("Configuration des Machines")] public List<GameObject> machinePrefabs;
     [Header("Configuration des Ennemis")] public List<GameObject> enemyPrefabs;
+    [Header("Configuration des outputs (four, mineur etc..)")] public List<GameObject> outputPrefabs;
     [SerializeField] private GameObject DrillPrefab;
     [SerializeField] private GameObject TileMap;
     public QuestManager questManager;

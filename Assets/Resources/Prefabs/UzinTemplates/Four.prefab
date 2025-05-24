@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 7483274773902707157}
   m_Layer: 0
   m_Name: Four
-  m_TagString: Untagged
+  m_TagString: Machine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -378,6 +378,7 @@ MonoBehaviour:
   CoalItem: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
   IronOre: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
   IronIngot: {fileID: 11400000, guid: 2224cf2360d60da4a9624e2409377dc3, type: 2}
+  questManager: {fileID: 0}
 --- !u!1 &6205944139873054995
 GameObject:
   m_ObjectHideFlags: 0
