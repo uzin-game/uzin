@@ -120,6 +120,8 @@ public class DrillUsing : MonoBehaviour
             }
 
             // Ajout du produit dans la carte de sortie
+            
+            /*
             if (furnaceInteraction.OutputLeTruc)
             {
                 int index = 0;
@@ -146,8 +148,26 @@ public class DrillUsing : MonoBehaviour
                         questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                     }
                 }
-            }
+            }*/
             
+            if (output.itemData == null)
+            {
+                output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
+                if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
+            }
+            else
+            {
+                int outQty = output.itemData.itemNb + 1;                                            //TODO
+                output.UnSetItem();
+                output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
+                if (questManager.currentQuestIndex == 3 && advanceQuest)
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                }
+            }
 
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;

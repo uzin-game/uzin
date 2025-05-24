@@ -60,8 +60,6 @@ public class Mining : MonoBehaviour
             InventoryUsing.Increment(minedItem);
 
             Debug.Log($"Tuile minée : {tile.name}, objet ajouté : {minedItem.itemName}");
-
-            // Gestion simple des quêtes (exemple : charbon = index 1, fer = 2, cuivre = 3, or = 4)
             if (qM != null)
             {
                 int questIndex = qM.currentQuestIndex;

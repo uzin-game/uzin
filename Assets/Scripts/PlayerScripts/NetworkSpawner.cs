@@ -85,7 +85,7 @@ public class NetworkSpawner : NetworkBehaviour
     {
         if (!IsServer) return;
 
-        if (outputPrefabs[prefabIndex] == null) Debug.Log("bah ntm fdp");
+        if (outputPrefabs[prefabIndex] == null) Debug.Log("invalid prefab !");
         else
         {
             GameObject obj = Instantiate(outputPrefabs[prefabIndex], position, Quaternion.identity);

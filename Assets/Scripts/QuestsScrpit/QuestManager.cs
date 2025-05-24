@@ -19,9 +19,12 @@ namespace QuestsScrpit
         public TileBase charbon;
         public GameObject panel;
         public Quest CurrentQuest => Quests[currentQuestIndex];
+        public HealthNetwork healthNetwork;
 
         void Start()
         {
+            healthNetwork = GetComponent<HealthNetwork>();
+            
             if (!IsOwner) panel.SetActive(false);
             Quests = new List<Quest>();
             
@@ -47,6 +50,7 @@ namespace QuestsScrpit
         
         public void CompleteQuestWithDelay()
         {
+            healthNetwork.ApplyDamage(-10f);
             CurrentQuest.IsActive = false;
             currentQuestIndex++;
             CurrentQuest.timer = CurrentQuest.delay;
