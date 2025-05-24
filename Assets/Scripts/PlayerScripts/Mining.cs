@@ -2,55 +2,82 @@ using QuestsScrpit;
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 public class Mining : MonoBehaviour
 {
     GameObject player;
     public InventoryUsing InventoryUsing;
-    public TileBase tile;
+
+    public TileBase tile; // La tuile ciblée (à miner)
+
+    public TileBase charbonTile;
+    public TileBase ironTile;
+    public TileBase tileCopper;
+    public TileBase tileGold;
+
     public InventoryItemData coal;
     public InventoryItemData Iron;
-    public TileBase ironTile;
-    public TileBase charbonTile;
-    
+    public InventoryItemData copper;
+    public InventoryItemData gold;
+
     private QuestManager qM;
+
+    // Dictionnaire tuile -> minerai
+    private Dictionary<TileBase, InventoryItemData> tileToOre;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         qM = player.GetComponent<QuestManager>();
+
+        tileToOre = new Dictionary<TileBase, InventoryItemData>
+        {
+            { charbonTile, coal },
+            { ironTile, Iron },
+            { tileCopper, copper },
+            { tileGold, gold }
+        };
     }
+
     public void Mine()
     {
         if (tile == null)
         {
-            Debug.LogWarning("tile est null !");
-            return;
-        }
-
-        if (charbonTile == null)
-        {
-            Debug.LogWarning("charbonTile est null !");
+            Debug.LogWarning("La tuile à miner est null !");
             return;
         }
 
         if (InventoryUsing == null)
         {
-            Debug.LogWarning("InventoryUsing est null !");
+            Debug.LogWarning("InventoryUsing n’est pas assigné !");
             return;
         }
 
-        if (charbonTile == tile)
+        if (tileToOre.ContainsKey(tile))
         {
-            InventoryUsing.Increment(coal);
-            if (qM != null && qM.currentQuestIndex == 1) qM.Quests[qM.currentQuestIndex].Progress(1f);
-        }
+            InventoryItemData minedItem = tileToOre[tile];
+            InventoryUsing.Increment(minedItem);
 
-        if (ironTile == tile)
+            Debug.Log($"Tuile minée : {tile.name}, objet ajouté : {minedItem.itemName}");
+
+            // Gestion simple des quêtes (exemple : charbon = index 1, fer = 2, cuivre = 3, or = 4)
+            if (qM != null)
+            {
+                int questIndex = qM.currentQuestIndex;
+
+                if ((tile == charbonTile && questIndex == 1) ||
+                    (tile == ironTile && questIndex == 2) ||
+                    (tile == tileCopper && questIndex == 3) ||
+                    (tile == tileGold && questIndex == 4))
+                {
+                    qM.Quests[questIndex].Progress(1f);
+                }
+            }
+        }
+        else
         {
-            InventoryUsing.Increment(Iron);
-            
+            Debug.LogWarning("Tuile inconnue. Aucun minerai associé.");
         }
     }
-
 }

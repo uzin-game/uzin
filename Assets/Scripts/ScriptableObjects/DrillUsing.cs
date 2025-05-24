@@ -11,9 +11,13 @@ public class DrillUsing : MonoBehaviour
     public TileBase Tile;
     public TileBase IronTile;
     public TileBase CoalTile;
+    public TileBase CopperTile;
+    public TileBase OrTile;
 
     public InventoryItemData CoalItem;
     public InventoryItemData IronOre;
+    public InventoryItemData CopperOre;
+    public InventoryItemData OrOre;
     
     public FurnaceInteraction furnaceInteraction;
 
@@ -47,6 +51,18 @@ public class DrillUsing : MonoBehaviour
             product = IronOre;
             CanMine = true;
             advanceQuest = true;
+        }
+
+        if (Tile == CopperTile)
+        {
+            product = CopperOre;
+            CanMine = true;
+        }
+
+        if (Tile == OrTile)
+        {
+            product = OrOre;
+            CanMine = true;
         }
         
         

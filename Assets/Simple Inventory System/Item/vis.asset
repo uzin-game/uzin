@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Lingot
+  m_Name: vis
   m_EditorClassIdentifier: 
-  itemName: Lingot de Fer
-  itemDescription: Lingot basique
-  itemNb: 1
-  itemTooltip: Lingot basique
-  itemIcon: {fileID: 8655039519484278451, guid: 6b60452af646d72488893ac25f7e934d, type: 3}
+  itemName: vis
+  itemDescription: "mat\xE9riaux"
+  itemNb: 2
+  itemTooltip: "mat\xE9riaux"
+  itemIcon: {fileID: -2531403266220789220, guid: 1356ee23602b4bd4096086cf74508299, type: 3}

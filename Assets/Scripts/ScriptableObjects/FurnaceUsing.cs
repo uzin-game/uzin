@@ -1,6 +1,7 @@
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using QuestsScrpit;
 
 public class FurnaceUsing : MonoBehaviour
@@ -12,31 +13,48 @@ public class FurnaceUsing : MonoBehaviour
     public InventoryItemData CoalItem;
     public InventoryItemData IronOre;
     public InventoryItemData IronIngot;
-    
-    public NetworkSpawner networkSpawner;
+    public InventoryItemData Gold;
+    public InventoryItemData GoldIngot;
+    public InventoryItemData Copper;
+    public InventoryItemData CopperIngot;
 
+    public NetworkSpawner networkSpawner;
     private bool burning = false;
     public QuestManager questManager;
+
+    // Mapping minerai → lingot
+    private Dictionary<string, InventoryItemData> oreToIngot;
 
     void Start()
     {
         networkSpawner = FindFirstObjectByType<NetworkSpawner>();
+
+        oreToIngot = new Dictionary<string, InventoryItemData>
+        {
+            { IronOre.itemName, IronIngot },
+            { Gold.itemName, GoldIngot },
+            { Copper.itemName, CopperIngot }
+        };
     }
 
     void Update()
     {
-//        Debug.Log(InputCard.GetComponent<CardManager>().itemData.itemName);
-        Debug.Log(IronOre.itemName);
+        var inputManager = InputCard.GetComponent<CardManager>();
+        var coalManager = CoalCard.GetComponent<CardManager>();
+
         bool notBurning = !burning;
-        bool InputCardNull = InputCard.GetComponent<CardManager>().itemData != null;
-        bool CoalCardNull = CoalCard.GetComponent<CardManager>().itemData != null;
-        var inventoryItemData = InputCard.GetComponent<CardManager>().itemData;
-        bool InputCardIronOre = inventoryItemData != null && inventoryItemData.itemName == IronOre.itemName;
-        var itemData = CoalCard.GetComponent<CardManager>().itemData;
-        bool CoalCardCoal = itemData != null && itemData.itemName == CoalItem.itemName;
-        
-        
-        if (notBurning && InputCardNull && CoalCardNull && InputCardIronOre && CoalCardCoal)
+        bool inputNotNull = inputManager.itemData != null;
+        bool coalNotNull = coalManager.itemData != null;
+
+        if (!notBurning || !inputNotNull || !coalNotNull) return;
+
+        var inputItem = inputManager.itemData;
+        var coalItem = coalManager.itemData;
+
+        bool isOre = oreToIngot.ContainsKey(inputItem.itemName);
+        bool isCoal = coalItem.itemName == CoalItem.itemName;
+
+        if (isOre && isCoal)
         {
             Burn();
         }
@@ -47,22 +65,25 @@ public class FurnaceUsing : MonoBehaviour
         Debug.Log("Spawning Output");
         networkSpawner.RequestSpawnOutput(position, prefabindex);
     }
-    
+
     public bool ConveyorUsing(InventoryItemData inventoryItem)
     {
-        if (InputCard.GetComponent<CardManager>().itemData == null)
+        var inputManager = InputCard.GetComponent<CardManager>();
+        var existingItem = inputManager.itemData;
+
+        if (existingItem == null)
         {
-            InputCard.GetComponent<CardManager>().SetItem(inventoryItem);
+            inputManager.SetItem(inventoryItem);
             return true;
         }
-        if (InputCard.GetComponent<CardManager>().itemData.itemName == inventoryItem.itemName)
+
+        if (existingItem.itemName == inventoryItem.itemName)
         {
-            InputCard.GetComponent<CardManager>().UnSetItem();
-            InputCard.GetComponent<CardManager>()
-                .SetItem(inventoryItem.CreateCopyWithQuantity(InputCard.GetComponent<CardManager>().itemData.itemNb +
-                                                              inventoryItem.itemNb));
+            inputManager.UnSetItem();
+            inputManager.SetItem(inventoryItem.CreateCopyWithQuantity(existingItem.itemNb + inventoryItem.itemNb));
             return true;
         }
+
         return false;
     }
 
@@ -78,82 +99,76 @@ public class FurnaceUsing : MonoBehaviour
         var coal = CoalCard.GetComponent<CardManager>();
         var output = OutputCard.GetComponent<CardManager>();
 
-        float burnDuration = 10f; // Durée de vie du charbon
+        float burnDuration = 10f;
         float productionInterval = 2f;
         float elapsed = 0f;
 
-        // Vérifie le charbon dispo
         if (coal.itemData == null || coal.itemData.itemNb <= 0)
         {
             burning = false;
             yield break;
         }
 
-        // Consomme immédiatement 1 charbon
+        // Consomme 1 charbon
         int newCoalQty = coal.itemData.itemNb - 1;
         coal.UnSetItem();
         if (newCoalQty > 0) coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
 
         var player = GameObject.FindGameObjectWithTag("Player");
         questManager = player.GetComponent<QuestManager>();
-        // Pendant que le charbon brûle (10s), produire toutes les 2s
+
         while (elapsed < burnDuration)
         {
-            // Vérifie que du minerai est dispo
             if (input.itemData == null || input.itemData.itemNb <= 0)
             {
                 burning = false;
                 yield break;
             }
 
+            var currentOre = input.itemData.itemName;
+            if (!oreToIngot.ContainsKey(currentOre))
+            {
+                burning = false;
+                Debug.LogWarning("Type de minerai non supporté !");
+                yield break;
+            }
+
+            InventoryItemData correspondingIngot = oreToIngot[currentOre];
+
             // Consommer 1 minerai
             int newOreQty = input.itemData.itemNb - 1;
             input.UnSetItem();
-            if (newOreQty > 0) input.SetItem(IronOre.CreateCopyWithQuantity(newOreQty));
+            if (newOreQty > 0)
+                input.SetItem(input.itemData.CreateCopyWithQuantity(newOreQty));
 
             // Ajouter 1 lingot dans la sortie
-            /*
-            if (GetComponent<FurnaceInteraction>().OutputLeTruc)
-            {
-                int index = 0;
-                if (input.itemData.itemName == IronOre.itemName) index = 1;
-                SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);
-            }
-            else
-            {
-                
-            }*/
-            
             if (output.itemData == null)
             {
-                /*
-                int index = 0;
-                if (input.itemData.itemName == IronOre.itemName) index = 1;
-                SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);*/
-                output.SetItem(IronIngot.CreateCopyWithQuantity(1));
-                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
-                }
+                output.SetItem(correspondingIngot.CreateCopyWithQuantity(1));
             }
-            else
+            else if (output.itemData.itemName == correspondingIngot.itemName)
             {
                 int outQty = output.itemData.itemNb + 1;
                 output.UnSetItem();
-                output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
-                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
-                }
+                output.SetItem(correspondingIngot.CreateCopyWithQuantity(outQty));
             }
-            
-            
-            // Attendre 2 secondes pour la prochaine production
+            else
+            {
+                Debug.LogWarning("Impossible d'empiler : type de lingot différent.");
+                burning = false;
+                yield break;
+            }
+
+            // Quête
+            if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+            {
+                questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+            }
+
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;
         }
 
-        // Fin du cycle de combustion du charbon
         burning = false;
     }
 }

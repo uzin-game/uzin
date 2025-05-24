@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: ToleFer
+  m_Name: "cicruit imprim\xE9"
   m_EditorClassIdentifier: 
-  itemName: "T\xF4le de fer"
+  itemName: "circuit imprim\xE9"
   itemDescription: "mat\xE9riaux"
   itemNb: 1
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: 7427317763971237757, guid: 4259767e6a3095e44951524978c4bad0, type: 3}
+  itemIcon: {fileID: -2531403266220789220, guid: 1356ee23602b4bd4096086cf74508299, type: 3}

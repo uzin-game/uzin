@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: ToleFer
+  m_Name: Lingot d'Or
   m_EditorClassIdentifier: 
-  itemName: "T\xF4le de fer"
-  itemDescription: "mat\xE9riaux"
+  itemName: Lingot d'Or
+  itemDescription: Lingot basique
   itemNb: 1
-  itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: 7427317763971237757, guid: 4259767e6a3095e44951524978c4bad0, type: 3}
+  itemTooltip: Lingot basique
+  itemIcon: {fileID: -2518263682212511850, guid: 628110711d74c5e488c19c3ccb241d7d, type: 3}
