@@ -15,13 +15,9 @@ public class HealthNetwork : NetworkBehaviour
 
     private HealthComponent _healthComponent;
 
-    public GameObject DeathPanel;
-
-    public GameObject Panel;
 
     void Awake()
     {
-        DeathPanel.SetActive(false);
         _healthComponent = GetComponent<HealthComponent>();
     }
 
@@ -51,22 +47,28 @@ public class HealthNetwork : NetworkBehaviour
 
         float h = Mathf.Max(CurrentHealth.Value - damage, 0f);
         CurrentHealth.Value = h;
-        
-        if (h == 0f)
-        {
-            for (int i = 0; i < Panel.transform.childCount; i++)
-            {
-                var child = Panel.transform.GetChild(i);
-                var card = child.GetComponent<CardManager>();
 
-                if (card != null && card.itemData == null)
+        /*
+        if (IsOwner)
+        {
+            if (h == 0f)
+            {
+                for (int i = 0; i < Panel.transform.childCount; i++)
                 {
-                    card.UnSetItem();
+                    var child = Panel.transform.GetChild(i);
+                    var card = child.GetComponent<CardManager>();
+
+                    if (card != null && card.itemData == null)
+                    {
+                        card.UnSetItem();
+                    }
                 }
-            }
             
-            DeathPanel.SetActive(true);
-        }
+                DeathPanel.SetActive(true);
+            }
+        }*/
+        
+        
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -411,8 +411,8 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth:
     m_InternalValue: 0
-  DeathPanel: {fileID: 0}
-  Panel: {fileID: 0}
+  DeathPanel: {fileID: 6100523724781498604}
+  Panel: {fileID: 4269845695205295542}
 --- !u!114 &7809589785558961639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7308,6 +7308,11 @@ PrefabInstance:
       addedObject: {fileID: 2082379698761376558}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bd0840007d01542adee77677654797, type: 3}
+--- !u!1 &4269845695205295542 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5897885587707677767, guid: 16bd0840007d01542adee77677654797, type: 3}
+  m_PrefabInstance: {fileID: 7681159335393036785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4808015787749294123 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2891721467807091162, guid: 16bd0840007d01542adee77677654797, type: 3}
