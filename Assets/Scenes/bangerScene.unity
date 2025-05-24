@@ -1694,7 +1694,7 @@ PrefabInstance:
       objectReference: {fileID: 2470092113831464885, guid: af5a6ac6895ab9644bf33e3ecdd3c7f3, type: 3}
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: tiles.Array.size
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: 'tiles.Array.data[18]'
@@ -1718,6 +1718,10 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 7cf127abd0234f04b99aacdb0c13ce9c, type: 2}
     - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
       propertyPath: 'tiles.Array.data[23]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a28c1c13fe09d04b82afc9b1892e782, type: 2}
+    - target: {fileID: 9185757272300272765, guid: cec4caf46b649264e89a61c18e2a8597, type: 3}
+      propertyPath: 'tiles.Array.data[24]'
       value: 
       objectReference: {fileID: 11400000, guid: 4a28c1c13fe09d04b82afc9b1892e782, type: 2}
     m_RemovedComponents: []

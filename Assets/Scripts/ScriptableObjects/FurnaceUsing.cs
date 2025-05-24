@@ -25,13 +25,15 @@ public class FurnaceUsing : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(InputCard.GetComponent<CardManager>().itemData.itemName);
+//        Debug.Log(InputCard.GetComponent<CardManager>().itemData.itemName);
         Debug.Log(IronOre.itemName);
         bool notBurning = !burning;
         bool InputCardNull = InputCard.GetComponent<CardManager>().itemData != null;
         bool CoalCardNull = CoalCard.GetComponent<CardManager>().itemData != null;
-        bool InputCardIronOre = InputCard.GetComponent<CardManager>().itemData.itemName == IronOre.itemName;
-        bool CoalCardCoal = CoalCard.GetComponent<CardManager>().itemData.itemName == CoalItem.itemName;
+        var inventoryItemData = InputCard.GetComponent<CardManager>().itemData;
+        bool InputCardIronOre = inventoryItemData != null && inventoryItemData.itemName == IronOre.itemName;
+        var itemData = CoalCard.GetComponent<CardManager>().itemData;
+        bool CoalCardCoal = itemData != null && itemData.itemName == CoalItem.itemName;
         
         
         if (notBurning && InputCardNull && CoalCardNull && InputCardIronOre && CoalCardCoal)
@@ -110,7 +112,7 @@ public class FurnaceUsing : MonoBehaviour
             if (newOreQty > 0) input.SetItem(IronOre.CreateCopyWithQuantity(newOreQty));
 
             // Ajouter 1 lingot dans la sortie
-
+            /*
             if (GetComponent<FurnaceInteraction>().OutputLeTruc)
             {
                 int index = 0;
@@ -119,28 +121,33 @@ public class FurnaceUsing : MonoBehaviour
             }
             else
             {
-                if (output.itemData == null)
+                
+            }*/
+            
+            if (output.itemData == null)
+            {
+                /*
+                int index = 0;
+                if (input.itemData.itemName == IronOre.itemName) index = 1;
+                SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);*/
+                output.SetItem(IronIngot.CreateCopyWithQuantity(1));
+                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
                 {
-                    int index = 0;
-                    if (input.itemData.itemName == IronOre.itemName) index = 1;
-                    SpawnOutput(GetComponent<FurnaceInteraction>().ItemOutpusPosition, index);
-                    output.SetItem(IronIngot.CreateCopyWithQuantity(1));
-                    if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
-                    {
-                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
-                    }
-                }
-                else
-                {
-                    int outQty = output.itemData.itemNb + 1;
-                    output.UnSetItem();
-                    output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
-                    if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
-                    {
-                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
-                    }
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               
                 }
             }
+            else
+            {
+                int outQty = output.itemData.itemNb + 1;
+                output.UnSetItem();
+                output.SetItem(IronIngot.CreateCopyWithQuantity(outQty));
+                if (questManager.currentQuestIndex == 4 && input.itemData.itemName == IronOre.itemName)                                            
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
+                }
+            }
+            
+            
             // Attendre 2 secondes pour la prochaine production
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;

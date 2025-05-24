@@ -285,8 +285,9 @@ namespace MapScripts
             float goldSample = Mathf.PerlinNoise(otherorexCoord, otheroreyCoord);
 
             if (goldSample > 0.95f) return tiles[23];
-            if (coalSample >= 0.9f && sample >= 0.2f) return tiles[20];
+            if (coalSample >= 0.87f && sample >= 0.2f) return tiles[20];
             if (ironSample < 0.1f && sample >= 0.2f) return tiles[22];
+            if (goldSample < 0.1f) return tiles[23];
 
 
             return tiles[1];
