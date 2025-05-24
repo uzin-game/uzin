@@ -13,10 +13,12 @@ namespace MapScripts
     {
         private int chunkSize = 3;
         private int renderDistance = 5;
+
         private float noiseScale = 0.1f;
+
         //private float OreNoiseScale = 0.3f;
         private Vector2Int lastPlayerChunkPos;
-        
+
         [SerializeField] public QuestManager questManager;
 
         // Les variables width et height ne sont plus utilisées pour un monde infini.
@@ -70,7 +72,7 @@ namespace MapScripts
                     SeedX.Value = Random.Range(-1000000f, 1000000f);
                     SeedY.Value = Random.Range(-1000000f, 1000000f);
                 }
-                
+
                 if (OreSeedX.Value == 0 && OreSeedY.Value == 0)
                 {
                     OreSeedX.Value = Random.Range(-1000000f, 1000000f);
@@ -149,10 +151,11 @@ namespace MapScripts
             {
                 UnloadChunk(chunkPos);
             }
+
             GameObject playerObj = player.gameObject;
             questManager = playerObj.GetComponent<QuestManager>();
             var currtile = GetTileAtCell(tilemap.WorldToCell(player.position));
-            playerObj.GetComponent<Mining>().tile = currtile;
+
             if (currtile == questManager.charbon)
             {
                 if (questManager.currentQuestIndex == 0 &&
@@ -161,6 +164,7 @@ namespace MapScripts
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);
                 }
             }
+
             Debug.Log($"(Server) Player {playerObj.name} at {GetTileAtCell(tilemap.WorldToCell(player.position))}");
         }
 
@@ -269,17 +273,19 @@ namespace MapScripts
                     return tiles[17];
             }
 
-            if (sample < 0.2f) return tiles[0];                      //wtf
-            if (random.Next(0, 6) == 0) return tiles[18];            //c'est bien on comprend ce qui se passe et tt
+            if (sample < 0.2f) return tiles[0]; //wtf
+            if (random.Next(0, 6) == 0) return tiles[18]; //c'est bien on comprend ce qui se passe et tt
             if (sample > 0.9f) return tiles[21];
             if (sample >= 0.85f) return tiles[19];
-            
+
             float orexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OreSeedX.Value;
             float oreyCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OreSeedY.Value;
-            
-            float otherorexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) + OreSeedX.Value * 35645625 % 2312344 ;
-            float otheroreyCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) + OreSeedY.Value * 35645625 % 2312344 ;
-            
+
+            float otherorexCoord = (((chunk.position.x * chunkSize) + x) * noiseScale) +
+                                   OreSeedX.Value * 35645625 % 2312344;
+            float otheroreyCoord = (((chunk.position.y * chunkSize) + y) * noiseScale) +
+                                   OreSeedY.Value * 35645625 % 2312344;
+
             float coalSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
             float ironSample = Mathf.PerlinNoise(orexCoord, oreyCoord);
             float goldSample = Mathf.PerlinNoise(otherorexCoord, otheroreyCoord);
@@ -341,6 +347,27 @@ namespace MapScripts
                 new BoundsInt(chunkPos.x * chunkSize, chunkPos.y * chunkSize, 0, chunkSize, chunkSize, 1);
             TileBase[] emptyTiles = new TileBase[chunkSize * chunkSize];
             tilemap.SetTilesBlock(bounds, emptyTiles);
+        }
+
+        public void MineTile(Vector3Int cellPos, TileBase newTile)
+        {
+            //if (!IsServer) return;
+
+            tilemap.SetTile(cellPos, newTile);
+            tilemap.RefreshTile(cellPos);
+
+            UpdateTileClientRpc(cellPos, newTile.name);
+        }
+
+        [ClientRpc]
+        private void UpdateTileClientRpc(Vector3Int cellPos, string tileName)
+        {
+            TileBase newTile = tiles.FirstOrDefault(t => t != null && t.name == tileName);
+            if (newTile != null)
+            {
+                tilemap.SetTile(cellPos, newTile);
+                tilemap.RefreshTile(cellPos);
+            }
         }
     }
 }

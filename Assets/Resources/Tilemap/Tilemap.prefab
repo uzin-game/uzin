@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5424337661515561372}
   - component: {fileID: 2772122411066909534}
   - component: {fileID: 120867223437044057}
+  - component: {fileID: 4391761335906468860}
   - component: {fileID: 4394826289142474651}
   m_Layer: 0
   m_Name: Tilemap
@@ -163,6 +164,31 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &4391761335906468860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419965020681066569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &4394826289142474651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +201,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d55302e62ab43359fac5e0cbd1b966d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  questManager: {fileID: 0}
+  SeedX:
+    m_InternalValue: 0
+  SeedY:
+    m_InternalValue: 0
+  OreSeedX:
+    m_InternalValue: 0
+  OreSeedY:
+    m_InternalValue: 0
   tilemap: {fileID: 5424337661515561372}
   tiles:
   - {fileID: 11400000, guid: c7ba4ab2db1daea49b11d25fd3b3d262, type: 2}

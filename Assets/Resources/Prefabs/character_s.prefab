@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 461903451214844063}
   - component: {fileID: 4483512554127415249}
   - component: {fileID: 2677262780634623136}
+  - component: {fileID: -2698201962952313498}
   m_Layer: 0
   m_Name: character_s
   m_TagString: Player
@@ -411,8 +412,6 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth:
     m_InternalValue: 0
-  DeathPanel: {fileID: 6100523724781498604}
-  Panel: {fileID: 4269845695205295542}
 --- !u!114 &7809589785558961639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,14 +438,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac74b2cddd730074f924f9a3ceb1eab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InventoryUsing: {fileID: 80838437020248295}
-  tile: {fileID: 0}
+  ShowTopMostFoldoutHeaderGroup: 1
+  resourceTilemap: {fileID: 0}
   charbonTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
   ironTile: {fileID: 11400000, guid: 7cf127abd0234f04b99aacdb0c13ce9c, type: 2}
-  tileCopper: {fileID: 11400000, guid: 8bb1204edeacc3e4e99aad9986a266b4, type: 2}
-  tileGold: {fileID: 11400000, guid: 4a28c1c13fe09d04b82afc9b1892e782, type: 2}
+  copperTile: {fileID: 11400000, guid: 8bb1204edeacc3e4e99aad9986a266b4, type: 2}
+  goldTile: {fileID: 11400000, guid: 4a28c1c13fe09d04b82afc9b1892e782, type: 2}
+  grassTile: {fileID: 11400000, guid: bfade3ed3f4b8d143928a71e7b9957b7, type: 2}
   coal: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
-  Iron: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
+  iron: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
   copper: {fileID: 11400000, guid: bb6a1492ddc1b474f9a282c2ccf265de, type: 2}
   gold: {fileID: 11400000, guid: 712a9bf1de8c21045a604366c61a4a56, type: 2}
 --- !u!114 &4483512554127415249
@@ -498,6 +498,19 @@ MonoBehaviour:
   charbon: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
   panel: {fileID: 5407420565148533796}
   healthNetwork: {fileID: 0}
+--- !u!114 &-2698201962952313498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002487300160079691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c9af3384b8dd84c8ee2071718bf773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 8651664645285315787}
 --- !u!1 &2078462829634794110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7308,11 +7321,6 @@ PrefabInstance:
       addedObject: {fileID: 2082379698761376558}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bd0840007d01542adee77677654797, type: 3}
---- !u!1 &4269845695205295542 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5897885587707677767, guid: 16bd0840007d01542adee77677654797, type: 3}
-  m_PrefabInstance: {fileID: 7681159335393036785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4808015787749294123 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2891721467807091162, guid: 16bd0840007d01542adee77677654797, type: 3}

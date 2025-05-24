@@ -15,7 +15,7 @@ namespace ScriptableObjects
 
         void Update()
         {
-            if (IsInRange && IsOwner)
+            if (IsInRange)
             {
                 if (Input.GetKeyDown(InteractKey))
                 {
