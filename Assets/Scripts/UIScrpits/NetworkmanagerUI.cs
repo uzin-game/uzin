@@ -1,7 +1,8 @@
+using TMPro;
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace UIScrpits
 {
@@ -15,7 +16,7 @@ namespace UIScrpits
         [SerializeField] private GameObject StartGameUI;
         [SerializeField] private GameObject MainMenuUI;
         [SerializeField] private GameObject MenuCanvas;
-
+        [SerializeField] private TMP_InputField IPInputField;
 
 
         private void Awake()
@@ -33,6 +34,8 @@ namespace UIScrpits
             {
                 if (!NetworkManager.Singleton.IsServer && !NetworkManager.Singleton.IsClient)
                 {
+                    UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+                    transport.SetConnectionData(IPInputField.text, 7777);
                     NetworkManager.Singleton.StartClient();
                     StartGameUI.SetActive(false);
                     MenuCanvas.SetActive(false);
@@ -45,7 +48,7 @@ namespace UIScrpits
                 StartGameUI.SetActive(false);
                 MenuCanvas.SetActive(false);
             });
-            
+
             GoBackButton.onClick.AddListener(() =>
             {
                 MainMenuUI.SetActive(true);
