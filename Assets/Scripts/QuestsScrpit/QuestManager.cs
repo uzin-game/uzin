@@ -21,32 +21,38 @@ namespace QuestsScrpit
         public GameObject panel;
         public Quest CurrentQuest => Quests[currentQuestIndex];
         //public HealthNetwork healthNetwork;
-        
+
         public NetworkVariable<FixedString128Bytes> QuestTitle = new();
         public NetworkVariable<FixedString128Bytes> QuestDescription = new();
         public NetworkVariable<float> QuestProgress = new();
-        public NetworkVariable<float> QuestGoal = new(1f, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+        public NetworkVariable<float> QuestGoal = new(1f, NetworkVariableReadPermission.Everyone,
+            NetworkVariableWritePermission.Server);
 
 
         void InitializeFirstQuest()
         {
             //healthNetwork = GetComponent<HealthNetwork>();
             Quests = new List<Quest>();
-            
-            
-            Quest frist = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d", 1f, QuestText,
+
+
+            Quest frist = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d", 1f,
+                QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest second = new Quest("Récuperez du charbon", "Minez des minerais avec `A`", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest thrid = new Quest("Posez une foreuse", "appuyez sur `P` pour placer un machine", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest frouth = new Quest("Minez 10 fer a l'aide de la foreuse", "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 10f, QuestText,
+            Quest frouth = new Quest("Minez 10 fer a l'aide de la foreuse",
+                "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest fitfh = new Quest("Faites cuire le fer dans un four", "Commencez par placer un four", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter", 1f, QuestText,
-                QuestDescriptionText, Porgress, this); 
-            Quest senevth = new Quest("Construire le châssis de vôtre fusée", "Maintenant que vous avez les bases, débrouillez vous pour vous enfuir", 10f, QuestText,
+            Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter",
+                1f, QuestText,
+                QuestDescriptionText, Porgress, this);
+            Quest senevth = new Quest("Construire le châssis de vôtre fusée",
+                "Maintenant que vous avez les bases, débrouillez vous pour vous enfuir", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quests.Add(frist);
             Quests.Add(second);
@@ -59,37 +65,48 @@ namespace QuestsScrpit
             Quests[0].Initialize();
             Quests[0].Initialize();
         }
-        
+
         public override void OnNetworkSpawn()
         {
             if (IsServer)
             {
                 InitializeFirstQuest();
             }
-            
-            QuestTitle.OnValueChanged += (oldVal, newVal) =>
-            {
-                QuestText.text = newVal.ToString();
-            };
 
-            QuestDescription.OnValueChanged += (oldVal, newVal) =>
-            {
-                QuestDescriptionText.text = newVal.ToString();
-            };
+            QuestTitle.OnValueChanged += (oldVal, newVal) => { QuestText.text = newVal.ToString(); };
 
-            QuestProgress.OnValueChanged += (oldVal, newVal) =>
-            {
-                Porgress.value = newVal;
-            };
+            QuestDescription.OnValueChanged += (oldVal, newVal) => { QuestDescriptionText.text = newVal.ToString(); };
+
+            QuestProgress.OnValueChanged += (oldVal, newVal) => { Porgress.value = newVal; };
         }
-        
+
         public void CompleteQuestWithDelay()
         {
-            //healthNetwork.ApplyDamage(-10f);
+            if (IsServer)
+            {
+                HealAllPlayers(10f);
+            }
+
             CurrentQuest.IsActive = false;
             currentQuestIndex++;
             CurrentQuest.timer = CurrentQuest.delay;
             CurrentQuest.isWaiting = true;
+        }
+
+        private void HealAllPlayers(float healAmount)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (GameObject player in players)
+            {
+                HealthNetwork healthNetwork = player.GetComponent<HealthNetwork>();
+
+                if (healthNetwork != null)
+                {
+                    healthNetwork.ApplyDamage(-healAmount);
+                    Debug.Log($"Healed player {player.name} for {healAmount} HP");
+                }
+            }
         }
 
         void Update()
