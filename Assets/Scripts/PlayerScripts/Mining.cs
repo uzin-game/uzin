@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using RedstoneinventeGameStudio;
 using QuestsScrpit;
+using System.Linq;
 using System.Collections.Generic;
+using MapScripts;
 using Unity.Netcode;
 
 public class Mining : NetworkBehaviour
@@ -17,6 +19,9 @@ public class Mining : NetworkBehaviour
     [SerializeField] private TileBase charbonTile, ironTile, copperTile, goldTile;
     [SerializeField] private InventoryItemData coal, iron, copper, gold;
 
+    [Header("Chunk Manager")] [SerializeField]
+    private ChunkManager chunkManager;
+
     private Dictionary<TileBase, InventoryItemData> _tileToOre;
     private QuestManager _questManager;
 
@@ -30,7 +35,6 @@ public class Mining : NetworkBehaviour
 
     void Awake()
     {
-        // Mapping Tile → ItemData
         _tileToOre = new Dictionary<TileBase, InventoryItemData>
         {
             { charbonTile, coal },
@@ -40,7 +44,10 @@ public class Mining : NetworkBehaviour
         };
 
         if (resourceTilemap == null)
-            resourceTilemap = FindObjectOfType<Tilemap>();
+            resourceTilemap = FindFirstObjectByType<Tilemap>();
+
+        if (chunkManager == null)
+            chunkManager = FindFirstObjectByType<ChunkManager>();
     }
 
     void Start()
@@ -67,24 +74,50 @@ public class Mining : NetworkBehaviour
             return;
         }
 
-        bool added = inventoryUsing.Increment(oreData);
-
+        bool added = inventoryUsing.AddItem(oreData);
         if (!added)
+        {
             Debug.LogWarning("[Mining] Inventaire plein ou slot introuvable.");
+            return;
+        }
 
-        resourceTilemap.SetTile(cellPos, grassTile);
+        // Demande au serveur de mettre à jour la tuile pour tous
+        MineTileServerRpc(cellPos, grassTile.name);
 
-        // TODO: réactiver les quêtes
-        /*if (_questManager != null)
+        // Progression de quête locale
+        UpdateQuestProgress(tile);
+    }
+
+    private void UpdateQuestProgress(TileBase tile)
+    {
+        if (_questManager != null)
         {
             int qi = _questManager.currentQuestIndex;
             bool match =
                 (tile == charbonTile && qi == 1) ||
-                (tile == ironTile    && qi == 2) ||
-                (tile == copperTile  && qi == 3) ||
-                (tile == goldTile    && qi == 4);
+                (tile == ironTile && qi == 2) ||
+                (tile == copperTile && qi == 3) ||
+                (tile == goldTile && qi == 4);
             if (match)
                 _questManager.Quests[qi].Progress(1f);
-        }*/
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void MineTileServerRpc(Vector3Int cellPos, string newTileName)
+    {
+        if (!IsServer) return;
+
+        TileBase newTile = GetTileByName(newTileName);
+        if (newTile == null) return;
+
+        // Serveur met à jour sa tilemap et notifie tous les clients
+        chunkManager.MineTile(cellPos, newTile);
+    }
+
+    private TileBase GetTileByName(string name)
+    {
+        return new[] { charbonTile, ironTile, copperTile, goldTile, grassTile }
+            .FirstOrDefault(t => t != null && t.name == name);
     }
 }

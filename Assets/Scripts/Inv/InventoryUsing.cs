@@ -3,6 +3,7 @@ using RedstoneinventeGameStudio;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class InventoryUsing : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class InventoryUsing : MonoBehaviour
 
             if (card != null && card.itemData != null && card.itemData.itemName == it.itemName)
             {
-                // Crée une nouvelle copie avec la quantité totale (ajout)
                 InventoryItemData combined = it.CreateCopyWithQuantity(card.itemData.itemNb + it.itemNb);
                 card.UnSetItem();
                 card.SetItem(combined);
@@ -34,17 +34,14 @@ public class InventoryUsing : MonoBehaviour
 
             if (card != null && card.itemData == null)
             {
-                // On peut directement mettre l'item (1ère fois)
                 card.SetItem(it);
                 return true;
             }
         }
 
+        Debug.LogWarning("Inventaire plein, impossible d’ajouter " + it.itemName);
         return false;
     }
-
-
-
 
     public bool RemoveItem(InventoryItemData it)
     {
@@ -55,16 +52,19 @@ public class InventoryUsing : MonoBehaviour
             if (inventoryItemData != null && inventoryItemData.itemName == it.itemName)
             {
                 if (child.GetComponent<CardManager>().itemData.itemNb < it.itemNb) return false;
-                InventoryItemData itemtemp = child.GetComponent<CardManager>().itemData.CreateCopyWithQuantity(child.GetComponent<CardManager>().itemData.itemNb - it.itemNb);
+                InventoryItemData itemtemp = child.GetComponent<CardManager>().itemData
+                    .CreateCopyWithQuantity(child.GetComponent<CardManager>().itemData.itemNb - it.itemNb);
                 child.GetComponent<CardManager>().UnSetItem();
                 child.GetComponent<CardManager>().SetItem(itemtemp);
                 if (child.GetComponent<CardManager>().itemData.itemNb == it.itemNb)
                 {
                     child.GetComponent<CardManager>().UnSetItem();
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 
@@ -76,10 +76,11 @@ public class InventoryUsing : MonoBehaviour
             var inventoryItemData = child.GetComponent<CardManager>().itemData;
             if (inventoryItemData != null && inventoryItemData.itemName == it.itemName) return true;
         }
+
         return false;
     }
 
-    public bool Increment(InventoryItemData it)
+    /*public bool Increment(InventoryItemData it)
     {
         Debug.Log("Trying to add item: " + it.itemName + ", quantité = " + it.itemNb);
 
@@ -108,8 +109,10 @@ public class InventoryUsing : MonoBehaviour
                 return true;
             }
         }
+
         return false;
-    }
+    }*/
+
     public bool Decrement(InventoryItemData it)
     {
         for (int i = 0; i < Panel.transform.childCount; i++)
@@ -123,6 +126,7 @@ public class InventoryUsing : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 }

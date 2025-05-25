@@ -17,7 +17,8 @@ public class Inventory : NetworkBehaviour
     // Ajouter un item à l'inventaire
     public void AddItem(Item item)
     {
-        if (!IsServer) return; 
+        if (!IsServer) return;
+
         bool found = false;
 
         for (int i = 0; i < items.Count; i++)
