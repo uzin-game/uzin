@@ -412,6 +412,8 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth:
     m_InternalValue: 0
+  isDead: 0
+  DeathPanel: {fileID: 6100523724781498604}
 --- !u!114 &7809589785558961639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac74b2cddd730074f924f9a3ceb1eab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   inventoryUsing: {fileID: 80838437020248295}
   resourceTilemap: {fileID: 0}
   grassTile: {fileID: 11400000, guid: bfade3ed3f4b8d143928a71e7b9957b7, type: 2}

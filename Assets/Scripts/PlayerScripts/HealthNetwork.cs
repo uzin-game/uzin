@@ -15,6 +15,9 @@ public class HealthNetwork : NetworkBehaviour
     );
 
     private HealthComponent _healthComponent;
+    public bool isDead = false;
+
+    public GameObject DeathPanel;
 
 
     void Awake()
@@ -35,12 +38,84 @@ public class HealthNetwork : NetworkBehaviour
         {
             _healthComponent.SetHealth(CurrentHealth.Value);
         }
+        
+        // Try to find DeathPanel for this client
+        if (IsOwner && DeathPanel == null)
+        {
+            DeathPanel = GameObject.Find("DeathPanel"); // Or use another reliable way
+        }
     }
 
     private void OnHealthVariableChanged(float previousValue, float newValue)
     {
         _healthComponent.SetHealth(newValue);
+        
+        if (!isDead && newValue <= 0f)
+        {
+            isDead = true;
+
+            if (IsServer && CompareTag("Player"))
+            {
+                HandleDeathServer();
+            }
+        }
     }
+    
+    private void HandleDeathServer()
+    {
+        Debug.Log($"{name} died on server");
+
+        // Teleport to (0, 0, 0)
+        transform.position = Vector3.zero;
+
+        // Notify client to show death panel if it's a player
+        if (CompareTag("Player"))
+        {
+            ShowDeathClientRpc(OwnerClientId);
+        }
+    }
+    
+    [ClientRpc]
+    private void ShowDeathClientRpc(ulong clientId)
+    {
+        if (!IsOwner || NetworkManager.Singleton.LocalClientId != clientId) return;
+
+        Debug.Log("Showing death panel to player " + clientId);
+        
+        if (DeathPanel != null)
+        {
+            DeathPanel.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("DeathPanel not set on player");
+        }
+
+        ResetHealthLocally();
+    }
+    
+    private void ResetHealthLocally()
+    {
+        if (IsOwner)
+        {
+            Debug.Log("Resetting health to max locally");
+
+            // Only tell the server to reset health
+            ResetHealthServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    private void ResetHealthServerRpc()
+    {
+        Debug.Log("Resetting health to max on server");
+        CurrentHealth.Value = maxHealth;
+        isDead = false;
+
+        // Optional: teleport to respawn point again
+        transform.position = new Vector3(0, 0, 0);
+    }
+
 
     private void ApplyDamageInternal(float damage)
     {

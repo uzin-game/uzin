@@ -893,25 +893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a10b99f4afec94e90787725a139bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 184982838}
-  itemPanel: {fileID: 1345444065}
-  itemPrefab1: {fileID: 6154576002252980938, guid: 00ea281e616c6714e863a9de4b545c37, type: 3}
-  itemPrefab2: {fileID: 9021394040830327243, guid: 59d193e267da9044e94e4ab9b7da7560, type: 3}
-  itemPrefab3: {fileID: 2422746445424979714, guid: 3c6f0f5d389d30b469ae32b3d431aff8, type: 3}
-  itemPrefab4: {fileID: 9074836090289332141, guid: ccb03d313e45b5a45b96bab2950d8ef9, type: 3}
-  itemPrefab5: {fileID: 1608743991938956866, guid: bff0a626ced5d0144bc7680a1cbe2468, type: 3}
-  itemPrefab6: {fileID: 3689067902008671863, guid: 7dc471f631e56c1428424f9af9ac617a, type: 3}
-  itemPrefab7: {fileID: 1341402507143468844, guid: 2666c35071b355f4ea95ae022bf49ae6, type: 3}
-  itemPrefab8: {fileID: 2506526186405691052, guid: 9f493ed0e2e2b5b409c3829669b9d98d, type: 3}
-  itemPrefab9: {fileID: 7188296846561719233, guid: 46e3010d72aa9bd4886e5fd187004f9f, type: 3}
-  itemPrefab10: {fileID: 4645036380721624331, guid: 425e566a30d43154996178e99c52d18c, type: 3}
-  itemPrefab11: {fileID: 6987850576221070533, guid: df3dae61f550eeb42a55206c775d2251, type: 3}
-  itemPrefab12: {fileID: 4849356047716809558, guid: 07f6a8e8b06567e4aacf8ba85dda63fc, type: 3}
-  itemPrefab13: {fileID: 334129711854470641, guid: a9b7a9106c38bb34ab9f809ab5ba6b7f, type: 3}
-  itemPrefab14: {fileID: 705003619808418083, guid: fd0fe35b4f68bca41868e6fd0a5b1673, type: 3}
-  itemPrefab15: {fileID: 449311069365699482, guid: a99975ada8b69f94987edf95d5e3587a, type: 3}
-  itemPrefab16: {fileID: 3386552659552791746, guid: 0ce8c271bb284044ca14ec32ed195566, type: 3}
-  itemDatabase: {fileID: 456279369}
 --- !u!1 &184982835
 GameObject:
   m_ObjectHideFlags: 0
@@ -3862,8 +3843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 140e2072b825bff4a8d0cdddede735fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervalMin: 15
-  spawnIntervalMax: 30
+  spawnIntervalMin: 5
+  spawnIntervalMax: 7
   spawnableMobs:
   - name: Spider
     prefabIndex: 1
