@@ -41,6 +41,7 @@ public class FlyAI : NetworkBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         player = FindFirstObjectByType<PlayerNetwork>().transform;
+        animator = GetComponent<Animator>();
 
         HealthNetwork = GetComponent<HealthNetwork>();
         HealthNetwork.CurrentHealth.OnValueChanged += OnHealthChanged;

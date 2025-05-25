@@ -64,6 +64,9 @@ namespace MapScripts
 
         public override void OnNetworkSpawn()
         {
+            
+            questManager = FindFirstObjectByType<QuestManager>();
+
             // Générer la seed uniquement côté serveur ou host
             if (IsServer || IsHost)
             {
@@ -107,7 +110,6 @@ namespace MapScripts
         {
             // Charger les tuiles depuis les ressources
             LoadTiles();
-            questManager = FindFirstObjectByType<QuestManager>();
         }
 
         private void Update()

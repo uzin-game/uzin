@@ -34,21 +34,27 @@ namespace QuestsScrpit
             Quests = new List<Quest>();
             
             
-            Quest first = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d", 1f, QuestText,
+            Quest frist = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest second = new Quest("Récuperez du charbon", "Minez des minerais avec `A`", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest thrid = new Quest("Posez une foreuse", "appuyez sur `P` pour placer un machine", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest frouth = new Quest("Minez 25 fer a l'aide de la foreuse", "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 25f, QuestText,
+            Quest frouth = new Quest("Minez 10 fer a l'aide de la foreuse", "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest fitfh = new Quest("Faites cuire le fer dans un four", "Commencez par placer un four", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quests.Add(first);
+            Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter", 1f, QuestText,
+                QuestDescriptionText, Porgress, this); 
+            Quest senevth = new Quest("Construire le châssis de vôtre fusée", "Maintenant que vous avez les bases, débrouillez vous pour vous enfuir", 10f, QuestText,
+                QuestDescriptionText, Porgress, this);
+            Quests.Add(frist);
             Quests.Add(second);
             Quests.Add(thrid);
             Quests.Add(frouth);
             Quests.Add(fitfh);
+            Quests.Add(sitxh);
+            Quests.Add(senevth);
 
             Quests[0].Initialize();
             Quests[0].Initialize();

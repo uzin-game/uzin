@@ -31,6 +31,8 @@ public class Mining : NetworkBehaviour
         {
             enabled = false;
         }
+        
+        _questManager = FindFirstObjectByType<QuestManager>();
     }
 
     void Awake()
@@ -52,7 +54,6 @@ public class Mining : NetworkBehaviour
 
     void Start()
     {
-        _questManager = FindFirstObjectByType<QuestManager>();
     }
 
     void Update()
@@ -82,10 +83,10 @@ public class Mining : NetworkBehaviour
         }
 
         // Demande au serveur de mettre à jour la tuile pour tous
-        MineTileServerRpc(cellPos, grassTile.name);
+        MineTileServerRpc(cellPos, grassTile.name, tile.name);
 
         // Progression de quête locale
-        UpdateQuestProgress(tile);
+        //UpdateQuestProgress(tile);
     }
 
     private void UpdateQuestProgress(TileBase tile)
@@ -104,8 +105,9 @@ public class Mining : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void MineTileServerRpc(Vector3Int cellPos, string newTileName)
+    private void MineTileServerRpc(Vector3Int cellPos, string newTileName, string originalTileName)
     {
+        Debug.Log($"[ServerRpc] Received mining request from client at {cellPos} for {newTileName}");
         if (!IsServer) return;
 
         TileBase newTile = GetTileByName(newTileName);
@@ -113,6 +115,16 @@ public class Mining : NetworkBehaviour
 
         // Serveur met à jour sa tilemap et notifie tous les clients
         chunkManager.MineTile(cellPos, newTile);
+        
+        // Avance la quête si c'est du charbon et la quête n°1
+        if (_questManager != null && _questManager.currentQuestIndex == 1)
+        {
+            TileBase originalTile = GetTileByName(originalTileName);
+            if (originalTile == charbonTile)
+            {
+                _questManager.Quests[1].Progress(1f);
+            }
+        }
     }
 
     private TileBase GetTileByName(string name)

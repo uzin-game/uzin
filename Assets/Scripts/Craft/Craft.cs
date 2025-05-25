@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using QuestsScrpit;
 using RedstoneinventeGameStudio;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Craft : MonoBehaviour
+public class Craft : NetworkBehaviour
 {
     public GameObject Select;
     public InventoryUsing Inventory;
     public Image error;
     public CraftingRecipes re = null;
+    public QuestManager questmanager;
 
     public void execute()
     {
         Debug.Log("Craft");
         StartCoroutine(OnPressed()); // ← CORRECT
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        questmanager = FindFirstObjectByType<QuestManager>();
     }
 
     public IEnumerator OnPressed()
@@ -38,11 +46,14 @@ public class Craft : MonoBehaviour
                 if (Inventory.RemoveItem(item)) used.Add(item);
                 else CanCraft = false;
             }
-
             if (CanCraft)
             {
                 Debug.Log("Craft OnPressed: CanCraft is true");
                 Inventory.AddItem(re.product.CreateCopyWithQuantity(re.amount));
+                if (questmanager != null && questmanager.currentQuestIndex == 5) //TODO
+                {
+                    questmanager.Quests[5].Progress(1f);
+                }
             }
             else
             {
