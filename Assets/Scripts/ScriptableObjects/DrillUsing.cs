@@ -108,7 +108,7 @@ public class DrillUsing : MonoBehaviour
         if (newCoalQty > 0) coal.SetItem(i.CreateCopyWithQuantity(newCoalQty));
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        questManager = player.GetComponent<QuestManager>();
+        questManager = FindFirstObjectByType<QuestManager>();
         
         // Pendant 10 secondes, produire toutes les 2 secondes
         while (elapsed < burnDuration)

@@ -52,7 +52,7 @@ public class Mining : NetworkBehaviour
 
     void Start()
     {
-        _questManager = GetComponent<QuestManager>();
+        _questManager = FindFirstObjectByType<QuestManager>();
     }
 
     void Update()

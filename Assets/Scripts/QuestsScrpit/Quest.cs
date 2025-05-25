@@ -43,11 +43,20 @@ public class Quest
 
     public void Initialize()
     {
-        IsActive = true;
         QuestTitle.text = Title;
         QuestText.text = Description;
-        currAmount = 0;
-        QuestProgress.value = currAmount;
+        //QuestProgress.maxValue = requiredAmount;
+        QuestProgress.value = 0;
+
+        // Sync to clients
+        if (QuestManager.IsServer)
+        {
+            QuestManager.QuestTitle.Value = Title;
+            QuestManager.QuestDescription.Value = Description;
+            QuestManager.QuestProgress.Value = 0;
+        }
+
+        IsActive = true;
     }
 
     public void CompleteQuestWithDelay()
@@ -75,7 +84,14 @@ public class Quest
     public void Progress(float progress)
     {
         currAmount += progress;
-        QuestProgress.value = currAmount/requiredAmount;
+        float normalizedProgress = Mathf.Clamp01(currAmount / requiredAmount);
+        QuestProgress.value = normalizedProgress;
+
+        if (QuestManager.IsServer)
+        {
+            QuestManager.QuestProgress.Value = normalizedProgress;
+        }
+
         if (currAmount >= requiredAmount)
         {
             QuestManager.CompleteQuestWithDelay();

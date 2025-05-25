@@ -115,7 +115,7 @@ public class FurnaceUsing : MonoBehaviour
         if (newCoalQty > 0) coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        questManager = player.GetComponent<QuestManager>();
+        questManager = FindFirstObjectByType<QuestManager>();
 
         while (elapsed < burnDuration)
         {
@@ -147,12 +147,20 @@ public class FurnaceUsing : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(correspondingIngot.CreateCopyWithQuantity(1));
+                if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                }
             }
             else if (output.itemData.itemName == correspondingIngot.itemName)
             {
                 int outQty = output.itemData.itemNb + 1;
                 output.UnSetItem();
                 output.SetItem(correspondingIngot.CreateCopyWithQuantity(outQty));
+                if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                {
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                }
             }
             else
             {

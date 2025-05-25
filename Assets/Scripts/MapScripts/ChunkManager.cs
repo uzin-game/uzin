@@ -153,7 +153,7 @@ namespace MapScripts
             }
 
             GameObject playerObj = player.gameObject;
-            questManager = playerObj.GetComponent<QuestManager>();
+            questManager = FindFirstObjectByType<QuestManager>();
             var currtile = GetTileAtCell(tilemap.WorldToCell(player.position));
 
             if (currtile == questManager.charbon)
