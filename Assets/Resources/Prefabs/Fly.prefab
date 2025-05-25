@@ -321,6 +321,8 @@ MonoBehaviour:
   maxHealth: 100
   CurrentHealth:
     m_InternalValue: 0
+  isDead: 0
+  DeathPanel: {fileID: 0}
 --- !u!95 &5210794841552263853
 Animator:
   serializedVersion: 7

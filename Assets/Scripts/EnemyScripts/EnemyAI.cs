@@ -38,6 +38,7 @@ public class FlyAI : NetworkBehaviour
             return;
         }
 
+
         rb = GetComponent<Rigidbody2D>();
         player = FindFirstObjectByType<PlayerNetwork>().transform;
 
@@ -55,8 +56,8 @@ public class FlyAI : NetworkBehaviour
         {
             return;
         }
-
-        animator.SetBool("IsWalking", true);
+        
+        animator.SetBool("IsFlying", true);
 
         switch (currentState)
         {
