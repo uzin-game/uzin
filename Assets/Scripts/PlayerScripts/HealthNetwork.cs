@@ -1,3 +1,4 @@
+using Effects;
 using UnityEngine;
 using Unity.Netcode;
 using Ilumisoft.HealthSystem;
@@ -44,32 +45,30 @@ public class HealthNetwork : NetworkBehaviour
     private void ApplyDamageInternal(float damage)
     {
         if (!IsServer) return;
-
+        
         float h = Mathf.Max(CurrentHealth.Value - damage, 0f);
         CurrentHealth.Value = h;
-
-        /*
-        if (IsOwner)
+        
+        if (h == 0f)
         {
-            if (h == 0f)
-            {
-                for (int i = 0; i < Panel.transform.childCount; i++)
-                {
-                    var child = Panel.transform.GetChild(i);
-                    var card = child.GetComponent<CardManager>();
+            Debug.Log("Enemy died on server.");
+            HandleDeathClientRpc();
+        }
+    }     
+    
+    [ClientRpc]
+    private void HandleDeathClientRpc()
+    {
+        var fadeOut = GetComponent<FadeOut>();
+        var ai = GetComponent<FlyAI>();
 
-                    if (card != null && card.itemData == null)
-                    {
-                        card.UnSetItem();
-                    }
-                }
-            
-                DeathPanel.SetActive(true);
-            }
-        }*/
-        
-        
+        if (fadeOut != null)
+            fadeOut.enabled = true;
+
+        if (ai != null)
+            ai.IsFrozen = true;
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     public void ApplyDamageServerRpc(float damage)
