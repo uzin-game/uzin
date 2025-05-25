@@ -103,8 +103,9 @@ public class DrillUsing : MonoBehaviour
 
         // Consommer 1 charbon immédiatement
         int newCoalQty = coal.itemData.itemNb - 1;
+        InventoryItemData i = CoalItem.CreateCopyWithQuantity(newCoalQty);
         coal.UnSetItem();
-        if (newCoalQty > 0) coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
+        if (newCoalQty > 0) coal.SetItem(i.CreateCopyWithQuantity(newCoalQty));
 
         var player = GameObject.FindGameObjectWithTag("Player");
         questManager = player.GetComponent<QuestManager>();

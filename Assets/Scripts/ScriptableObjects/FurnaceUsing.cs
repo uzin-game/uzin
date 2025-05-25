@@ -136,10 +136,12 @@ public class FurnaceUsing : MonoBehaviour
             InventoryItemData correspondingIngot = oreToIngot[currentOre];
 
             // Consommer 1 minerai
+            Debug.Log(input.itemData.itemNb);
             int newOreQty = input.itemData.itemNb - 1;
+            InventoryItemData c = input.itemData.CreateCopyWithQuantity(newOreQty);
             input.UnSetItem();
             if (newOreQty > 0)
-                input.SetItem(input.itemData.CreateCopyWithQuantity(newOreQty));
+                input.SetItem(c);
 
             // Ajouter 1 lingot dans la sortie
             if (output.itemData == null)
@@ -159,11 +161,11 @@ public class FurnaceUsing : MonoBehaviour
                 yield break;
             }
 
-            // Quête
+            /*
             if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
             {
                 questManager.Quests[questManager.currentQuestIndex].Progress(1f);
-            }
+            }*/
 
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;
