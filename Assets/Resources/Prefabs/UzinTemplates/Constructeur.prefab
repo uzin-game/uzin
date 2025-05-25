@@ -492,7 +492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -587.6748, y: 293.10193}
+  m_AnchoredPosition: {x: -610.45, y: -0.59967}
   m_SizeDelta: {x: 279.1097, y: 56.6245}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8458204086375010715
@@ -853,6 +853,7 @@ MonoBehaviour:
   NorthButton: {fileID: 0}
   EastButton: {fileID: 0}
   SouthButton: {fileID: 0}
+  furnaceScript: {fileID: 0}
   WestButton: {fileID: 0}
   IsSelecting: 0
   SelectButton: {fileID: 0}

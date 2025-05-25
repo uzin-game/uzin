@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Vis
   m_EditorClassIdentifier: 
   product: {fileID: 11400000, guid: 3991c197371d2054f8ff4119570434fc, type: 2}
-  amount: 1
+  amount: 2
   Ressources:
   - {fileID: 11400000, guid: 2224cf2360d60da4a9624e2409377dc3, type: 2}

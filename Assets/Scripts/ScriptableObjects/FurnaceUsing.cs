@@ -20,6 +20,8 @@ public class FurnaceUsing : MonoBehaviour
 
     public NetworkSpawner networkSpawner;
     private bool burning = false;
+    private bool interfaceActive = true; // Nouveau flag pour savoir si l'interface est active
+    private Coroutine burnCoroutine; // Référence à la coroutine pour pouvoir l'arrêter
     public QuestManager questManager;
 
     // Mapping minerai → lingot
@@ -39,8 +41,14 @@ public class FurnaceUsing : MonoBehaviour
 
     void Update()
     {
-        var inputManager = InputCard.GetComponent<CardManager>();
-        var coalManager = CoalCard.GetComponent<CardManager>();
+        // Vérifier si l'interface est toujours active
+        if (!interfaceActive) return;
+
+        var inputManager = InputCard?.GetComponent<CardManager>();
+        var coalManager = CoalCard?.GetComponent<CardManager>();
+
+        // Vérifications de sécurité
+        if (inputManager == null || coalManager == null) return;
 
         bool notBurning = !burning;
         bool inputNotNull = inputManager.itemData != null;
@@ -60,6 +68,30 @@ public class FurnaceUsing : MonoBehaviour
         }
     }
 
+    // Méthode à appeler quand l'interface se ferme
+    public void OnInterfaceClose()
+    {
+        interfaceActive = false;
+        StopBurning();
+    }
+
+    // Méthode à appeler quand l'interface s'ouvre
+    public void OnInterfaceOpen()
+    {
+        interfaceActive = true;
+    }
+
+    // Méthode pour arrêter le processus de cuisson
+    public void StopBurning()
+    {
+        if (burnCoroutine != null)
+        {
+            StopCoroutine(burnCoroutine);
+            burnCoroutine = null;
+        }
+        burning = false;
+    }
+
     void SpawnOutput(Vector3 position, int prefabindex)
     {
         Debug.Log("Spawning Output");
@@ -68,7 +100,9 @@ public class FurnaceUsing : MonoBehaviour
 
     public bool ConveyorUsing(InventoryItemData inventoryItem)
     {
-        var inputManager = InputCard.GetComponent<CardManager>();
+        var inputManager = InputCard?.GetComponent<CardManager>();
+        if (inputManager == null) return false;
+
         var existingItem = inputManager.itemData;
 
         if (existingItem == null)
@@ -89,19 +123,28 @@ public class FurnaceUsing : MonoBehaviour
 
     public void Burn()
     {
+        if (burning) return; // Éviter de démarrer plusieurs fois
+        
         burning = true;
-        StartCoroutine(BurnProcess());
+        burnCoroutine = StartCoroutine(BurnProcess());
     }
 
     private IEnumerator BurnProcess()
     {
-        var input = InputCard.GetComponent<CardManager>();
-        var coal = CoalCard.GetComponent<CardManager>();
-        var output = OutputCard.GetComponent<CardManager>();
-
         float burnDuration = 10f;
         float productionInterval = 2f;
         float elapsed = 0f;
+
+        var input = InputCard?.GetComponent<CardManager>();
+        var coal = CoalCard?.GetComponent<CardManager>();
+        var output = OutputCard?.GetComponent<CardManager>();
+
+        // Vérifications de sécurité initiales
+        if (input == null || coal == null || output == null)
+        {
+            burning = false;
+            yield break;
+        }
 
         if (coal.itemData == null || coal.itemData.itemNb <= 0)
         {
@@ -117,8 +160,15 @@ public class FurnaceUsing : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         questManager = FindFirstObjectByType<QuestManager>();
 
-        while (elapsed < burnDuration)
+        while (elapsed < burnDuration && interfaceActive)
         {
+            // Vérifications de sécurité à chaque itération
+            if (input == null || coal == null || output == null)
+            {
+                burning = false;
+                yield break;
+            }
+
             if (input.itemData == null || input.itemData.itemNb <= 0)
             {
                 burning = false;
@@ -147,7 +197,7 @@ public class FurnaceUsing : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(correspondingIngot.CreateCopyWithQuantity(1));
-                if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);
                 }
@@ -157,7 +207,7 @@ public class FurnaceUsing : MonoBehaviour
                 int outQty = output.itemData.itemNb + 1;
                 output.UnSetItem();
                 output.SetItem(correspondingIngot.CreateCopyWithQuantity(outQty));
-                if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);
                 }
@@ -169,16 +219,23 @@ public class FurnaceUsing : MonoBehaviour
                 yield break;
             }
 
-            /*
-            if (questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
-            {
-                questManager.Quests[questManager.currentQuestIndex].Progress(1f);
-            }*/
-
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;
         }
 
         burning = false;
+        burnCoroutine = null;
+    }
+
+    // Méthode appelée quand l'objet est détruit
+    void OnDestroy()
+    {
+        StopBurning();
+    }
+
+    // Méthode appelée quand l'objet est désactivé
+    void OnDisable()
+    {
+        StopBurning();
     }
 }

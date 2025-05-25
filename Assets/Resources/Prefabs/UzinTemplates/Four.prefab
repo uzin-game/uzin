@@ -209,6 +209,7 @@ MonoBehaviour:
   NorthButton: {fileID: 3178359378383588722}
   EastButton: {fileID: 6656272211882808188}
   SouthButton: {fileID: 1343597843883670743}
+  furnaceScript: {fileID: 7889503116133043161}
   WestButton: {fileID: 2651710179754381883}
   IsSelecting: 0
   SelectButton: {fileID: 9182429370632977150}

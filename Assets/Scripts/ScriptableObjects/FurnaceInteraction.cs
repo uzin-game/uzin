@@ -17,6 +17,7 @@ public class FurnaceInteraction : MonoBehaviour
     public Button NorthButton;
     public Button EastButton;
     public Button SouthButton;
+    public FurnaceUsing furnaceScript;
     public Button WestButton;
     public bool IsSelecting;
     public Button SelectButton;
@@ -90,14 +91,17 @@ public class FurnaceInteraction : MonoBehaviour
     {
         if (!IsInteracting)
         {
+            if (furnaceScript != null)furnaceScript.OnInterfaceOpen();
             IsInteracting = true;
             SetFurnaceInventory();
+            
             FurnaceUI.SetActive(true);
             playerInRange.GetComponent<PlayerAimWeapon>().enabled = false;
         }
 
         else if (IsInteracting)
         {
+            if (furnaceScript != null)furnaceScript.OnInterfaceClose();
             IsInteracting = false;
             SetPlayerBackInventory();
             FurnaceUI.SetActive(false);

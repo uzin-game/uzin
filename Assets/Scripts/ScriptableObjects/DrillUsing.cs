@@ -29,46 +29,68 @@ public class DrillUsing : MonoBehaviour
     public QuestManager questManager;
     
     public NetworkSpawner spawner;
-
     void Start()
     {
-        spawner = FindFirstObjectByType<NetworkSpawner>();
-    }
-    void Update()
-    {
-        bool notBurning = !burning;
-        bool CoalCardNull = CoalCard.GetComponent<CardManager>().itemData != null;
-        var inventoryItemData = CoalCard.GetComponent<CardManager>().itemData;
-        bool CoalCardCoal = inventoryItemData != null && inventoryItemData.itemName == CoalItem.itemName;
         
-        if (Tile == CoalTile)
+        spawner = FindFirstObjectByType<NetworkSpawner>();
+        // Debug pour vérifier les tiles
+        Debug.Log("Current Tile: " + (Tile != null ? Tile.name : "null"));
+        Debug.Log("CoalTile: " + (CoalTile != null ? CoalTile.name : "null"));
+        Debug.Log("IronTile: " + (IronTile != null ? IronTile.name : "null"));
+        Debug.Log("CopperTile: " + (CopperTile != null ? CopperTile.name : "null"));
+        Debug.Log("OrTile: " + (OrTile != null ? OrTile.name : "null"));
+        
+        // Définir le produit et les paramètres une seule fois au début
+        if (Tile != null && CoalTile != null && Tile == CoalTile)
         {
             product = CoalItem;
             CanMine = true;
+            advanceQuest = false;
+            Debug.Log("Configured for Coal mining");
         }
-        if (Tile == IronTile)
+        else if (Tile != null && IronTile != null && Tile == IronTile)
         {
             product = IronOre;
             CanMine = true;
             advanceQuest = true;
+            Debug.Log("Configured for Iron mining");
         }
-
-        if (Tile == CopperTile)
+        else if (Tile != null && CopperTile != null && Tile == CopperTile)
         {
             product = CopperOre;
             CanMine = true;
+            advanceQuest = false;
+            Debug.Log("Configured for Copper mining");
         }
-
-        if (Tile == OrTile)
+        else if (Tile != null && OrTile != null && Tile == OrTile)
         {
             product = OrOre;
             CanMine = true;
+            advanceQuest = false;
+            Debug.Log("Configured for Or mining");
+        }
+        else
+        {
+            CanMine = false;
+            advanceQuest = false;
+            Debug.Log("No valid tile configuration found - mining disabled");
         }
         
+        Debug.Log("Drill initialized - Product: " + (product != null ? product.itemName : "null") + ", CanMine: " + CanMine);
+    }
+
+    void Update()
+    {
+        bool notBurning = !burning;
+        var coalCardManager = CoalCard.GetComponent<CardManager>();
+        bool hasCoal = coalCardManager.itemData != null && 
+                       coalCardManager.itemData.itemName == CoalItem.itemName && 
+                       coalCardManager.itemData.itemNb > 0;
         
-        if (notBurning && CoalCardNull && CoalCardCoal && CanMine)
+        if (notBurning && hasCoal && CanMine)
         {
-            Debug.Log("Drill");
+            Debug.Log("Drill - Mining: " + (product != null ? product.itemName : "null"));
+            Debug.Log("Coal available: " + coalCardManager.itemData.itemNb);
             Burn();
         }
     }
@@ -97,15 +119,22 @@ public class DrillUsing : MonoBehaviour
         // Vérifie que le charbon est disponible avant de commencer
         if (coal.itemData == null || coal.itemData.itemNb <= 0)
         {
+            Debug.Log("Pas assez de charbon pour démarrer");
             burning = false;
             yield break;
         }
 
         // Consommer 1 charbon immédiatement
-        int newCoalQty = coal.itemData.itemNb - 1;
-        InventoryItemData i = CoalItem.CreateCopyWithQuantity(newCoalQty);
+        int currentCoalQty = coal.itemData.itemNb;
+        int newCoalQty = currentCoalQty - 1;
+        
+        Debug.Log("Consuming coal: " + currentCoalQty + " -> " + newCoalQty);
+        
         coal.UnSetItem();
-        if (newCoalQty > 0) coal.SetItem(i.CreateCopyWithQuantity(newCoalQty));
+        if (newCoalQty > 0) 
+        {
+            coal.SetItem(CoalItem.CreateCopyWithQuantity(newCoalQty));
+        }
 
         var player = GameObject.FindGameObjectWithTag("Player");
         questManager = FindFirstObjectByType<QuestManager>();
@@ -113,13 +142,8 @@ public class DrillUsing : MonoBehaviour
         // Pendant 10 secondes, produire toutes les 2 secondes
         while (elapsed < burnDuration)
         {
-            // Vérifie que le joueur n’a pas retiré le charbon entre-temps
-            if (coal.itemData == null || coal.itemData.itemNb < 0)
-            {
-                burning = false;
-                yield break;
-            }
-
+            Debug.Log("Production cycle - elapsed: " + elapsed + "s");
+            
             // Ajout du produit dans la carte de sortie
             
             /*
@@ -154,7 +178,8 @@ public class DrillUsing : MonoBehaviour
             if (output.itemData == null)
             {
                 output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
-                if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
+                Debug.Log("Created new output: " + product.itemName + " x1");
+                if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                 }
@@ -164,7 +189,8 @@ public class DrillUsing : MonoBehaviour
                 int outQty = output.itemData.itemNb + 1;                                            //TODO
                 output.UnSetItem();
                 output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
-                if (questManager.currentQuestIndex == 3 && advanceQuest)
+                Debug.Log("Added to existing output: " + product.itemName + " x" + outQty);
+                if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)
                 {
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                 }
@@ -175,6 +201,7 @@ public class DrillUsing : MonoBehaviour
         }
 
         // Terminé après 10 secondes de production
+        Debug.Log("Burn process completed");
         burning = false;
     }
 }
