@@ -1,46 +1,76 @@
 using UnityEngine;
+using Unity.Netcode;
 using CodeMonkey.Utils;
 using Effects;
 
-public class OnShoot : MonoBehaviour
+public class OnShoot : NetworkBehaviour
 {
-
     [SerializeField] private PlayerAimWeapon playerAimWeapon;
     private CameraShake cameraShake;
     public Camera cam;
     public float shakeAmount;
     public Material weaponTracerMaterial;
-    //public float meshHeight
 
     private void Start()
     {
-        playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
-        cameraShake = cam.GetComponent<CameraShake>();
+        if (IsOwner)
+        {
+            playerAimWeapon.OnShoot += PlayerAimWeapon_OnShoot;
+        }
+
+        if (cam != null)
+        {
+            cameraShake = cam.GetComponent<CameraShake>();
+        }
     }
 
     private void PlayerAimWeapon_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
-        cameraShake.shakeDuration = 0.2f;
-        cameraShake.shakeAmount = shakeAmount;
-        CreateWeaponTracer(e.gunEndPos, e.shootPos);
+        FireWeaponServerRpc(e.gunEndPos, e.shootPos);
     }
 
-    private void CreateWeaponTracer(Vector3 from, Vector3 target)
+    [ServerRpc]
+    private void FireWeaponServerRpc(Vector3 gunEndPos, Vector3 shootPos)
     {
-        
+        ProcessDamage(gunEndPos, shootPos);
+        ShowWeaponEffectsClientRpc(gunEndPos, shootPos);
+    }
+
+    [ClientRpc]
+    private void ShowWeaponEffectsClientRpc(Vector3 gunEndPos, Vector3 shootPos)
+    {
+        CreateWeaponTracer(gunEndPos, shootPos);
+
+        if (IsOwner && cameraShake != null)
+        {
+            cameraShake.shakeDuration = 0.2f;
+            cameraShake.shakeAmount = shakeAmount;
+        }
+    }
+
+    private void ProcessDamage(Vector3 from, Vector3 target)
+    {
         Vector3 direction = (target - from).normalized;
-        float ogDistance = Vector3.Distance(from, target);
-        RaycastHit2D[] hits = Physics2D.RaycastAll(from, direction, ogDistance, LayerMask.GetMask("Enemy"));
+        float distance = Vector3.Distance(from, target);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(from, direction, distance, LayerMask.GetMask("Enemy"));
 
         foreach (var hit in hits)
         {
             if (hit.collider != null && hit.collider.CompareTag("Enemy"))
             {
                 var enemy = hit.collider;
-
-                enemy.GetComponent<HealthNetwork>().ApplyDamage(100);
+                var healthNetwork = enemy.GetComponent<HealthNetwork>();
+                if (healthNetwork != null)
+                {
+                    healthNetwork.ApplyDamage(100);
+                }
             }
         }
+    }
+
+    private void CreateWeaponTracer(Vector3 from, Vector3 target)
+    {
+        Vector3 direction = (target - from).normalized;
         float distance = Vector3.Distance(from, target);
         float eulerZ = UtilsClass.GetAngleFromVectorFloat(direction);
 
@@ -49,7 +79,8 @@ public class OnShoot : MonoBehaviour
 
         tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(distance / 40f, 1f));
 
-        World_Mesh worldMesh = World_Mesh.CreateGood(tracerSpawnPosition, eulerZ, distance, 0.1f, tmpWeaponTracerMaterial, null, 10000);
+        World_Mesh worldMesh = World_Mesh.CreateGood(tracerSpawnPosition, eulerZ, distance, 0.1f,
+            tmpWeaponTracerMaterial, null, 10000);
         float timer = .1f;
 
         FunctionUpdater.Create(() =>
@@ -64,5 +95,15 @@ public class OnShoot : MonoBehaviour
 
             return false;
         });
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        if (IsOwner && playerAimWeapon != null)
+        {
+            playerAimWeapon.OnShoot -= PlayerAimWeapon_OnShoot;
+        }
+
+        base.OnNetworkDespawn();
     }
 }
