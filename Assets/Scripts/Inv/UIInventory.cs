@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // Nécessaire pour TextMeshPro
 
-public class InventoryUI : MonoBehaviour
+/*/ public class InventoryUI : MonoBehaviour
 {
     public Inventory inventory; // Référence à l'inventaire
     public Transform itemPanel;  // Panel parent pour les slots d'items
@@ -37,12 +37,14 @@ public class InventoryUI : MonoBehaviour
         inventory.quantity.OnListChanged += _ => UpdateUI();
 
         UpdateUI();
-        
+
         itemPanel.gameObject.SetActive(false);
     }
 
     private void UpdateUI()
     {
+        Debug.Log("Updating UI");
+
         foreach (Transform child in itemPanel)
         {
             Destroy(child.gameObject);
@@ -97,6 +99,8 @@ public class InventoryUI : MonoBehaviour
     // Mettre à jour l'UI lorsque l'inventaire change
     private void UpdateUI(NetworkListEvent<Item> changeEvent)
     {
+        Debug.Log("Updating UI");
+
         // Effacer l'UI actuelle
         foreach (Transform child in itemPanel)
         {
@@ -107,7 +111,7 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < inventory.items.Count; i++)
         {
             Item item = inventory.items[i];
-            GameObject itemUI = Instantiate(GetUIPrefab(i), itemPanel); 
+            GameObject itemUI = Instantiate(GetUIPrefab(i), itemPanel);
 
             Image itemImage = itemUI.GetComponent<Image>();
             if (itemImage != null)
@@ -129,7 +133,7 @@ public class InventoryUI : MonoBehaviour
             {
                 Debug.LogWarning("L'élément UI ne contient pas de ItemNB");
             }
-            
+
             TMP_Text itemNbText = itemUI.transform.Find("ItemNb")?.GetComponent<TMP_Text>();
             if (itemNbText != null)
             {
@@ -141,4 +145,4 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-}
+}*/

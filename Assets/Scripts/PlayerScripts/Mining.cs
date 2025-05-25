@@ -1,37 +1,37 @@
-// -----------------------------
-// FINAL Mining.cs (FIXED)
-// -----------------------------
-using QuestsScrpit;
-using RedstoneinventeGameStudio;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using Unity.Netcode;
+using RedstoneinventeGameStudio;
+using QuestsScrpit;
 using System.Collections.Generic;
-using MapScripts;
+using Unity.Netcode;
 
 public class Mining : NetworkBehaviour
 {
-    [Header("Références")]
-    [SerializeField] private Tilemap resourceTilemap;
+    [Header("Références UI")] [SerializeField]
+    private InventoryUsing inventoryUsing;
 
-    [Header("Tiles (minerais)")]
-    [SerializeField] private TileBase charbonTile;
-    [SerializeField] private TileBase ironTile;
-    [SerializeField] private TileBase copperTile;
-    [SerializeField] private TileBase goldTile;
+    [Header("Tiles & Datas")] [SerializeField]
+    private Tilemap resourceTilemap;
+
     [SerializeField] private TileBase grassTile;
+    [SerializeField] private TileBase charbonTile, ironTile, copperTile, goldTile;
+    [SerializeField] private InventoryItemData coal, iron, copper, gold;
 
-    [Header("Items (drops)")]
-    [SerializeField] private InventoryItemData coal;
-    [SerializeField] private InventoryItemData iron;
-    [SerializeField] private InventoryItemData copper;
-    [SerializeField] private InventoryItemData gold;
+    private Dictionary<TileBase, InventoryItemData> _tileToOre;
+    private QuestManager _questManager;
 
-    private Dictionary<TileBase, InventoryItemData> tileToOre;
-
-    private void Awake()
+    public override void OnNetworkSpawn()
     {
-        tileToOre = new Dictionary<TileBase, InventoryItemData>
+        if (!IsOwner)
+        {
+            enabled = false;
+        }
+    }
+
+    void Awake()
+    {
+        // Mapping Tile → ItemData
+        _tileToOre = new Dictionary<TileBase, InventoryItemData>
         {
             { charbonTile, coal },
             { ironTile, iron },
@@ -40,59 +40,51 @@ public class Mining : NetworkBehaviour
         };
 
         if (resourceTilemap == null)
-            resourceTilemap = FindObjectOfType<ChunkManager>()?.tilemap;
+            resourceTilemap = FindObjectOfType<Tilemap>();
     }
 
-    private void Update()
+    void Start()
+    {
+        _questManager = GetComponent<QuestManager>();
+    }
+
+    void Update()
     {
         if (!IsOwner) return;
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Vector3 worldPos = transform.position;
-            // CORRECTION: Passer directement ce NetworkObject au lieu de l'ID
-            TryMineServerRpc(worldPos);
-        }
+        if (Input.GetKeyDown(KeyCode.Q))
+            Mine();
     }
 
-    [ServerRpc(RequireOwnership = true)] // CORRECTION: RequireOwnership = true
-    private void TryMineServerRpc(Vector3 playerWorldPos)
+    private void Mine()
     {
-        Vector3Int cellPos = resourceTilemap.WorldToCell(playerWorldPos);
-        TileBase tile = resourceTilemap.GetTile(cellPos);
+        Vector3Int cellPos = resourceTilemap.WorldToCell(transform.position);
+        var tile = resourceTilemap.GetTile(cellPos);
 
-        if (tile == null || !tileToOre.TryGetValue(tile, out InventoryItemData ore))
+        if (tile == null || !_tileToOre.TryGetValue(tile, out var oreData))
+        {
+            Debug.LogWarning("[Mining] Pas de minerai ici.");
             return;
-
-        // CORRECTION: Utiliser directement ce NetworkObject (le joueur qui a appelé le ServerRpc)
-        NetworkObject playerObject = this.NetworkObject;
-
-        if (playerObject != null && playerObject.TryGetComponent(out InventoryUsing playerInventory))
-        {
-            playerInventory.Increment(ore);
-            Debug.Log($"[Mining] Ajout de {ore.itemName} à l'inventaire de {playerObject.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"[Mining] Aucun inventaire trouvé sur {playerObject?.name}");
         }
 
-        if (playerObject.TryGetComponent(out QuestManager questManager))
+        bool added = inventoryUsing.Increment(oreData);
+
+        if (!added)
+            Debug.LogWarning("[Mining] Inventaire plein ou slot introuvable.");
+
+        resourceTilemap.SetTile(cellPos, grassTile);
+
+        // TODO: réactiver les quêtes
+        /*if (_questManager != null)
         {
-            int qi = questManager.currentQuestIndex;
-            bool relevant = (tile == charbonTile && qi == 1) ||
-                          (tile == ironTile && qi == 2) ||
-                          (tile == copperTile && qi == 3) ||
-                          (tile == goldTile && qi == 4);
-
-            if (relevant)
-                questManager.Quests[qi].Progress(1f);
-        }
-
-        var chunkManager = FindObjectOfType<ChunkManager>();
-        if (chunkManager != null)
-            chunkManager.MineTile(cellPos, grassTile);
-
-        Debug.Log($"[Mining] Miné {ore.itemName} en {cellPos} par {playerObject.name}");
+            int qi = _questManager.currentQuestIndex;
+            bool match =
+                (tile == charbonTile && qi == 1) ||
+                (tile == ironTile    && qi == 2) ||
+                (tile == copperTile  && qi == 3) ||
+                (tile == goldTile    && qi == 4);
+            if (match)
+                _questManager.Quests[qi].Progress(1f);
+        }*/
     }
 }

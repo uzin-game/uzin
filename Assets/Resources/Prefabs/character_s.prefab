@@ -438,13 +438,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac74b2cddd730074f924f9a3ceb1eab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
+  inventoryUsing: {fileID: 80838437020248295}
   resourceTilemap: {fileID: 0}
+  grassTile: {fileID: 11400000, guid: bfade3ed3f4b8d143928a71e7b9957b7, type: 2}
   charbonTile: {fileID: 11400000, guid: cef9adc66dfa7b84b8b9125602fd3887, type: 2}
   ironTile: {fileID: 11400000, guid: 7cf127abd0234f04b99aacdb0c13ce9c, type: 2}
   copperTile: {fileID: 11400000, guid: 8bb1204edeacc3e4e99aad9986a266b4, type: 2}
   goldTile: {fileID: 11400000, guid: 4a28c1c13fe09d04b82afc9b1892e782, type: 2}
-  grassTile: {fileID: 11400000, guid: bfade3ed3f4b8d143928a71e7b9957b7, type: 2}
   coal: {fileID: 11400000, guid: 259a6ec25c703fe4a8e01a1022fe5257, type: 2}
   iron: {fileID: 11400000, guid: a2388f00b3bc71b4a8cd6f37fb978bd5, type: 2}
   copper: {fileID: 11400000, guid: bb6a1492ddc1b474f9a282c2ccf265de, type: 2}
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 927edd11220808c46abd6941381ea06f, type: 3}
   m_Name: 
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002487300160079691}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7339c055c4cf44fca2268cbe41359101, type: 3}
   m_Name: 
@@ -2622,7 +2622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 505902057
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2741,7 +2741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2706717482
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
