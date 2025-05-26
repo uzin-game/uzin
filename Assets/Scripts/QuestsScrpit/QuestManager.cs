@@ -85,6 +85,11 @@ namespace QuestsScrpit
             QuestProgress.OnValueChanged += (oldVal, newVal) => { Porgress.value = newVal; };
         }
 
+        public void ShowWinScreen()
+        {
+            WinPanel.SetActive(true);
+        }
+
         public void CompleteQuestWithDelay()
         {
             if (IsServer)
@@ -94,6 +99,7 @@ namespace QuestsScrpit
 
             CurrentQuest.IsActive = false;
             currentQuestIndex++;
+            if (currentQuestIndex == 6) ShowWinScreen();
             CurrentQuest.timer = CurrentQuest.delay;
             CurrentQuest.isWaiting = true;
         }

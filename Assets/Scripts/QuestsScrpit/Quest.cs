@@ -63,10 +63,10 @@ public class Quest
     {
         IsActive = false;
         QuestManager.currentQuestIndex++;
-        if (QuestManager.currentQuestIndex == 6)
+        if (QuestManager.currentQuestIndex == 5)
         {
             Debug.Log("Quests complete");
-            QuestManager.WinPanel.SetActive(true);
+            QuestManager.ShowWinScreen();
         }
         timer = delay;
         isWaiting = true;

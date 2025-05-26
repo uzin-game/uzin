@@ -12,6 +12,7 @@ public class NetworkSpawner : NetworkBehaviour
     [Header("Configuration des Ennemis")] public List<GameObject> enemyPrefabs;
     [Header("Configuration des outputs (four, mineur etc..)")] public List<GameObject> outputPrefabs;
     [SerializeField] private GameObject DrillPrefab;
+    [SerializeField] private GameObject CrafterPrefab;
     [SerializeField] private GameObject TileMap;
     public QuestManager questManager;
     public Tilemap tilemap;
@@ -35,6 +36,17 @@ public class NetworkSpawner : NetworkBehaviour
                 player = GameObject.FindGameObjectWithTag("Player");
                 questManager = tilemap.GetComponent<ChunkManager>().questManager;
                 if (questManager.currentQuestIndex == 2)
+                {
+                    Debug.Log("progrès quequette");
+                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                }
+            }
+
+            if (prefabIndex == 6)
+            {
+                //player = GameObject.FindGameObjectWithTag("Player");
+                //questManager = tilemap.GetComponent<ChunkManager>().questManager;
+                if (questManager.currentQuestIndex == 6)
                 {
                     Debug.Log("progrès quequette");
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);
