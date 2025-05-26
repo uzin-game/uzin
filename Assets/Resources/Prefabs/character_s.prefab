@@ -48,10 +48,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953bc231ecebbbf4a84c446fe98d37e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   Select: {fileID: 5532836366022005003}
   Inventory: {fileID: 80838437020248295}
   error: {fileID: 2222187874680881950}
   re: {fileID: 0}
+  questmanager: {fileID: 0}
+  Toldefer: {fileID: 11400000, guid: 56a64aee3e26d27418e663471e2f7b31, type: 2}
+  bouts: {fileID: 11400000, guid: 9c22b65ada624ab4094073d2c2bee346, type: 2}
 --- !u!1 &1002487300160079691
 GameObject:
   m_ObjectHideFlags: 0

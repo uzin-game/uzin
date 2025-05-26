@@ -14,7 +14,8 @@ public class Craft : NetworkBehaviour
     public Image error;
     public CraftingRecipes re = null;
     public QuestManager questmanager;
-
+    public CraftingRecipes Toldefer;
+    public CraftingRecipes bouts;
     public void execute()
     {
         Debug.Log("Craft");
@@ -50,9 +51,13 @@ public class Craft : NetworkBehaviour
             {
                 Debug.Log("Craft OnPressed: CanCraft is true");
                 Inventory.AddItem(re.product.CreateCopyWithQuantity(re.amount));
-                if (questmanager != null && questmanager.currentQuestIndex == 5) //TODO
+                if (questmanager != null && questmanager.currentQuestIndex == 5 && re.product.itemName == Toldefer.product.itemName) 
                 {
                     questmanager.Quests[5].Progress(1f);
+                }
+                if (questmanager != null && questmanager.currentQuestIndex == 6 && re.product.itemName == bouts.product.itemName)
+                {
+                    questmanager.Quests[6].Progress(1f);
                 }
             }
             else

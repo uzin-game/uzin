@@ -1,9 +1,11 @@
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using System.Collections.Generic;
+using QuestsScrpit;
 using TMPro;
+using Unity.Netcode;
 
-public class ConstructeurUsing : MonoBehaviour
+public class ConstructeurUsing : NetworkBehaviour
 {
     public CraftingRecipes Recipe;
 
@@ -13,6 +15,8 @@ public class ConstructeurUsing : MonoBehaviour
     
     public TMP_Dropdown dropdown;
     public CraftingRecipes[] craftingRecipes;
+    
+    private QuestManager questManager;
     
     void Update()
     {
@@ -26,6 +30,11 @@ public class ConstructeurUsing : MonoBehaviour
             Debug.Log("CanCraft");
             DoCraft();
         }
+    }
+    
+    public override void OnNetworkSpawn()
+    {
+        questManager = FindFirstObjectByType<QuestManager>();
     }
 
     private bool CanCraft()
@@ -130,12 +139,20 @@ public class ConstructeurUsing : MonoBehaviour
         if (CardOut.GetComponent<CardManager>().itemData == null)
         {
             CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
+            if (questManager != null && questManager.currentQuestIndex == 6)
+            {
+                questManager.Quests[6].Progress(1f);
+            }
         }
         else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
         {
             int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
             CardOut.GetComponent<CardManager>().UnSetItem();
             CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
+            if (questManager != null && questManager.currentQuestIndex == 6)
+            {
+                questManager.Quests[6].Progress(1f);
+            }
         }
 
         // Pour éviter de crafter en boucle à chaque Update

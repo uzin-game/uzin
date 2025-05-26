@@ -19,6 +19,8 @@ namespace QuestsScrpit
         public int currentQuestIndex = 0;
         public TileBase charbon;
         public GameObject panel;
+        public GameObject WinPanel;
+
         public Quest CurrentQuest => Quests[currentQuestIndex];
         //public HealthNetwork healthNetwork;
 
@@ -41,7 +43,7 @@ namespace QuestsScrpit
                 QuestDescriptionText, Porgress, this);
             Quest second = new Quest("Récuperez du charbon", "Minez des minerais avec `A`", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest thrid = new Quest("Posez une foreuse", "appuyez sur `P` pour placer un machine", 1f, QuestText,
+            Quest thrid = new Quest("Posez une foreuse sur un filon de fer", "Appuyez sur `P` pour placer une machine", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest frouth = new Quest("Minez 10 fer a l'aide de la foreuse",
                 "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 10f, QuestText,
@@ -51,8 +53,10 @@ namespace QuestsScrpit
             Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter",
                 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest senevth = new Quest("Construire le châssis de vôtre fusée",
-                "Maintenant que vous avez les bases, débrouillez vous pour vous enfuir", 10f, QuestText,
+            Quest senevth = new Quest("IL en faut plus !","Placez le constructeur pour crafter plus vite", 1f, QuestText,
+                QuestDescriptionText, Porgress, this);
+            Quest eigitht = new Quest("Construire le châssis de vôtre fusée",
+                "Maintenant que vous avez les bases, faites le châssis de votre fusée", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quests.Add(frist);
             Quests.Add(second);
@@ -61,9 +65,10 @@ namespace QuestsScrpit
             Quests.Add(fitfh);
             Quests.Add(sitxh);
             Quests.Add(senevth);
+            Quests.Add(eigitht);
 
-            Quests[0].Initialize();
-            Quests[0].Initialize();
+            Quests[currentQuestIndex].Initialize();
+           
         }
 
         public override void OnNetworkSpawn()
