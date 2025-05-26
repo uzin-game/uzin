@@ -17,6 +17,8 @@ public class ConstructeurUsing : NetworkBehaviour
     public CraftingRecipes[] craftingRecipes;
     
     private QuestManager questManager;
+    private float lastCraftTime = 0f;
+    private float craftCooldown = 3f;
     
     void Update()
     {
@@ -25,10 +27,12 @@ public class ConstructeurUsing : NetworkBehaviour
         if (Recipe == null) return;
         
         Debug.Log("tryCraft");
-        if (CanCraft())
+        // Vérifier si assez de temps s'est écoulé depuis le dernier craft
+        if (Time.time - lastCraftTime >= craftCooldown && CanCraft())
         {
             Debug.Log("CanCraft");
             DoCraft();
+            lastCraftTime = Time.time; // Enregistrer le temps du craft
         }
     }
     
@@ -41,121 +45,174 @@ public class ConstructeurUsing : NetworkBehaviour
     {
         Debug.Log("CanCraft1");
         
-        // Créer la liste des ressources nécessaires
-        List<string> neededNames = new List<string>();
+        // Créer un dictionnaire des ressources nécessaires avec leurs quantités
+        Dictionary<string, int> neededResources = new Dictionary<string, int>();
         foreach (var item in Recipe.Ressources)
         {
-            neededNames.Add(item.itemName);
-        }
-
-        Debug.Log("CanCraft2 - Recette nécessite " + neededNames.Count + " ressources");
-
-        // Recette à 1 élément
-        if (neededNames.Count == 1)
-        {
-            // Vérifier que CardIn1 a l'item nécessaire et CardIn2 est vide
-            if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null &&
-                CardIn1.GetComponent<CardManager>().itemData.itemName == neededNames[0] &&
-                (CardIn2 == null || CardIn2.GetComponent<CardManager>().itemData == null))
+            if (neededResources.ContainsKey(item.itemName))
             {
-                return true;
+                neededResources[item.itemName] += item.itemNb;
             }
-            
-            // Ou que CardIn2 a l'item nécessaire et CardIn1 est vide
-            if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null &&
-                CardIn2.GetComponent<CardManager>().itemData.itemName == neededNames[0] &&
-                (CardIn1 == null || CardIn1.GetComponent<CardManager>().itemData == null))
-            {
-                return true;
-            }
-            
-            return false;
-        }
-        
-        // Recette à 2 éléments - vérifier que les deux cartes ont des items
-        if (neededNames.Count == 2)
-        {
-            if (CardIn1 == null || CardIn1.GetComponent<CardManager>().itemData == null) 
-            {
-                Debug.Log("card1 item null");
-                return false;
-            }
-            
-            if (CardIn2 == null || CardIn2.GetComponent<CardManager>().itemData == null) 
-            {
-                Debug.Log("card2 item null");
-                return false;
-            }
-
-            string item1 = CardIn1.GetComponent<CardManager>().itemData.itemName;
-            string item2 = CardIn2.GetComponent<CardManager>().itemData.itemName;
-
-            // Recette avec 2 items différents
-            if (neededNames[0] != neededNames[1])
-            {
-                return neededNames.Contains(item1) && neededNames.Contains(item2) && item1 != item2;
-            }
-            // Recette avec 2 fois le même item
             else
             {
-                return item1 == neededNames[0] && item2 == neededNames[0];
+                neededResources[item.itemName] = item.itemNb;
+            }
+        }
+
+        Debug.Log("CanCraft2 - Recette nécessite " + neededResources.Count + " types de ressources");
+
+        // Créer un dictionnaire des ressources disponibles
+        Dictionary<string, int> availableResources = new Dictionary<string, int>();
+        
+        // Ajouter les ressources de CardIn1
+        if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null)
+        {
+            string itemName = CardIn1.GetComponent<CardManager>().itemData.itemName;
+            int quantity = CardIn1.GetComponent<CardManager>().itemData.itemNb;
+            availableResources[itemName] = quantity;
+        }
+        
+        // Ajouter les ressources de CardIn2
+        if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null)
+        {
+            string itemName = CardIn2.GetComponent<CardManager>().itemData.itemName;
+            int quantity = CardIn2.GetComponent<CardManager>().itemData.itemNb;
+            
+            if (availableResources.ContainsKey(itemName))
+            {
+                availableResources[itemName] += quantity;
+            }
+            else
+            {
+                availableResources[itemName] = quantity;
+            }
+        }
+
+        // Vérifier si on a assez de chaque ressource
+        foreach (var needed in neededResources)
+        {
+            if (!availableResources.ContainsKey(needed.Key) || 
+                availableResources[needed.Key] < needed.Value)
+            {
+                Debug.Log($"Pas assez de {needed.Key}: besoin de {needed.Value}, disponible: {(availableResources.ContainsKey(needed.Key) ? availableResources[needed.Key] : 0)}");
+                return false;
             }
         }
         
-        return false;
+        return true;
     }
 
     private void DoCraft()
     {
-        // Retirer les items selon le type de recette
-        List<string> neededNames = new List<string>();
+        // Créer un dictionnaire des ressources à retirer
+        Dictionary<string, int> toRemove = new Dictionary<string, int>();
         foreach (var item in Recipe.Ressources)
         {
-            neededNames.Add(item.itemName);
+            if (toRemove.ContainsKey(item.itemName))
+            {
+                toRemove[item.itemName] += item.itemNb;
+            }
+            else
+            {
+                toRemove[item.itemName] = item.itemNb;
+            }
         }
 
-        if (neededNames.Count == 1)
+        // Sauvegarder les données avant modification pour éviter les références perdues
+        InventoryItemData card1Item = null;
+        InventoryItemData card2Item = null;
+        
+        if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null)
         {
-            // Pour recette à 1 élément, retirer seulement la carte qui a l'item
-            if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null &&
-                CardIn1.GetComponent<CardManager>().itemData.itemName == neededNames[0])
-            {
-                CardIn1.GetComponent<CardManager>().UnSetItem();
-            }
-            else if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null &&
-                     CardIn2.GetComponent<CardManager>().itemData.itemName == neededNames[0])
-            {
-                CardIn2.GetComponent<CardManager>().UnSetItem();
-            }
+            card1Item = CardIn1.GetComponent<CardManager>().itemData;
         }
-        else if (neededNames.Count == 2)
+        
+        if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null)
         {
-            // Pour recette à 2 éléments, retirer les deux cartes
-            if (CardIn1 != null) CardIn1.GetComponent<CardManager>().UnSetItem();
-            if (CardIn2 != null) CardIn2.GetComponent<CardManager>().UnSetItem();
+            card2Item = CardIn2.GetComponent<CardManager>().itemData;
+        }
+
+        // Retirer les ressources de CardIn1 d'abord
+        if (card1Item != null && toRemove.ContainsKey(card1Item.itemName))
+        {
+            int amountToRemove = Mathf.Min(toRemove[card1Item.itemName], card1Item.itemNb);
+            int remainingQuantity = card1Item.itemNb - amountToRemove;
+            
+            toRemove[card1Item.itemName] -= amountToRemove;
+            if (toRemove[card1Item.itemName] <= 0)
+            {
+                toRemove.Remove(card1Item.itemName);
+            }
+            
+            CardIn1.GetComponent<CardManager>().UnSetItem();
+            if (remainingQuantity > 0)
+            {
+                CardIn1.GetComponent<CardManager>().SetItem(card1Item.CreateCopyWithQuantity(remainingQuantity));
+            }
+            
+            Debug.Log($"Retiré {amountToRemove} {card1Item.itemName} de CardIn1, reste: {remainingQuantity}");
+        }
+
+        // Retirer les ressources restantes de CardIn2
+        if (card2Item != null && toRemove.ContainsKey(card2Item.itemName))
+        {
+            int amountToRemove = Mathf.Min(toRemove[card2Item.itemName], card2Item.itemNb);
+            int remainingQuantity = card2Item.itemNb - amountToRemove;
+            
+            toRemove[card2Item.itemName] -= amountToRemove;
+            if (toRemove[card2Item.itemName] <= 0)
+            {
+                toRemove.Remove(card2Item.itemName);
+            }
+            
+            CardIn2.GetComponent<CardManager>().UnSetItem();
+            if (remainingQuantity > 0)
+            {
+                CardIn2.GetComponent<CardManager>().SetItem(card2Item.CreateCopyWithQuantity(remainingQuantity));
+            }
+            
+            Debug.Log($"Retiré {amountToRemove} {card2Item.itemName} de CardIn2, reste: {remainingQuantity}");
+        }
+
+        // Vérifier que toutes les ressources ont été retirées
+        if (toRemove.Count > 0)
+        {
+            Debug.LogError("Erreur: Toutes les ressources n'ont pas pu être retirées!");
+            foreach (var remaining in toRemove)
+            {
+                Debug.LogError($"Manque encore: {remaining.Value} {remaining.Key}");
+            }
+            return;
         }
 
         // Mettre le résultat dans CardOut
-        if (CardOut.GetComponent<CardManager>().itemData == null)
+        if (CardOut != null)
         {
-            CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
-            if (questManager != null && questManager.currentQuestIndex == 6)
+            if (CardOut.GetComponent<CardManager>().itemData == null)
             {
-                questManager.Quests[6].Progress(1f);
+                CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
+                Debug.Log($"Produit créé: {Recipe.amount} {Recipe.product.itemName}");
+            }
+            else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
+            {
+                int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
+                CardOut.GetComponent<CardManager>().UnSetItem();
+                CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
+                Debug.Log($"Produit ajouté: total maintenant {total} {Recipe.product.itemName}");
+            }
+            else
+            {
+                Debug.LogWarning("CardOut contient déjà un item différent, impossible d'ajouter le produit");
+                return;
             }
         }
-        else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
+        
+        // Progression des quêtes
+        if (questManager != null && questManager.currentQuestIndex == 6)
         {
-            int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
-            CardOut.GetComponent<CardManager>().UnSetItem();
-            CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
-            if (questManager != null && questManager.currentQuestIndex == 6)
-            {
-                questManager.Quests[6].Progress(1f);
-            }
+            questManager.Quests[6].Progress(1f);
         }
 
-        // Pour éviter de crafter en boucle à chaque Update
-        Recipe = null;
+        Debug.Log("Craft terminé avec succès");
     }
 }
