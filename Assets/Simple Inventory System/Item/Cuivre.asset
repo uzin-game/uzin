@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cuivre
   m_EditorClassIdentifier: 
   itemName: Minerais de Cuivre
-  itemDescription: minerais basique
+  itemDescription: min
   itemNb: 1
-  itemTooltip: minerais basique
-  itemIcon: {fileID: -9091839237338659408, guid: f76341f1d49094d448bbe064ada17dba, type: 3}
+  itemTooltip: mine
+  itemIcon: {fileID: 1576333688228142201, guid: b0ffcef2cc14210489e63b9f2ed49263, type: 3}

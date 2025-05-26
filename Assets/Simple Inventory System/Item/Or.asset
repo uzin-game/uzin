@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Or
   m_EditorClassIdentifier: 
   itemName: Minerais d'Or
-  itemDescription: minerais basique
+  itemDescription: mine
   itemNb: 1
-  itemTooltip: minerais basique
-  itemIcon: {fileID: 8520432967590226542, guid: 9fff1c1ee862e8346a37d56e4c637445, type: 3}
+  itemTooltip: miner
+  itemIcon: {fileID: 8520432967590226542, guid: 59116fe0c25805a4f8faa5518e9dde94, type: 3}
