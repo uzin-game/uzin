@@ -38,7 +38,7 @@ public class HealthNetwork : NetworkBehaviour
         {
             _healthComponent.SetHealth(CurrentHealth.Value);
         }
-        
+
         // Try to find DeathPanel for this client
         if (IsOwner && DeathPanel == null)
         {
@@ -49,7 +49,7 @@ public class HealthNetwork : NetworkBehaviour
     private void OnHealthVariableChanged(float previousValue, float newValue)
     {
         _healthComponent.SetHealth(newValue);
-        
+
         if (!isDead && newValue <= 0f)
         {
             isDead = true;
@@ -60,7 +60,7 @@ public class HealthNetwork : NetworkBehaviour
             }
         }
     }
-    
+
     private void HandleDeathServer()
     {
         Debug.Log($"{name} died on server");
@@ -74,14 +74,14 @@ public class HealthNetwork : NetworkBehaviour
             ShowDeathClientRpc(OwnerClientId);
         }
     }
-    
+
     [ClientRpc]
     private void ShowDeathClientRpc(ulong clientId)
     {
         if (!IsOwner || NetworkManager.Singleton.LocalClientId != clientId) return;
 
         Debug.Log("Showing death panel to player " + clientId);
-        
+
         if (DeathPanel != null)
         {
             DeathPanel.SetActive(true);
@@ -93,7 +93,7 @@ public class HealthNetwork : NetworkBehaviour
 
         ResetHealthLocally();
     }
-    
+
     private void ResetHealthLocally()
     {
         if (IsOwner)
@@ -116,21 +116,20 @@ public class HealthNetwork : NetworkBehaviour
         transform.position = new Vector3(0, 0, 0);
     }
 
-
     private void ApplyDamageInternal(float damage)
     {
         if (!IsServer) return;
-        
-        float h = Mathf.Max(CurrentHealth.Value - damage, 0f);
+
+        float h = Mathf.Clamp(CurrentHealth.Value - damage, 0f, maxHealth);
         CurrentHealth.Value = h;
-        
+
         if (h == 0f)
         {
             Debug.Log("Enemy died on server.");
             HandleDeathClientRpc();
         }
-    }     
-    
+    }
+
     [ClientRpc]
     private void HandleDeathClientRpc()
     {

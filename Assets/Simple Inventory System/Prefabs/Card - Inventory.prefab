@@ -93,11 +93,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
   isOccupied: 0
+  machineProperty: 0
   useAsDrag: 0
   emptyCard: {fileID: 713824908669391309}
   itemName: {fileID: 7529151834309105050}
   itemNb: {fileID: 0}
   itemIcon: {fileID: 1107590817626682818}
+  InputCard: 0
+  CoalCard: 0
+  OutputCard: 0
 --- !u!1 &713824908669391309
 GameObject:
   m_ObjectHideFlags: 0
