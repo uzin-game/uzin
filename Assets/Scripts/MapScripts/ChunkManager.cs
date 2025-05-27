@@ -165,8 +165,6 @@ namespace MapScripts
                     questManager.Quests[0].Progress(1f);
                 }
             }
-
-            Debug.Log($"(Server) Player {playerObj.name} at {GetTileAtCell(tilemap.WorldToCell(player.position))}");
         }
 
         Vector2Int GetChunkCoords(Vector3 worldPos)

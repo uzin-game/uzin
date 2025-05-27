@@ -23,7 +23,6 @@ public class ConveyorBelt : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name + "is moving to the " + conveyorDirection + " direction");
         Rigidbody2D rb = other.attachedRigidbody;
         if (rb != null)
         {

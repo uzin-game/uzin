@@ -17,11 +17,12 @@ public class FurnaceInteraction : NetworkBehaviour
     public GameObject Panel;
     public DrillUsing drillUsing;
     public FurnaceUsing furnaceScript;
+    public ConstructeurUsing constructeurScript;
     public bool IsSelecting;
     public Button SelectButton;
     public bool OutputLeTruc = false;
     public TMP_Dropdown dropdown; 
-    public List<GameObject> outputPrefabs;
+    public List<GameObject> outputPrefabs; 
     void Start()
     {
         IsSelecting = false;

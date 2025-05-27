@@ -530,12 +530,10 @@ private void DoCraftImmediate()
 
     private bool CanCraft()
     {
-        Debug.Log("CanCraft1");
         
         Dictionary<string, int> neededResources = GetRequiredResources();
         Dictionary<string, int> availableResources = GetAvailableResources();
 
-        Debug.Log("CanCraft2 - Recette nécessite " + neededResources.Count + " types de ressources");
 
         // Vérifier si on a assez de chaque ressource
         foreach (var needed in neededResources)
@@ -543,7 +541,6 @@ private void DoCraftImmediate()
             if (!availableResources.ContainsKey(needed.Key) || 
                 availableResources[needed.Key] < needed.Value)
             {
-                Debug.Log($"Pas assez de {needed.Key}: besoin de {needed.Value}, disponible: {(availableResources.ContainsKey(needed.Key) ? availableResources[needed.Key] : 0)}");
                 return false;
             }
         }

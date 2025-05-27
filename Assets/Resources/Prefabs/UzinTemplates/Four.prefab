@@ -131,6 +131,7 @@ Transform:
   m_Children:
   - {fileID: 5972414134150468463}
   - {fileID: 8416118938382527904}
+  - {fileID: 8412348226945939861}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8358890594931129876
@@ -895,12 +896,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3558867926299450968}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8416118938382527904}
+  m_Father: {fileID: 1592777427477835646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -931,6 +932,7 @@ MonoBehaviour:
   Copper: {fileID: 11400000, guid: bb6a1492ddc1b474f9a282c2ccf265de, type: 2}
   CopperIngot: {fileID: 11400000, guid: e2e076c8061e52f438688461388b5836, type: 2}
   networkSpawner: {fileID: 0}
+  burning: 0
   questManager: {fileID: 0}
   OutputMode:
     m_InternalValue: 0
@@ -1613,7 +1615,6 @@ RectTransform:
   - {fileID: 3509784653204474332}
   - {fileID: 3425260215428711668}
   - {fileID: 4958015180355786494}
-  - {fileID: 8412348226945939861}
   m_Father: {fileID: 1592777427477835646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
