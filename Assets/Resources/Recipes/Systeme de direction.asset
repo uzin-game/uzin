@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7741f9dde2ea7154f9d4f8dbd52a4a02, type: 3}
-  m_Name: Alliage de cuivre
+  m_Name: Systeme de direction
   m_EditorClassIdentifier: 
-  product: {fileID: 11400000, guid: 8c74840071774154ea2c1cdabe29ab26, type: 2}
+  product: {fileID: 11400000, guid: e47a710076f5a33479353155534e39f4, type: 2}
   amount: 1
   Ressources:
-  - {fileID: 11400000, guid: b76c1bacd63177740a3aba35f2a6347b, type: 2}
+  - {fileID: 11400000, guid: a0fbb874d010c2545b809d9612041f90, type: 2}
+  - {fileID: 11400000, guid: cba17055c07641445a3e8ca70c85918e, type: 2}

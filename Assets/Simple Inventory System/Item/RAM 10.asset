@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Alliage de cuivre
+  m_Name: RAM 10
   m_EditorClassIdentifier: 
-  itemName: Alliage de cuivre
+  itemName: RAM
   itemDescription: "mat\xE9riaux"
-  itemNb: 1
+  itemNb: 10
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -1443753388615730881, guid: 6bbe7424c5463cf4ca951df367ddfe75, type: 3}
+  itemIcon: {fileID: 3565522505319282894, guid: 24406f2495afbde42a061998718aaea0, type: 3}

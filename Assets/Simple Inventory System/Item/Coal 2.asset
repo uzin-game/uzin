@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Cracker
+  m_Name: Coal 2
   m_EditorClassIdentifier: 
-  itemName: Cracker
-  itemDescription: ' A collection of savory crackers, ranging from plain salted to
-    seeded and herb-infused varieties. A perfect accompaniment to soups and dips.'
-  itemTooltip: Restores 10 Hunger
-  itemIcon: {fileID: 21300000, guid: 798eb805152623d4291e4399f9aeef74, type: 3}
+  itemName: Charbon
+  itemDescription: Carburant
+  itemNb: 2
+  itemTooltip: Carburant
+  itemIcon: {fileID: -1948996143909678700, guid: b153a599f7ccc634c9a4e50963738549, type: 3}

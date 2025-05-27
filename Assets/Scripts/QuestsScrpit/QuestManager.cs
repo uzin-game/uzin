@@ -58,9 +58,9 @@ namespace QuestsScrpit
             Quest eigitht = new Quest("Mettez en place l'automatisation",
                 "Cliquez sur les boutons jaune et vert et choisissez une sortie sur un four ou une foreuse", 2f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest ninth = new Quest("Maintenant, a vous de faire!", "Pour commencer le fusée, craftez 50 bouts de châssis", 50f, QuestText,
+            Quest ninth = new Quest("Maintenant, a vous de faire!", "Pour commencer le fusée, craftez un navigateur.", 50f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest tneht = new Quest("Bravo !", "Il nous faut maintenant 50 bouts de moteur", 50f, QuestText,
+            Quest tneht = new Quest("Bravo !", "Il nous faut maintenant un système direction.", 50f, QuestText,
                 QuestDescriptionText, Porgress, this);
             
             

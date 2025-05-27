@@ -16,4 +16,4 @@ MonoBehaviour:
   itemDescription: "mat\xE9riaux"
   itemNb: 1
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -2531403266220789220, guid: 1356ee23602b4bd4096086cf74508299, type: 3}
+  itemIcon: {fileID: 3565522505319282894, guid: 24406f2495afbde42a061998718aaea0, type: 3}

@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Alliage de cuivre
+  m_Name: Fibre de Carbone 3
   m_EditorClassIdentifier: 
-  itemName: Alliage de cuivre
+  itemName: Fibre de Carbone
   itemDescription: "mat\xE9riaux"
   itemNb: 1
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -1443753388615730881, guid: 6bbe7424c5463cf4ca951df367ddfe75, type: 3}
+  itemIcon: {fileID: -7699018164296888805, guid: 80da89042f213e541baafd333187f048, type: 3}

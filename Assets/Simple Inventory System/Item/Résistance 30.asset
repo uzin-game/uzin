@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Alliage de cuivre
+  m_Name: "R\xE9sistance 30"
   m_EditorClassIdentifier: 
-  itemName: Alliage de cuivre
+  itemName: "R\xE9sistance"
   itemDescription: "mat\xE9riaux"
-  itemNb: 1
+  itemNb: 30
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -1443753388615730881, guid: 6bbe7424c5463cf4ca951df367ddfe75, type: 3}
+  itemIcon: {fileID: 7235039954338893144, guid: d51c15c40b09c5d4bb89ca558b1162c8, type: 3}

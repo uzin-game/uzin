@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fils de cuivre
   itemDescription: "mat\xE9riaux"
-  itemNb: 2
+  itemNb: 1
   itemTooltip: "mat\xE9riaux"
   itemIcon: {fileID: 1461606053643248610, guid: 73035fae07ec7bc4fb633b4070cc896d, type: 3}

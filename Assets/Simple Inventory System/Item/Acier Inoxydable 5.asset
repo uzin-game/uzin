@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Chilli
+  m_Name: Acier Inoxydable 5
   m_EditorClassIdentifier: 
-  itemName: Chilli
-  itemDescription: A steaming bowl of homemade chili, packed with tender beef, kidney
-    beans, and a blend of warming spices. The rich aroma promises a satisfying and
-    filling meal.
-  itemTooltip: Restores 40 Hunger
-  itemIcon: {fileID: 21300000, guid: 4e91672c0a9122944b236cf1fa7a1e84, type: 3}
+  itemName: Acier Inoxydable
+  itemDescription: "mat\xE9riaux"
+  itemNb: 5
+  itemTooltip: "mat\xE9riaux"
+  itemIcon: {fileID: -1310291195190669345, guid: c6bf5c77be27929408bac5fe4cbd48f3, type: 3}

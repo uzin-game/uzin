@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
-  m_Name: Alliage de cuivre
+  m_Name: fil de cuivre 2
   m_EditorClassIdentifier: 
-  itemName: Alliage de cuivre
+  itemName: Fils de cuivre
   itemDescription: "mat\xE9riaux"
-  itemNb: 1
+  itemNb: 2
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -1443753388615730881, guid: 6bbe7424c5463cf4ca951df367ddfe75, type: 3}
+  itemIcon: {fileID: 1461606053643248610, guid: 73035fae07ec7bc4fb633b4070cc896d, type: 3}

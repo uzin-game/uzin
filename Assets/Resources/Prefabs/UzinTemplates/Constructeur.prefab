@@ -887,11 +887,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01573837f0362eb4198e766349909c6c, type: 2}
   - {fileID: 11400000, guid: 1feac37b5a64c084d90327d4b5d39f47, type: 2}
   - {fileID: 11400000, guid: 00602848e72a69c4f8ea6453bdc69d31, type: 2}
+  - {fileID: 11400000, guid: 660cb984f80e88744b05260782902f98, type: 2}
   - {fileID: 11400000, guid: eb26f701ab9ab384d94f665fb8107e68, type: 2}
+  - {fileID: 11400000, guid: fa5a75d7c766540498e8c8f76c871421, type: 2}
   - {fileID: 11400000, guid: 6708653144883a84c821fb82d239a818, type: 2}
   - {fileID: 11400000, guid: 36a8d311be0f98c45904cd7642aefb69, type: 2}
+  - {fileID: 11400000, guid: 6a313747c21b2934ea7d3ae9f23c9fcd, type: 2}
   - {fileID: 11400000, guid: 56a64aee3e26d27418e663471e2f7b31, type: 2}
   - {fileID: 11400000, guid: 2e7a06488401cef44bdbad928ebd35c1, type: 2}
+  boutDeChassis: {fileID: 0}
+  boutsDeMoteur: {fileID: 0}
+  systemeNav: {fileID: 0}
   craftUIPanel: {fileID: 5399416545648375091}
   requiredItem1Container: {fileID: 54113897810656025}
   requiredItem2Container: {fileID: 4045288849303339524}
@@ -1203,13 +1209,22 @@ MonoBehaviour:
     - m_Text: Fils de cuivre
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: "Fus\xE9e"
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: Moteur
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: Navigateur
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: RAM
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: "R\xE9sistance"
+      m_Image: {fileID: 0}
+      m_Color: {r: 1, g: 1, b: 1, a: 1}
+    - m_Text: "Syst\xE8me de direction"
       m_Image: {fileID: 0}
       m_Color: {r: 1, g: 1, b: 1, a: 1}
     - m_Text: "T\xF4le de fer"

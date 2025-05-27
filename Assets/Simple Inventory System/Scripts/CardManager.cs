@@ -92,19 +92,20 @@ namespace RedstoneinventeGameStudio
         public bool SetItem(InventoryItemData itemData)
         {
             if ((isOccupied && !useAsDrag) || itemData is null)
-            {
                 return false;
-            }
+
             this.itemData = itemData;
-           
-            itemName.text = itemData.name;
+            itemName.text = itemData.itemName;
             itemNb.text = itemData.itemNb.ToString();
             itemIcon.sprite = itemData.itemIcon;
 
+            // Toujours activer le nom, même si quantité > 1
+            itemName.gameObject.SetActive(true);
+            itemNb.gameObject.SetActive(true);
+            itemIcon.gameObject.SetActive(true);
+
             isOccupied = true;
-
             RefreshDisplay();
-
             return true;
         }
 
@@ -119,6 +120,14 @@ namespace RedstoneinventeGameStudio
         void RefreshDisplay()
         {
             emptyCard.SetActive(!isOccupied);
+
+            // Si le slot est occupé, activer tous les éléments UI
+            if (isOccupied)
+            {
+                itemName.gameObject.SetActive(true);
+                itemNb.gameObject.SetActive(true);
+                itemIcon.gameObject.SetActive(true);
+            }
         }
     }
 
