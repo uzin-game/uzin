@@ -22,7 +22,7 @@ public class FurnaceUsing : NetworkBehaviour
     public InventoryItemData CopperIngot;
 
     public NetworkSpawner networkSpawner;
-    private bool burning = false;
+    public bool burning = false;
     private bool interfaceActive = true; // Nouveau flag pour savoir si l'interface est active
     private Coroutine burnCoroutine; // Référence à la coroutine pour pouvoir l'arrêter
     public QuestManager questManager;

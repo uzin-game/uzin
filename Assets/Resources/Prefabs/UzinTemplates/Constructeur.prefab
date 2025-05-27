@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7962903304382511371}
   - component: {fileID: 2024744141279888305}
   - component: {fileID: 5131928947205973858}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: progressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3125256499410832664}
   - component: {fileID: 1911312674980997603}
   - component: {fileID: 350482472801653181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RecipeName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 5043242850018280377}
   - component: {fileID: 537655734665887988}
   - component: {fileID: 7526133825300916202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 333280325887868557}
   - component: {fileID: 1927000898017378184}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: DraggingSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 8687110166498421405}
   - component: {fileID: 5532686200915865047}
   - component: {fileID: 4993972593654754283}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 7583245662002675359}
   - component: {fileID: 5857602551211491737}
   - component: {fileID: 5012756853707975143}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RecipeStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 6929506111397837939}
   - component: {fileID: 2256943636300523116}
   - component: {fileID: 3689426389786426480}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: RecipeBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -707,7 +707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8175469247200769209}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FileArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,7 +744,7 @@ GameObject:
   m_Component:
   - component: {fileID: 852239879964812322}
   - component: {fileID: 2222483691329164032}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +797,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9037907897049694994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -834,7 +834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2767138423992757154}
   - component: {fileID: 3719364971649495821}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ConstructorUsin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 7505524411783197281}
   - component: {fileID: 2963183809010713912}
   - component: {fileID: 3141166858740714164}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 6016040833408407968}
   - component: {fileID: 6405137824529880170}
   - component: {fileID: 6443404653437276272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 8458204086375010715}
   - component: {fileID: 6961148381542468584}
   - component: {fileID: 5123346012747753084}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1246,7 +1246,7 @@ GameObject:
   - component: {fileID: 3582821173763232438}
   - component: {fileID: 6601285366058404262}
   - component: {fileID: 5534717375745117548}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ConstructeurUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,9 +1348,9 @@ GameObject:
   - component: {fileID: 3588137278231683587}
   - component: {fileID: 7894904977780716054}
   - component: {fileID: 9085720410771504433}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Constructeur
-  m_TagString: Machine
+  m_TagString: Constructor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1439,20 +1439,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53fb957f103ee434491f4d605a0231d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   IsInteracting: 0
   FurnaceUI: {fileID: 5399416545648375091}
   playerInRange: {fileID: 0}
   Panel: {fileID: 9017253068620455203}
   drillUsing: {fileID: 0}
-  ItemOutpusPosition: {x: 0, y: 0, z: 0}
-  NorthButton: {fileID: 0}
-  EastButton: {fileID: 0}
-  SouthButton: {fileID: 0}
   furnaceScript: {fileID: 0}
-  WestButton: {fileID: 0}
   IsSelecting: 0
   SelectButton: {fileID: 0}
   OutputLeTruc: 0
+  dropdown: {fileID: 0}
+  outputPrefabs: []
 --- !u!1 &5976569986368544800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8107752470077875362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1499,7 +1497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7664681607555333645}
   - component: {fileID: 4777168692235050789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1586,7 +1584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3197621647035241097}
   - component: {fileID: 2490162385477978649}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ToolTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1637,7 +1635,7 @@ GameObject:
   - component: {fileID: 1699858356163811659}
   - component: {fileID: 7022658804076878746}
   - component: {fileID: 3178619456546547844}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Item Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1712,7 +1710,7 @@ GameObject:
   - component: {fileID: 2039828073948946057}
   - component: {fileID: 3000784000019232128}
   - component: {fileID: 6562078073139727872}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1786,7 @@ GameObject:
   - component: {fileID: 729298329999759797}
   - component: {fileID: 1776128318984846409}
   - component: {fileID: 5016683333525997982}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1913,7 +1911,7 @@ GameObject:
   - component: {fileID: 1210950423993166118}
   - component: {fileID: 7911306843608550023}
   - component: {fileID: 7714607806109560627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1989,7 +1987,7 @@ GameObject:
   - component: {fileID: 1175602019078984374}
   - component: {fileID: 1713264026812366891}
   - component: {fileID: 594878215139981257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2096,7 +2094,7 @@ GameObject:
   - component: {fileID: 3602761644214454629}
   - component: {fileID: 906220766304919116}
   - component: {fileID: 195934681462521246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2232,7 +2230,7 @@ GameObject:
   - component: {fileID: 5818541600938866021}
   - component: {fileID: 8266080521824787008}
   - component: {fileID: 5247119671806322664}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2429,6 +2427,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardRecipe
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -2481,9 +2491,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2524,6 +2542,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2715,6 +2737,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -2747,9 +2781,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2790,6 +2832,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2980,6 +3026,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -3012,9 +3070,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3055,6 +3121,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3245,6 +3315,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -3277,9 +3359,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3320,6 +3410,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3510,6 +3604,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Out Furnace
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -3558,9 +3664,17 @@ PrefabInstance:
       propertyPath: machineProperty
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3601,6 +3715,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3796,6 +3914,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -3828,9 +3958,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3871,6 +4009,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4061,6 +4203,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - In Furnace (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -4105,9 +4259,17 @@ PrefabInstance:
       propertyPath: machineProperty
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4148,6 +4310,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4343,6 +4509,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - In Furnace
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -4387,9 +4565,17 @@ PrefabInstance:
       propertyPath: machineProperty
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4430,6 +4616,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4641,6 +4831,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -4673,9 +4875,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4716,6 +4926,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4906,6 +5120,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -4938,9 +5164,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4981,6 +5215,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5171,6 +5409,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardRecipe (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -5223,9 +5473,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5266,6 +5524,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5456,6 +5718,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -5488,9 +5762,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5531,6 +5813,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5721,6 +6007,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -5753,9 +6051,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5796,6 +6102,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5986,6 +6296,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -6022,9 +6344,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6065,6 +6395,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6255,6 +6589,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -6287,9 +6633,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6330,6 +6684,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6520,9 +6878,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Drag
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1107590817626682818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6556,6 +6926,10 @@ PrefabInstance:
       propertyPath: useAsDrag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
@@ -6563,6 +6937,10 @@ PrefabInstance:
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6603,6 +6981,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6797,6 +7179,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -6829,9 +7223,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6872,6 +7274,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7002,6 +7408,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionCircle
       objectReference: {fileID: 0}
+    - target: {fileID: 5069145388179961919, guid: eb64e8aec429ba84fbb754bf37c6ff96, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5479789346002797097, guid: eb64e8aec429ba84fbb754bf37c6ff96, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7067,7 +7477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3260673658
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -7189,6 +7599,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -7221,9 +7643,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7264,6 +7694,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7454,6 +7888,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -7486,9 +7932,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7529,6 +7983,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7719,6 +8177,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -7751,9 +8221,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7794,6 +8272,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7984,6 +8466,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -8016,9 +8510,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8059,6 +8561,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -8249,6 +8755,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card - Inventory (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 657131725597909817, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 713824908669391309, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1650167516250965725, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2653249336723650675, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0.000000059605
@@ -8281,9 +8799,17 @@ PrefabInstance:
       propertyPath: isOccupied
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5585980658192024767, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_Color.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5948953771441421193, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6316033322956261073, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8324,6 +8850,10 @@ PrefabInstance:
     - target: {fileID: 7529151834309105050, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7586504950137464459, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8375016561926760029, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_SizeDelta.x
