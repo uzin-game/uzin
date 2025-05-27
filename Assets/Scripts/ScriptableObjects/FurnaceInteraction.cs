@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using QuestsScrpit;
 using RedstoneinventeGameStudio;
 using ScriptableObjects;
 using TMPro;
@@ -26,21 +27,24 @@ public class FurnaceInteraction : NetworkBehaviour
     void Start()
     {
         IsSelecting = false;
-        SelectButton.onClick.AddListener(delegate
+        if (SelectButton != null)
         {
-            if (IsSelecting)
+            SelectButton.onClick.AddListener(delegate
             {
-                Debug.Log("Select");
-                dropdown.gameObject.SetActive(false);
-                IsSelecting = false;
-            }
-            else
-            {
-                Debug.Log("UnSelect");
-                dropdown.gameObject.SetActive(true);
-                IsSelecting = true;
-            }
-        });
+                if (IsSelecting)
+                {
+                    Debug.Log("Select");
+                    dropdown.gameObject.SetActive(false);
+                    IsSelecting = false;
+                }
+                else
+                {
+                    Debug.Log("UnSelect");
+                    dropdown.gameObject.SetActive(true);
+                    IsSelecting = true;
+                }
+            });
+        }
     }
 
     public void SetTargetMachine(FurnaceUsing target)
@@ -79,11 +83,27 @@ public class FurnaceInteraction : NetworkBehaviour
     private void OnOutputModeChanged(int newValue)
     {
         Debug.Log("OnOutputModeChanged, calling ServerRPC");
+        if (newValue != 0)
+        {
+            QuestManager questManager = FindFirstObjectByType<QuestManager>();
+            if (questManager.currentQuestIndex == 7)
+            {
+                questManager.Quests[7].Progress(1f);
+            }
+        }
         SetOutputModeServerRpc(newValue);
     }
 
     private void OnOutputModeChangedDrillUsing(int newValue)
     {
+        if (newValue != 0)
+        {
+            QuestManager questManager = FindFirstObjectByType<QuestManager>();
+            if (questManager.currentQuestIndex == 7)
+            {
+                questManager.Quests[7].Progress(1f);
+            }
+        }
         SetDrillOutputModeServerRpc(newValue);
     }
 

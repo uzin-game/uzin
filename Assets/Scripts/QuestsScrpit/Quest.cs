@@ -63,7 +63,7 @@ public class Quest
     {
         IsActive = false;
         QuestManager.currentQuestIndex++;
-        if (QuestManager.currentQuestIndex == 5)
+        if (QuestManager.currentQuestIndex == 9)
         {
             Debug.Log("Quests complete");
             QuestManager.ShowWinScreen();

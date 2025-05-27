@@ -15,6 +15,9 @@ public class ConstructeurUsing : NetworkBehaviour
     public GameObject CardOut;
     public TMP_Dropdown dropdown;
     public CraftingRecipes[] craftingRecipes;
+    public GameObject boutDeChassis;
+    public GameObject boutsDeMoteur;
+    public GameObject systemeNav;
     
     [Header("UI Elements")]
     public GameObject craftUIPanel; // Panel contenant l'UI du craft
@@ -41,228 +44,239 @@ public class ConstructeurUsing : NetworkBehaviour
             UpdateCraftUI();
         }
     }
-private void UpdateProgressBar()
-{
-    if (craftProgressBar == null) return;
-
-    float progress = 0f;
-    Color barColor = Color.red;
-
-    if (isCrafting)
+    private void UpdateProgressBar()
     {
-        // Pendant le crafting, barre pleine en jaune
-        progress = 1f;
-        barColor = Color.yellow;
-    }
-    else
-    {
-        float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
-        
-        if (timeRemaining > 0)
+        if (craftProgressBar == null) return;
+
+        float progress = 0f;
+        Color barColor = Color.red;
+
+        if (isCrafting)
         {
-            // En cooldown - progression de 0 à 1 pendant le cooldown
-            progress = 1f - (timeRemaining / craftCooldown);
-            barColor = new Color(1f, 0.5f, 0f); // Orange
-        }
-        else if (CanCraft())
-        {
-            // Prêt à crafter - barre pleine en vert
+            // Pendant le crafting, barre pleine en jaune
             progress = 1f;
-            barColor = Color.green;
+            barColor = Color.yellow;
         }
         else
         {
-            // Pas assez de ressources - barre vide en rouge
-            progress = 0f;
-            barColor = Color.red;
+            float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
+            
+            if (timeRemaining > 0)
+            {
+                // En cooldown - progression de 0 à 1 pendant le cooldown
+                progress = 1f - (timeRemaining / craftCooldown);
+                barColor = new Color(1f, 0.5f, 0f); // Orange
+            }
+            else if (CanCraft())
+            {
+                // Prêt à crafter - barre pleine en vert
+                progress = 1f;
+                barColor = Color.green;
+            }
+            else
+            {
+                // Pas assez de ressources - barre vide en rouge
+                progress = 0f;
+                barColor = Color.red;
+            }
+        }
+    
+        // Appliquer la progression et la couleur
+        craftProgressBar.fillAmount = progress;
+        craftProgressBar.color = barColor;
+    }
+
+    // Craft automatique sans bouton
+    void Update()
+    {
+        int index = dropdown.value;
+        Recipe = craftingRecipes[index];
+        if (Recipe == null) return;
+        
+        // Mettre à jour l'UI
+        UpdateCraftUI();
+        UpdateProgressBar();
+        
+        // Craft automatique avec vérifications complètes
+        float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
+        
+        if (!isCrafting && timeRemaining <= 0 && CanCraft())
+        {
+            Debug.Log("=== CRAFT AUTOMATIQUE DÉCLENCHÉ ===");
+            Debug.Log($"Recipe: {Recipe.product?.itemName}, Amount: {Recipe.amount}");
+            DoCraft();
+            lastCraftTime = Time.time;
         }
     }
 
-    // Appliquer la progression et la couleur
-    craftProgressBar.fillAmount = progress;
-    craftProgressBar.color = barColor;
-}
-
-// Craft automatique sans bouton
-void Update()
-{
-    int index = dropdown.value;
-    Recipe = craftingRecipes[index];
-    if (Recipe == null) return;
-    
-    // Mettre à jour l'UI
-    UpdateCraftUI();
-    UpdateProgressBar();
-    
-    // Craft automatique avec vérifications complètes
-    float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
-    
-    if (!isCrafting && timeRemaining <= 0 && CanCraft())
+    // Version améliorée de TryCraft avec plus de debug
+    public void TryCraft()
     {
-        Debug.Log("=== CRAFT AUTOMATIQUE DÉCLENCHÉ ===");
-        Debug.Log($"Recipe: {Recipe.product?.itemName}, Amount: {Recipe.amount}");
+        Debug.Log("=== TryCraft appelé ===");
+        
+        float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
+        Debug.Log($"Time remaining: {timeRemaining}, isCrafting: {isCrafting}");
+        
+        if (isCrafting)
+        {
+            Debug.Log("Craft déjà en cours - ANNULÉ");
+            return;
+        }
+        
+        if (timeRemaining > 0)
+        {
+            Debug.Log($"Cooldown en cours: {timeRemaining:F1}s restantes - ANNULÉ");
+            return;
+        }
+        
+        bool canCraft = CanCraft();
+        Debug.Log($"CanCraft result: {canCraft}");
+        
+        if (!canCraft)
+        {
+            Debug.Log("Pas assez de ressources pour crafter - ANNULÉ");
+            return;
+        }
+        
+        Debug.Log("=== DÉBUT DU CRAFT ===");
         DoCraft();
         lastCraftTime = Time.time;
-    }
-}
-
-// Version améliorée de TryCraft avec plus de debug
-public void TryCraft()
-{
-    Debug.Log("=== TryCraft appelé ===");
-    
-    float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
-    Debug.Log($"Time remaining: {timeRemaining}, isCrafting: {isCrafting}");
-    
-    if (isCrafting)
-    {
-        Debug.Log("Craft déjà en cours - ANNULÉ");
-        return;
+        Debug.Log("=== FIN DU CRAFT ===");
     }
     
-    if (timeRemaining > 0)
+    // Version alternative avec craft asynchrone (optionnel)
+    public void StartAsyncCraft()
     {
-        Debug.Log($"Cooldown en cours: {timeRemaining:F1}s restantes - ANNULÉ");
-        return;
-    }
-    
-    bool canCraft = CanCraft();
-    Debug.Log($"CanCraft result: {canCraft}");
-    
-    if (!canCraft)
-    {
-        Debug.Log("Pas assez de ressources pour crafter - ANNULÉ");
-        return;
-    }
-    
-    Debug.Log("=== DÉBUT DU CRAFT ===");
-    DoCraft();
-    lastCraftTime = Time.time;
-    Debug.Log("=== FIN DU CRAFT ===");
-}
-
-// Version alternative avec craft asynchrone (optionnel)
-public void StartAsyncCraft()
-{
-    if (isCrafting) return;
-    
-    float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
-    if (timeRemaining > 0) return;
-    
-    if (!CanCraft()) return;
-    
-    StartCoroutine(CraftCoroutine());
-}
-
-private System.Collections.IEnumerator CraftCoroutine()
-{
-    isCrafting = true;
-    
-    // Simuler un temps de craft (optionnel)
-    float craftDuration = 2f; // 2 secondes pour crafter
-    float startTime = Time.time;
-    
-    while (Time.time - startTime < craftDuration)
-    {
-        // Pendant le craft, on peut montrer une progression
-        float craftProgress = (Time.time - startTime) / craftDuration;
-        if (craftProgressBar != null)
-        {
-            craftProgressBar.fillAmount = craftProgress;
-            craftProgressBar.color = Color.yellow;
-        }
-        yield return null;
-    }
-    
-    // Faire le craft réel
-    DoCraftImmediate(); // Version sans isCrafting = true au début
-    lastCraftTime = Time.time;
-    isCrafting = false;
-}
-
-private void DoCraftImmediate()
-{
-    // Même logique que DoCraft() mais sans modifier isCrafting
-    // (car c'est géré par la coroutine)
-    
-    // Créer un dictionnaire des ressources à retirer
-    Dictionary<string, int> toRemove = GetRequiredResources();
-
-    // Sauvegarder les données avant modification
-    InventoryItemData card1Item = null;
-    InventoryItemData card2Item = null;
-    
-    if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null)
-    {
-        card1Item = CardIn1.GetComponent<CardManager>().itemData;
-    }
-    
-    if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null)
-    {
-        card2Item = CardIn2.GetComponent<CardManager>().itemData;
-    }
-
-    // Retirer les ressources de CardIn1
-    if (card1Item != null && toRemove.ContainsKey(card1Item.itemName))
-    {
-        int amountToRemove = Mathf.Min(toRemove[card1Item.itemName], card1Item.itemNb);
-        int remainingQuantity = card1Item.itemNb - amountToRemove;
+        if (isCrafting) return;
         
-        toRemove[card1Item.itemName] -= amountToRemove;
-        if (toRemove[card1Item.itemName] <= 0)
+        float timeRemaining = craftCooldown - (Time.time - lastCraftTime);
+        if (timeRemaining > 0) return;
+        
+        if (!CanCraft()) return;
+        
+        StartCoroutine(CraftCoroutine());
+    }
+    
+    private System.Collections.IEnumerator CraftCoroutine()
+    {
+        isCrafting = true;
+        
+        // Simuler un temps de craft (optionnel)
+        float craftDuration = 2f; // 2 secondes pour crafter
+        float startTime = Time.time;
+        
+        while (Time.time - startTime < craftDuration)
         {
-            toRemove.Remove(card1Item.itemName);
+            // Pendant le craft, on peut montrer une progression
+            float craftProgress = (Time.time - startTime) / craftDuration;
+            if (craftProgressBar != null)
+            {
+                craftProgressBar.fillAmount = craftProgress;
+                craftProgressBar.color = Color.yellow;
+            }
+            yield return null;
         }
         
-        CardIn1.GetComponent<CardManager>().UnSetItem();
-        if (remainingQuantity > 0)
-        {
-            CardIn1.GetComponent<CardManager>().SetItem(card1Item.CreateCopyWithQuantity(remainingQuantity));
-        }
-    }
-
-    // Retirer les ressources de CardIn2
-    if (card2Item != null && toRemove.ContainsKey(card2Item.itemName))
-    {
-        int amountToRemove = Mathf.Min(toRemove[card2Item.itemName], card2Item.itemNb);
-        int remainingQuantity = card2Item.itemNb - amountToRemove;
-        
-        toRemove[card2Item.itemName] -= amountToRemove;
-        if (toRemove[card2Item.itemName] <= 0)
-        {
-            toRemove.Remove(card2Item.itemName);
-        }
-        
-        CardIn2.GetComponent<CardManager>().UnSetItem();
-        if (remainingQuantity > 0)
-        {
-            CardIn2.GetComponent<CardManager>().SetItem(card2Item.CreateCopyWithQuantity(remainingQuantity));
-        }
-    }
-
-    // Mettre le résultat dans CardOut
-    if (CardOut != null)
-    {
-        if (CardOut.GetComponent<CardManager>().itemData == null)
-        {
-            CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
-        }
-        else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
-        {
-            int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
-            CardOut.GetComponent<CardManager>().UnSetItem();
-            CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
-        }
+        // Faire le craft réel
+        DoCraftImmediate(); // Version sans isCrafting = true au début
+        lastCraftTime = Time.time;
+        isCrafting = false;
     }
     
-    // Progression des quêtes
-    if (questManager != null && questManager.currentQuestIndex == 6)
+    private void DoCraftImmediate()
     {
-        questManager.Quests[6].Progress(1f);
-    }
+        // Même logique que DoCraft() mais sans modifier isCrafting
+        // (car c'est géré par la coroutine)
+        
+        // Créer un dictionnaire des ressources à retirer
+        Dictionary<string, int> toRemove = GetRequiredResources();
+    
+        // Sauvegarder les données avant modification
+        InventoryItemData card1Item = null;
+        InventoryItemData card2Item = null;
+        
+        if (CardIn1 != null && CardIn1.GetComponent<CardManager>().itemData != null)
+        {
+            card1Item = CardIn1.GetComponent<CardManager>().itemData;
+        }
+        
+        if (CardIn2 != null && CardIn2.GetComponent<CardManager>().itemData != null)
+        {
+            card2Item = CardIn2.GetComponent<CardManager>().itemData;
+        }
+    
+        // Retirer les ressources de CardIn1
+        if (card1Item != null && toRemove.ContainsKey(card1Item.itemName))
+        {
+            int amountToRemove = Mathf.Min(toRemove[card1Item.itemName], card1Item.itemNb);
+            int remainingQuantity = card1Item.itemNb - amountToRemove;
+            
+            toRemove[card1Item.itemName] -= amountToRemove;
+            if (toRemove[card1Item.itemName] <= 0)
+            {
+                toRemove.Remove(card1Item.itemName);
+            }
+            
+            CardIn1.GetComponent<CardManager>().UnSetItem();
+            if (remainingQuantity > 0)
+            {
+                CardIn1.GetComponent<CardManager>().SetItem(card1Item.CreateCopyWithQuantity(remainingQuantity));
+            }
+        }
+    
+        // Retirer les ressources de CardIn2
+        if (card2Item != null && toRemove.ContainsKey(card2Item.itemName))
+        {
+            int amountToRemove = Mathf.Min(toRemove[card2Item.itemName], card2Item.itemNb);
+            int remainingQuantity = card2Item.itemNb - amountToRemove;
+            
+            toRemove[card2Item.itemName] -= amountToRemove;
+            if (toRemove[card2Item.itemName] <= 0)
+            {
+                toRemove.Remove(card2Item.itemName);
+            }
+            
+            CardIn2.GetComponent<CardManager>().UnSetItem();
+            if (remainingQuantity > 0)
+            {
+                CardIn2.GetComponent<CardManager>().SetItem(card2Item.CreateCopyWithQuantity(remainingQuantity));
+            }
+        }
+    
+        // Mettre le résultat dans CardOut
+        if (CardOut != null)
+        {
+            if (CardOut.GetComponent<CardManager>().itemData == null)
+            {
+                CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
+            }
+            else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
+            {
+                int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
+                CardOut.GetComponent<CardManager>().UnSetItem();
+                CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
+            }
+        }
 
-    Debug.Log("Craft terminé avec succès");
-}
+        if (Recipe.product.itemName == boutDeChassis.GetComponent<CardManager>().itemData.itemName)
+        {
+            questManager = FindFirstObjectByType<QuestManager>();
+            if (questManager.currentQuestIndex == 8)
+            {
+                questManager.Quests[8].Progress(1f);
+            }
+        }
+        if (Recipe.product.itemName == boutsDeMoteur.GetComponent<CardManager>().itemData.itemName)
+        {
+            questManager = FindFirstObjectByType<QuestManager>();
+            if (questManager.currentQuestIndex == 9)
+            {
+                questManager.Quests[9].Progress(1f);
+            }
+        }
+    
+        Debug.Log("Craft terminé avec succès");
+    }
     
     public override void OnNetworkSpawn()
     {

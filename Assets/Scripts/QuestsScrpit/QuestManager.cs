@@ -53,11 +53,17 @@ namespace QuestsScrpit
             Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter",
                 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest senevth = new Quest("IL en faut plus !","Placez le constructeur pour crafter plus vite", 1f, QuestText,
+            Quest senevth = new Quest("Il en faut plus !","Placez le constructeur pour crafter plus vite", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest eigitht = new Quest("Construire le châssis de vôtre fusée",
-                "Maintenant que vous avez les bases, faites le châssis de votre fusée", 10f, QuestText,
+            Quest eigitht = new Quest("Mettez en place l'automatisation",
+                "Cliquez sur les boutons jaune et vert et choisissez une sortie sur un four ou une foreuse", 2f, QuestText,
                 QuestDescriptionText, Porgress, this);
+            Quest ninth = new Quest("Maintenant, a vous de faire!", "Pour commencer le fusée, craftez 50 bouts de châssis", 50f, QuestText,
+                QuestDescriptionText, Porgress, this);
+            Quest tneht = new Quest("Bravo !", "Il nous faut maintenant 50 bouts de moteur", 50f, QuestText,
+                QuestDescriptionText, Porgress, this);
+            
+            
             Quests.Add(frist);
             Quests.Add(second);
             Quests.Add(thrid);
@@ -66,6 +72,8 @@ namespace QuestsScrpit
             Quests.Add(sitxh);
             Quests.Add(senevth);
             Quests.Add(eigitht);
+            Quests.Add(ninth);
+            Quests.Add(tneht);
 
             Quests[currentQuestIndex].Initialize();
            
@@ -99,7 +107,7 @@ namespace QuestsScrpit
 
             CurrentQuest.IsActive = false;
             currentQuestIndex++;
-            if (currentQuestIndex == 6) ShowWinScreen();
+            if (currentQuestIndex == Quests.Count) ShowWinScreen();
             CurrentQuest.timer = CurrentQuest.delay;
             CurrentQuest.isWaiting = true;
         }

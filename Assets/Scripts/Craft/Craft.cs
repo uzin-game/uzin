@@ -55,9 +55,9 @@ public class Craft : NetworkBehaviour
                 {
                     questmanager.Quests[5].Progress(1f);
                 }
-                if (questmanager != null && questmanager.currentQuestIndex == 6 && re.product.itemName == bouts.product.itemName)
+                if (questmanager != null && questmanager.currentQuestIndex == 8 && re.product.itemName == bouts.product.itemName)
                 {
-                    questmanager.Quests[6].Progress(1f);
+                    questmanager.Quests[8].Progress(1f);
                 }
             }
             else

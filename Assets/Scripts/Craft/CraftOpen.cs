@@ -3,10 +3,11 @@ using UnityEngine;
 public class CraftOpen : MonoBehaviour
 {
     public GameObject CraftPanel;
-    //private bool isOpen = false;
+    private GameObject Aim;
     void Start()
     {
         CraftPanel.SetActive(false);
+        Aim = GameObject.Find("Aim");
     }
 
     void Update()
@@ -15,13 +16,16 @@ public class CraftOpen : MonoBehaviour
         {
             ToggleInventory();
         }
-        if (CraftPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape)) ToggleInventory();
+        if (CraftPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleInventory();
+        }
     }
 
 
     public void ToggleInventory()
     {
-        //isOpen = !isOpen;
+        Aim.SetActive(!Aim.activeSelf);
         CraftPanel.SetActive(!CraftPanel.activeSelf);
     }
 }

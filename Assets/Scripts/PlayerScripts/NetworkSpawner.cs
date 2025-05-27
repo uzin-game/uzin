@@ -18,6 +18,11 @@ public class NetworkSpawner : NetworkBehaviour
     public Tilemap tilemap;
     public GameObject player;
 
+    public override void OnNetworkSpawn()
+    {
+        questManager = FindFirstObjectByType<QuestManager>();
+    }
+
     [ServerRpc(RequireOwnership = false)]
     public void RequestSpawnObjectServerRpc(Vector3 position, int prefabIndex, ServerRpcParams rpcParams = default)
     {
@@ -28,30 +33,33 @@ public class NetworkSpawner : NetworkBehaviour
         {
             GameObject obj = Instantiate(machinePrefabs[prefabIndex], position, Quaternion.identity);
             obj.GetComponent<NetworkObject>().Spawn(); // Synchronise avec les clients
+            if (prefabIndex == 6)
+            {
+                if (tilemap != null && tilemap.GetComponent<ChunkManager>() != null)
+                {
+                    questManager = tilemap.GetComponent<ChunkManager>().questManager;
+                    Debug.Log("Placed Drill, progressing quest 6");
+        
+                    if (questManager != null && questManager.Quests != null && questManager.currentQuestIndex ==  6)
+                    {
+                        questManager.Quests[6].Progress(1f); // ← Progresse spécifiquement la quête 6
+                    }
+                }
+            }
             if (prefabIndex == 1)
             {
                 Transform drillUsingTransform = obj.transform.Find("DrillUsing");
                 GameObject DrillUsingGameObject = drillUsingTransform.gameObject;
                 DrillUsingGameObject.GetComponent<DrillUsing>().Tile = TileMap.GetComponent<ChunkManager>().GetTileAtCell(tilemap.WorldToCell(position));
                 player = GameObject.FindGameObjectWithTag("Player");
-                questManager = tilemap.GetComponent<ChunkManager>().questManager;
+                //questManager = tilemap.GetComponent<ChunkManager>().questManager;
                 if (questManager.currentQuestIndex == 2)
                 {
                     Debug.Log("progrès quequette");
                     questManager.Quests[questManager.currentQuestIndex].Progress(1f);
                 }
             }
-
-            if (prefabIndex == 6)
-            {
-                //player = GameObject.FindGameObjectWithTag("Player");
-                //questManager = tilemap.GetComponent<ChunkManager>().questManager;
-                if (questManager.currentQuestIndex == 6)
-                {
-                    Debug.Log("progrès quequette");
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
-                }
-            }
+            
         }
     }
 
