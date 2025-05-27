@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: -2766862824237500955}
   - component: {fileID: -1433932430392354407}
   - component: {fileID: -1479878002343146451}
-  - component: {fileID: 374192258591765592}
   - component: {fileID: 7454149741961100227}
-  - component: {fileID: -8401309021242391081}
   m_Layer: 0
   m_Name: minerai_charbon_0
   m_TagString: Untagged
@@ -200,20 +198,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.25, y: 0.16}
   m_EdgeRadius: 0
---- !u!114 &374192258591765592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7512342290788784673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 438099bff3a0abc4fa3ed70900b2806b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryItem: {fileID: 0}
-  rb: {fileID: 0}
 --- !u!50 &7454149741961100227
 Rigidbody2D:
   serializedVersion: 5
@@ -229,7 +213,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -241,20 +225,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-8401309021242391081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7512342290788784673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 0
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1

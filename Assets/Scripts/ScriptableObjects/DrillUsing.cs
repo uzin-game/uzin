@@ -1,10 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using QuestsScrpit;
 using RedstoneinventeGameStudio;
+using ScriptableObjects;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DrillUsing : MonoBehaviour
+public class DrillUsing : NetworkBehaviour
 {
     public GameObject CoalCard;
     public GameObject OutputCard;
@@ -27,12 +30,16 @@ public class DrillUsing : MonoBehaviour
     private bool advanceQuest;
     
     public QuestManager questManager;
+
+    public List<GameObject> OutputPrefabs;
     
-    public NetworkSpawner spawner;
+    public NetworkVariable<MachineOutputMode> OutputMode = new NetworkVariable<MachineOutputMode>(
+        MachineOutputMode.Inventory,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server);
+
     void Start()
     {
-        
-        spawner = FindFirstObjectByType<NetworkSpawner>();
         // Debug pour vérifier les tiles
         Debug.Log("Current Tile: " + (Tile != null ? Tile.name : "null"));
         Debug.Log("CoalTile: " + (CoalTile != null ? CoalTile.name : "null"));
@@ -79,6 +86,11 @@ public class DrillUsing : MonoBehaviour
         Debug.Log("Drill initialized - Product: " + (product != null ? product.itemName : "null") + ", CanMine: " + CanMine);
     }
 
+    public void SetOutputMode(MachineOutputMode newMode)
+    {
+        OutputMode.Value = newMode;
+    }
+
     void Update()
     {
         bool notBurning = !burning;
@@ -93,12 +105,6 @@ public class DrillUsing : MonoBehaviour
             Debug.Log("Coal available: " + coalCardManager.itemData.itemNb);
             Burn();
         }
-    }
-    
-    void SpawnOutput(Vector3 position, int prefabindex)
-    {
-        Debug.Log("Spawning Output");
-        spawner.RequestSpawnOutput(position, prefabindex);
     }
 
     public void Burn()
@@ -145,57 +151,33 @@ public class DrillUsing : MonoBehaviour
             Debug.Log("Production cycle - elapsed: " + elapsed + "s");
             
             // Ajout du produit dans la carte de sortie
-            
-            /*
-            if (furnaceInteraction.OutputLeTruc)
-            {
-                int index = 0;
-                if (output.itemData != null && output.itemData.itemName == IronOre.itemName) index = 1;
-                SpawnOutput(furnaceInteraction.ItemOutpusPosition, index);
-            }
-            else
+            if (OutputMode.Value == MachineOutputMode.Inventory)
             {
                 if (output.itemData == null)
                 {
-                    output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
-                    if (questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
+                    output.SetItem(product.CreateCopyWithQuantity(1));                                 
+                    Debug.Log("Created new output: " + product.itemName + " x1");
+                    if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)   
                     {
-                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
                     }
                 }
                 else
                 {
-                    int outQty = output.itemData.itemNb + 1;                                            //TODO
+                    int outQty = output.itemData.itemNb + 1;                                           
                     output.UnSetItem();
-                    output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
-                    if (questManager.currentQuestIndex == 3 && advanceQuest)
+                    output.SetItem(product.CreateCopyWithQuantity(outQty));                            
+                    Debug.Log("Added to existing output: " + product.itemName + " x" + outQty);
+                    if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)
                     {
-                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);              
                     }
-                }
-            }*/
-            
-            if (output.itemData == null)
-            {
-                output.SetItem(product.CreateCopyWithQuantity(1));                                  //TODO
-                Debug.Log("Created new output: " + product.itemName + " x1");
-                if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)                                            //TODO
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
                 }
             }
             else
             {
-                int outQty = output.itemData.itemNb + 1;                                            //TODO
-                output.UnSetItem();
-                output.SetItem(product.CreateCopyWithQuantity(outQty));                             //TODO
-                Debug.Log("Added to existing output: " + product.itemName + " x" + outQty);
-                if (questManager != null && questManager.currentQuestIndex == 3 && advanceQuest)
-                {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);               //TODO
-                }
+                DropItemNearMachine(product);
             }
-
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;
         }
@@ -203,5 +185,30 @@ public class DrillUsing : MonoBehaviour
         // Terminé après 10 secondes de production
         Debug.Log("Burn process completed");
         burning = false;
+    }
+    
+    void DropItemNearMachine(InventoryItemData product)
+    {
+        Vector3 dropPosition = new Vector3();
+        if (OutputMode.Value == MachineOutputMode.DropBelow) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.down;
+        else if (OutputMode.Value == MachineOutputMode.DropAbove) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.up;
+        else if (OutputMode.Value == MachineOutputMode.DropLeft) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.left;
+        else if (OutputMode.Value == MachineOutputMode.DropRight) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.right;
+        int prefabIndex = 0;
+        if (product.itemName == OrOre.itemName)
+        {
+            prefabIndex = 2;
+        }
+        if (product.itemName == CopperOre.itemName)
+        {
+            prefabIndex = 2;
+        }
+
+        if (product.itemName == CoalItem.itemName)
+        {
+            prefabIndex = 3;
+        }
+        GameObject droppedItem = Instantiate(OutputPrefabs[prefabIndex], dropPosition, Quaternion.identity);
+        droppedItem.GetComponent<NetworkObject>().Spawn(); // Pour le multijoueur
     }
 }

@@ -3631,7 +3631,7 @@ MonoBehaviour:
   spawnableMobs:
   - name: Spider
     prefabIndex: 1
-    weight: 2
+    weight: 1
   - name: Fly
     prefabIndex: 0
     weight: 4
@@ -4043,6 +4043,7 @@ MonoBehaviour:
   - {fileID: 4389205718770631483, guid: 018cbc6413daeb548b43585792c0216d, type: 3}
   - {fileID: 7437225750716893009, guid: 7287f0ac8b164394aa46a20a8dbd786c, type: 3}
   DrillPrefab: {fileID: 7823472476007205890, guid: cbadbaef06412614185df01df11195a6, type: 3}
+  CrafterPrefab: {fileID: 0}
   TileMap: {fileID: 1589580474}
   questManager: {fileID: 2677262780634623136, guid: af5a6ac6895ab9644bf33e3ecdd3c7f3, type: 3}
   tilemap: {fileID: 1589580485}

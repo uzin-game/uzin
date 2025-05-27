@@ -1,10 +1,13 @@
+using System;
 using RedstoneinventeGameStudio;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using QuestsScrpit;
+using ScriptableObjects;
+using Unity.Netcode;
 
-public class FurnaceUsing : MonoBehaviour
+public class FurnaceUsing : NetworkBehaviour
 {
     public GameObject InputCard;
     public GameObject CoalCard;
@@ -23,6 +26,13 @@ public class FurnaceUsing : MonoBehaviour
     private bool interfaceActive = true; // Nouveau flag pour savoir si l'interface est active
     private Coroutine burnCoroutine; // Référence à la coroutine pour pouvoir l'arrêter
     public QuestManager questManager;
+    
+    public NetworkVariable<MachineOutputMode> OutputMode = new NetworkVariable<MachineOutputMode>(
+        MachineOutputMode.Inventory,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server);
+    public List<GameObject> OutputPrefabs; // ez;lrk,sieo
+
 
     // Mapping minerai → lingot
     private Dictionary<string, InventoryItemData> oreToIngot;
@@ -92,12 +102,6 @@ public class FurnaceUsing : MonoBehaviour
         burning = false;
     }
 
-    void SpawnOutput(Vector3 position, int prefabindex)
-    {
-        Debug.Log("Spawning Output");
-        networkSpawner.RequestSpawnOutput(position, prefabindex);
-    }
-
     public bool ConveyorUsing(InventoryItemData inventoryItem)
     {
         var inputManager = InputCard?.GetComponent<CardManager>();
@@ -119,6 +123,11 @@ public class FurnaceUsing : MonoBehaviour
         }
 
         return false;
+    }
+    
+    public void SetOutputMode(MachineOutputMode newMode)
+    {
+        OutputMode.Value = newMode;
     }
 
     public void Burn()
@@ -193,31 +202,39 @@ public class FurnaceUsing : MonoBehaviour
             if (newOreQty > 0)
                 input.SetItem(c);
 
-            // Ajouter 1 lingot dans la sortie
-            if (output.itemData == null)
+            if (OutputMode.Value == MachineOutputMode.Inventory)
             {
-                output.SetItem(correspondingIngot.CreateCopyWithQuantity(1));
-                if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                // Ajouter 1 lingot dans la sortie
+                if (output.itemData == null)
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                    output.SetItem(correspondingIngot.CreateCopyWithQuantity(1));
+                    if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                    }
                 }
-            }
-            else if (output.itemData.itemName == correspondingIngot.itemName)
-            {
-                int outQty = output.itemData.itemNb + 1;
-                output.UnSetItem();
-                output.SetItem(correspondingIngot.CreateCopyWithQuantity(outQty));
-                if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                else if (output.itemData.itemName == correspondingIngot.itemName)
                 {
-                    questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                    int outQty = output.itemData.itemNb + 1;
+                    output.UnSetItem();
+                    output.SetItem(correspondingIngot.CreateCopyWithQuantity(outQty));
+                    if (questManager != null && questManager.currentQuestIndex == 4 && currentOre == IronOre.itemName)
+                    {
+                        questManager.Quests[questManager.currentQuestIndex].Progress(1f);
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Impossible d'empiler : type de lingot différent.");
+                    burning = false;
+                    yield break;
                 }
             }
             else
             {
-                Debug.LogWarning("Impossible d'empiler : type de lingot différent.");
-                burning = false;
-                yield break;
+                DropItemNearMachine(correspondingIngot);
             }
+            
 
             yield return new WaitForSeconds(productionInterval);
             elapsed += productionInterval;
@@ -226,6 +243,27 @@ public class FurnaceUsing : MonoBehaviour
         burning = false;
         burnCoroutine = null;
     }
+    
+    void DropItemNearMachine(InventoryItemData product)
+    {
+        Vector3 dropPosition = new Vector3();
+        if (OutputMode.Value == MachineOutputMode.DropBelow) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.down;
+        else if (OutputMode.Value == MachineOutputMode.DropAbove) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.up;
+        else if (OutputMode.Value == MachineOutputMode.DropLeft) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.left;
+        else if (OutputMode.Value == MachineOutputMode.DropRight) dropPosition = GetComponentInParent<NetworkObject>().transform.position + Vector3.right;
+        int prefabIndex = 0;
+        if (product.itemName == oreToIngot[Gold.itemName].itemName)
+        {
+            prefabIndex = 2;
+        }
+        if (product.itemName == oreToIngot[Copper.itemName].itemName)
+        {
+            prefabIndex = 2;
+        }
+        GameObject droppedItem = Instantiate(OutputPrefabs[prefabIndex], dropPosition, Quaternion.identity);
+        droppedItem.GetComponent<NetworkObject>().Spawn(); // Pour le multijoueur
+    }
+
 
     // Méthode appelée quand l'objet est détruit
     void OnDestroy()

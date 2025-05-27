@@ -20,6 +20,8 @@ namespace ScriptableObjects
                 if (Input.GetKeyDown(InteractKey))
                 {
                     InteractAction.Invoke();
+                    furnaceInteraction.SetTargetMachine(furnaceInteraction.furnaceScript);
+                    furnaceInteraction.SetTargetDrillUsing(furnaceInteraction.drillUsing);
                 }
             }
         }

@@ -1,92 +1,119 @@
+using System;
 using System.Collections.Generic;
 using RedstoneinventeGameStudio;
 using ScriptableObjects;
+using TMPro;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class FurnaceInteraction : MonoBehaviour
+public class FurnaceInteraction : NetworkBehaviour
 {
     public bool IsInteracting;
     [SerializeField] private GameObject FurnaceUI;
     public GameObject playerInRange;
     public GameObject Panel;
     public DrillUsing drillUsing;
-    public Vector3 ItemOutpusPosition;
-    public Button NorthButton;
-    public Button EastButton;
-    public Button SouthButton;
     public FurnaceUsing furnaceScript;
-    public Button WestButton;
     public bool IsSelecting;
     public Button SelectButton;
     public bool OutputLeTruc = false;
-
+    public TMP_Dropdown dropdown; 
+    public List<GameObject> outputPrefabs;
     void Start()
     {
         IsSelecting = false;
-        NorthButton.onClick.AddListener(delegate
-        {
-            ItemOutpusPosition = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z);
-            Debug.Log("North");
-            StopSelecting();
-            OutputLeTruc = true;
-        });
-        EastButton.onClick.AddListener(delegate
-        {
-            ItemOutpusPosition = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-            Debug.Log("East");
-            StopSelecting();
-            OutputLeTruc = true;
-        });
-        WestButton.onClick.AddListener(delegate
-        {
-            ItemOutpusPosition = new Vector3(transform.position.x , transform.position.y - 1, transform.position.z);
-            Debug.Log("West");
-            StopSelecting();
-            OutputLeTruc = true;
-        });
-        SouthButton.onClick.AddListener(delegate
-        {
-            ItemOutpusPosition = new Vector3(transform.position.x - 1, transform.position.y, transform.position.z);
-            Debug.Log("South");
-            StopSelecting();
-            OutputLeTruc = true;
-        });
         SelectButton.onClick.AddListener(delegate
         {
             if (IsSelecting)
             {
                 Debug.Log("Select");
-                StopSelecting();
+                dropdown.gameObject.SetActive(false);
+                IsSelecting = false;
             }
             else
             {
                 Debug.Log("UnSelect");
-                Select();
+                dropdown.gameObject.SetActive(true);
+                IsSelecting = true;
             }
         });
     }
 
-    void Select()
+    public void SetTargetMachine(FurnaceUsing target)
     {
-        IsSelecting = true;
-        NorthButton.gameObject.SetActive(true);
-        EastButton.gameObject.SetActive(true);
-        WestButton.gameObject.SetActive(true);
-        SouthButton.gameObject.SetActive(true);
+        if (furnaceScript != null)
+        {
+            furnaceScript = target;
+        
+            furnaceScript.OutputPrefabs = outputPrefabs;
+        
+            dropdown.onValueChanged.RemoveAllListeners();
+        
+            dropdown.value = (int)furnaceScript.OutputMode.Value;
+        
+            dropdown.onValueChanged.AddListener(OnOutputModeChanged);
+        }
     }
 
-    void StopSelecting()
+    public void SetTargetDrillUsing(DrillUsing target)
     {
-        IsSelecting = false;
-        NorthButton.gameObject.SetActive(false);
-        EastButton.gameObject.SetActive(false);
-        WestButton.gameObject.SetActive(false);
-        SouthButton.gameObject.SetActive(false);
+        if (drillUsing != null)
+        {
+            drillUsing = target;
+            
+            drillUsing.OutputPrefabs = outputPrefabs;
+        
+            dropdown.onValueChanged.RemoveAllListeners();
+        
+            dropdown.value = (int)drillUsing.OutputMode.Value;
+        
+            dropdown.onValueChanged.AddListener(OnOutputModeChangedDrillUsing);
+        }
+        
+    }
+    
+    private void OnOutputModeChanged(int newValue)
+    {
+        Debug.Log("OnOutputModeChanged, calling ServerRPC");
+        SetOutputModeServerRpc(newValue);
     }
 
+    private void OnOutputModeChangedDrillUsing(int newValue)
+    {
+        SetDrillOutputModeServerRpc(newValue);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetDrillOutputModeServerRpc(int newValue)
+    {
+        if (Enum.IsDefined(typeof(MachineOutputMode), newValue))
+        {
+            drillUsing.SetOutputMode((MachineOutputMode)newValue);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid output mode received from client.");
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void SetOutputModeServerRpc(int newMode)
+    {
+        if (Enum.IsDefined(typeof(MachineOutputMode), newMode))
+        {
+            furnaceScript.SetOutputMode((MachineOutputMode)newMode);
+        }
+        else
+        {
+            Debug.LogWarning("Invalid output mode received from client.");
+        }
+    }
+    
+    
+    
     public void Interact()
     {
         if (!IsInteracting)
