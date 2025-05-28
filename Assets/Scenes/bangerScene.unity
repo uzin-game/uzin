@@ -6873,9 +6873,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1097532094020561220, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_Text
+      value: "Plein \xE9cran"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2142460902695849307, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_text
+      value: Retour
+      objectReference: {fileID: 0}
     - target: {fileID: 2565954932705492623, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
       propertyPath: m_Name
       value: HomeMenuUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4144877895805357631, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_text
+      value: Quitter
       objectReference: {fileID: 0}
     - target: {fileID: 5912816758292038405, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
       propertyPath: m_Pivot.x
@@ -6960,6 +6972,22 @@ PrefabInstance:
     - target: {fileID: 6986580947236892365, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398001107796000170, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: BAS
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398001107796000170, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: MOYEN
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398001107796000170, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      value: HAUT
+      objectReference: {fileID: 0}
+    - target: {fileID: 8474900912709961356, guid: d827726a0ac72bf4baf0614a50c94eb3, type: 3}
+      propertyPath: m_text
+      value: Jouer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9007,6 +9035,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 868015439597352370, guid: 8f48d007d3dd6a74eb9f82a681a0fa6b, type: 3}
+      propertyPath: m_text
+      value: "Progr\xE8s :"
+      objectReference: {fileID: 0}
     - target: {fileID: 3568401974344832744, guid: 8f48d007d3dd6a74eb9f82a681a0fa6b, type: 3}
       propertyPath: m_Name
       value: QuestCanvas
@@ -9374,6 +9406,10 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3859951449
       objectReference: {fileID: 0}
+    - target: {fileID: 661512834811997431, guid: 5f12b2fd43f7da743b4eb8a9a00d591d, type: 3}
+      propertyPath: m_text
+      value: "H\xF4te"
+      objectReference: {fileID: 0}
     - target: {fileID: 3433790109600225079, guid: 5f12b2fd43f7da743b4eb8a9a00d591d, type: 3}
       propertyPath: m_Name
       value: StartGameUI
@@ -9593,6 +9629,10 @@ PrefabInstance:
     - target: {fileID: 6574956683278634681, guid: 5f12b2fd43f7da743b4eb8a9a00d591d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642050811203344225, guid: 5f12b2fd43f7da743b4eb8a9a00d591d, type: 3}
+      propertyPath: m_text
+      value: Retour
       objectReference: {fileID: 0}
     - target: {fileID: 6885541627117764785, guid: 5f12b2fd43f7da743b4eb8a9a00d591d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

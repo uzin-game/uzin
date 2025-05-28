@@ -58,11 +58,11 @@ namespace QuestsScrpit
             Quest eigitht = new Quest("Mettez en place l'automatisation",
                 "Cliquez sur les boutons jaune et vert et choisissez une sortie sur un four ou une foreuse", 2f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest ninth = new Quest("Maintenant, a vous de faire!", "Pour commencer le fusée, craftez un navigateur.", 1f, QuestText,
+            Quest ninth = new Quest("Maintenant, a vous de faire!", "Pour commencer la fusée, craftez un navigateur.", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest tneht = new Quest("Bravo !", "Il nous faut maintenant un système direction.", 1f, QuestText,
+            Quest tneht = new Quest("Bravo !", "Il nous faut maintenant un système de direction.", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest eleventh = new Quest("On y est presque !"," Il nous manque juste 50 de bout de chassis pour la fusée.", 50f, QuestText,QuestDescriptionText,Porgress, this);
+            Quest eleventh = new Quest("On y est presque !"," Il nous manque juste 1 de bout de chassis pour la fusée.", 1f, QuestText,QuestDescriptionText,Porgress, this);
             Quest twelveth = new Quest("Partons !"," Fabrique cette fusée.",1f, QuestText,QuestDescriptionText,Porgress, this);
             
             Quests.Add(frist);

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6051569622202233497}
   - component: {fileID: 7175424775072602933}
-  - component: {fileID: 4398694360779049635}
+  - component: {fileID: 3349430534799907904}
   m_Layer: 0
-  m_Name: RIGHT_Conveyor
+  m_Name: Convoyeur Haut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2169824146759485184, guid: a19ff5f047ee58243adbb2d5990edad5, type: 3}
+  m_Sprite: {fileID: -4308650790901064434, guid: d844499a820de934a90b475f3563bc95, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4398694360779049635
+--- !u!114 &3349430534799907904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsLeft: 0
-  IsRight: 1
-  IsTop: 0
+  IsRight: 0
+  IsTop: 1
   IsBottom: 0
   speed: 2

@@ -15,5 +15,5 @@ MonoBehaviour:
   product: {fileID: 11400000, guid: e47a710076f5a33479353155534e39f4, type: 2}
   amount: 1
   Ressources:
-  - {fileID: 11400000, guid: a0fbb874d010c2545b809d9612041f90, type: 2}
+  - {fileID: 11400000, guid: 7273c5a13d550c743a7c3b51513745f2, type: 2}
   - {fileID: 11400000, guid: cba17055c07641445a3e8ca70c85918e, type: 2}
