@@ -111,6 +111,40 @@ public class ConstructeurUsing : NetworkBehaviour
         {
             Debug.Log("=== CRAFT AUTOMATIQUE DÉCLENCHÉ ===");
             Debug.Log($"Recipe: {Recipe.product?.itemName}, Amount: {Recipe.amount}");
+            Debug.Log("[QUESTMANAGER] Quest manager is null :" + (questManager == null));
+
+            if (questManager!= null && questManager.currentQuestIndex == 8)
+            {
+                if (Recipe.product.itemName == SystemeNav.product.itemName)
+                {
+                    questManager.Quests[8].Progress(1f); 
+                }
+            }
+
+            if (questManager!= null && questManager.currentQuestIndex == 9)
+            {
+                if (Recipe.product.itemName == Direction.product.itemName)
+                {
+                    questManager.Quests[9].Progress(1f);
+                }
+            }
+
+            if (questManager!= null && questManager.currentQuestIndex == 10)
+            {
+                if (Recipe.product.itemName == Chassis.product.itemName)
+                {
+                    questManager.Quests[10].Progress(1f);
+                }
+            }
+
+            if (questManager!= null && questManager.currentQuestIndex == 11)
+            {
+                if (Recipe.product.itemName == Fusee.product.itemName)
+                {
+                    questManager.Quests[11].Progress(1f);
+                    questManager.ShowWinScreen();
+                }
+            }
             DoCraft();
             lastCraftTime = Time.time;
         }
@@ -185,9 +219,11 @@ public class ConstructeurUsing : NetworkBehaviour
         }
         
         // Faire le craft réel
+        
         DoCraftImmediate(); // Version sans isCrafting = true au début
         lastCraftTime = Time.time;
         isCrafting = false;
+        
     }
     
     private void DoCraftImmediate()
@@ -256,47 +292,51 @@ public class ConstructeurUsing : NetworkBehaviour
             if (CardOut.GetComponent<CardManager>().itemData == null)
             {
                 CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(Recipe.amount));
+                
             }
             else if (CardOut.GetComponent<CardManager>().itemData.itemName == Recipe.product.itemName)
             {
                 int total = CardOut.GetComponent<CardManager>().itemData.itemNb + Recipe.amount;
                 CardOut.GetComponent<CardManager>().UnSetItem();
                 CardOut.GetComponent<CardManager>().SetItem(Recipe.product.CreateCopyWithQuantity(total));
-            }
-        }
+                Debug.Log("Quest manager is null :" + questManager == null);
 
-        if (questManager!= null && questManager.currentQuestIndex == 8)
-        {
-            if (Recipe.product.itemName == SystemeNav.product.itemName)
-            {
-                questManager.Quests[8].Progress(1f); 
-            }
-        }
+                if (questManager!= null && questManager.currentQuestIndex == 8)
+                {
+                    if (Recipe.product.itemName == SystemeNav.product.itemName)
+                    {
+                        questManager.Quests[8].Progress(1f); 
+                    }
+                }
 
-        if (questManager!= null && questManager.currentQuestIndex == 9)
-        {
-            if (Recipe.product.itemName == Direction.product.itemName)
-            {
-                questManager.Quests[9].Progress(1f);
-            }
-        }
+                if (questManager!= null && questManager.currentQuestIndex == 9)
+                {
+                    if (Recipe.product.itemName == Direction.product.itemName)
+                    {
+                        questManager.Quests[9].Progress(1f);
+                    }
+                }
 
-        if (questManager!= null && questManager.currentQuestIndex == 10)
-        {
-            if (Recipe.product.itemName == Chassis.product.itemName)
-            {
-                questManager.Quests[10].Progress(1f);
-            }
-        }
+                if (questManager!= null && questManager.currentQuestIndex == 10)
+                {
+                    if (Recipe.product.itemName == Chassis.product.itemName)
+                    {
+                        questManager.Quests[10].Progress(1f);
+                    }
+                }
 
-        if (questManager!= null && questManager.currentQuestIndex == 11)
-        {
-            if (Recipe.product.itemName == Fusee.product.itemName)
-            {
-                questManager.Quests[11].Progress(1f);
-                questManager.ShowWinScreen();
+                if (questManager!= null && questManager.currentQuestIndex == 11)
+                {
+                    if (Recipe.product.itemName == Fusee.product.itemName)
+                    {
+                        questManager.Quests[11].Progress(1f);
+                        questManager.ShowWinScreen();
+                    }
+                }
             }
         }
+        
+        
     
         Debug.Log("Craft terminé avec succès");
     }
@@ -350,7 +390,7 @@ public class ConstructeurUsing : NetworkBehaviour
         {
             if (requiredList.Count > 1)
             {
-                Debug.Log("conternaire2Try");
+                //Debug.Log("conternaire2Try");
                 var required = requiredList[1];
                 int available = availableResources.ContainsKey(required.Key) ? availableResources[required.Key] : 0;
                 InventoryItemData requiredItemData = GetItemDataByName(required.Key);

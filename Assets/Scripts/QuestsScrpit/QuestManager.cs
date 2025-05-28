@@ -21,7 +21,7 @@ namespace QuestsScrpit
         public GameObject panel;
         public GameObject WinPanel;
 
-        public Quest CurrentQuest => Quests[currentQuestIndex];
+        //public Quest CurrentQuest => Quests[currentQuestIndex];
         //public HealthNetwork healthNetwork;
 
         public NetworkVariable<FixedString128Bytes> QuestTitle = new();
@@ -108,11 +108,11 @@ namespace QuestsScrpit
                 HealAllPlayers(10f);
             }
 
-            CurrentQuest.IsActive = false;
+            Quests[currentQuestIndex].IsActive = false;
             currentQuestIndex++;
             if (currentQuestIndex == Quests.Count) ShowWinScreen();
-            CurrentQuest.timer = CurrentQuest.delay;
-            CurrentQuest.isWaiting = true;
+            Quests[currentQuestIndex].timer = Quests[currentQuestIndex].delay;
+            Quests[currentQuestIndex].isWaiting = true;
         }
 
         private void HealAllPlayers(float healAmount)
@@ -140,12 +140,12 @@ namespace QuestsScrpit
                 //Porgress.value = QuestProgress.Value;
             }
 
-            if (IsServer && CurrentQuest.isWaiting)
+            if (IsServer && Quests[currentQuestIndex].isWaiting)
             {
-                CurrentQuest.timer -= Time.deltaTime;
-                if (CurrentQuest.timer <= 0f)
+                Quests[currentQuestIndex].timer -= Time.deltaTime;
+                if (Quests[currentQuestIndex].timer <= 0f)
                 {
-                    CurrentQuest.isWaiting = false;
+                    Quests[currentQuestIndex].isWaiting = false;
                     Quests[currentQuestIndex].Initialize();
                 }
             }
