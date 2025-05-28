@@ -1,11 +1,14 @@
 ﻿using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoordinateDisplay : MonoBehaviour
+public class CoordinateDisplay : NetworkBehaviour
 {
     [Header("UI References")]
     public TMP_Text coordinateText; // Ou TextMeshProUGUI si tu utilises TextMeshPro
+
+    public GameObject Panel;
     
     [Header("Settings")]
     public Transform playerTransform; // Le transform du joueur local
@@ -15,6 +18,11 @@ public class CoordinateDisplay : MonoBehaviour
     
     void Start()
     {
+        if (!IsOwner)
+        {
+            Panel.SetActive(false);
+            coordinateText.text = "";
+        }
         // Si playerTransform n'est pas assigné, trouve le joueur local
         if (playerTransform == null)
         {
@@ -31,7 +39,7 @@ public class CoordinateDisplay : MonoBehaviour
     {
         timer += Time.deltaTime;
         
-        if (timer >= updateInterval && playerTransform != null && coordinateText != null)
+        if (timer >= updateInterval && playerTransform != null && coordinateText != null && IsOwner)
         {
             // Affiche les coordonnées arrondies
             int x = Mathf.RoundToInt(playerTransform.position.x);
