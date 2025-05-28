@@ -1446,7 +1446,11 @@ MonoBehaviour:
   OrOre: {fileID: 11400000, guid: 712a9bf1de8c21045a604366c61a4a56, type: 2}
   furnaceInteraction: {fileID: 8208688499842047460}
   questManager: {fileID: 0}
-  OutputPrefabs: []
+  OutputPrefabs:
+  - {fileID: 3803335078222994476, guid: 99b3839af4c4f944d8bb911d4cb4198c, type: 3}
+  - {fileID: 7437225750716893009, guid: 7287f0ac8b164394aa46a20a8dbd786c, type: 3}
+  - {fileID: 4389205718770631483, guid: 018cbc6413daeb548b43585792c0216d, type: 3}
+  - {fileID: 7512342290788784673, guid: ee20116cbbbd4cc4ab98c94ba971bbe8, type: 3}
   OutputMode:
     m_InternalValue: 0
 --- !u!114 &5839488992992388631
@@ -1475,7 +1479,11 @@ MonoBehaviour:
   OrOre: {fileID: 11400000, guid: 712a9bf1de8c21045a604366c61a4a56, type: 2}
   furnaceInteraction: {fileID: 8208688499842047460}
   questManager: {fileID: 0}
-  OutputPrefabs: []
+  OutputPrefabs:
+  - {fileID: 3803335078222994476, guid: 99b3839af4c4f944d8bb911d4cb4198c, type: 3}
+  - {fileID: 7437225750716893009, guid: 7287f0ac8b164394aa46a20a8dbd786c, type: 3}
+  - {fileID: 4389205718770631483, guid: 018cbc6413daeb548b43585792c0216d, type: 3}
+  - {fileID: 7512342290788784673, guid: ee20116cbbbd4cc4ab98c94ba971bbe8, type: 3}
   OutputMode:
     m_InternalValue: 0
 --- !u!1 &8559507364594226516

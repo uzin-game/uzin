@@ -38,19 +38,19 @@ namespace QuestsScrpit
             Quests = new List<Quest>();
 
 
-            Quest frist = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d", 1f,
+            Quest frist = new Quest("Explorez les alentours et trouvez du charbon", "Bougez avec z,q,s,d.", 1f,
                 QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest second = new Quest("Récuperez du charbon", "Minez des minerais avec `A`", 10f, QuestText,
+            Quest second = new Quest("Récuperez du charbon", "Minez des minerais avec `A`.", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest thrid = new Quest("Posez une foreuse sur un filon de fer", "Appuyez sur `P` pour placer une machine", 1f, QuestText,
+            Quest thrid = new Quest("Posez une foreuse sur un filon de fer", "Appuyez sur `P` pour placer une machine, puis posez une foreuse sur du fer.", 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest frouth = new Quest("Minez 10 fer a l'aide de la foreuse",
-                "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange", 10f, QuestText,
+                "La foreuse marche en brûlant du charbon, que vous devez mettre dans la case orange.", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest fitfh = new Quest("Faites cuire le fer dans un four", "Commencez par placer un four", 10f, QuestText,
+            Quest fitfh = new Quest("Faites cuire le fer dans un four", "Commencez par placer un four, puis faites cuire votre fer dedans.", 10f, QuestText,
                 QuestDescriptionText, Porgress, this);
-            Quest sitxh = new Quest("Craftez maintenant des plaques de fer", "Appuyz sur `C`  pour commencer a crafter",
+            Quest sitxh = new Quest("Craftez maintenant des tôles de fer", "Appuyz sur `C`  pour commencer a crafter",
                 1f, QuestText,
                 QuestDescriptionText, Porgress, this);
             Quest senevth = new Quest("Il en faut plus !","Placez le constructeur pour crafter plus vite", 1f, QuestText,

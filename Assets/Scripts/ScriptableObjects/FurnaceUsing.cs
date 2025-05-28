@@ -505,7 +505,7 @@ public class FurnaceUsing : NetworkBehaviour
         }
         if (product.itemName == oreToIngot[Copper.itemName].itemName)
         {
-            prefabIndex = 2;
+            prefabIndex = 1;
         }
         
         GameObject droppedItem = Instantiate(OutputPrefabs[prefabIndex], dropPosition, Quaternion.identity);

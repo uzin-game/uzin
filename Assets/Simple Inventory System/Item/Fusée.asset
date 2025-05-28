@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980a60e1e064f1745945bc01cf026f2b, type: 3}
   m_Name: "Fus\xE9e"
   m_EditorClassIdentifier: 
-  itemName: Systeme de direction
+  itemName: "Fus\xE9e"
   itemDescription: "mat\xE9riaux"
   itemNb: 1
   itemTooltip: "mat\xE9riaux"
-  itemIcon: {fileID: -3149217409628644427, guid: 298a0f8266bcdf14b83d9affe91083cb, type: 3}
+  itemIcon: {fileID: 4820493293777095403, guid: 84176c9663389e247a2eeb860f05bdd9, type: 3}

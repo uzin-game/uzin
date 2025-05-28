@@ -24,6 +24,12 @@ public class ConstructeurUsing : NetworkBehaviour
     public GameObject craftUIPanel; // Panel contenant l'UI du craft
     public Transform requiredItem1Container; // Container pour le premier élément requis
     public Transform requiredItem2Container; // Container pour le deuxième élément requis
+    
+    public TextMeshProUGUI requiredItem1Text;
+    public TextMeshProUGUI requiredItem2Text;
+    public TextMeshProUGUI requiredItem1NbText;
+    public TextMeshProUGUI requiredItem2NbText;
+    
     public TextMeshProUGUI recipeNameText; // Nom de la recette
     public TextMeshProUGUI craftStatusText; // Statut du craft (peut crafter ou non)
     public QuestManager questManager;
@@ -261,7 +267,7 @@ public class ConstructeurUsing : NetworkBehaviour
 
         if (questManager!= null && questManager.currentQuestIndex == 8)
         {
-            if (Recipe == SystemeNav)
+            if (Recipe.product.itemName == SystemeNav.product.itemName)
             {
                 questManager.Quests[8].Progress(1f); 
             }
@@ -269,7 +275,7 @@ public class ConstructeurUsing : NetworkBehaviour
 
         if (questManager!= null && questManager.currentQuestIndex == 9)
         {
-            if (Recipe == Direction)
+            if (Recipe.product.itemName == Direction.product.itemName)
             {
                 questManager.Quests[9].Progress(1f);
             }
@@ -277,7 +283,7 @@ public class ConstructeurUsing : NetworkBehaviour
 
         if (questManager!= null && questManager.currentQuestIndex == 10)
         {
-            if (Recipe == Chassis)
+            if (Recipe.product.itemName == Chassis.product.itemName)
             {
                 questManager.Quests[10].Progress(1f);
             }
@@ -285,7 +291,7 @@ public class ConstructeurUsing : NetworkBehaviour
 
         if (questManager!= null && questManager.currentQuestIndex == 11)
         {
-            if (Recipe == Fusee)
+            if (Recipe.product.itemName == Fusee.product.itemName)
             {
                 questManager.Quests[11].Progress(1f);
                 questManager.ShowWinScreen();
@@ -330,7 +336,7 @@ public class ConstructeurUsing : NetworkBehaviour
                 var required = requiredList[0];
                 int available = availableResources.ContainsKey(required.Key) ? availableResources[required.Key] : 0;
                 InventoryItemData requiredItemData = GetItemDataByName(required.Key);
-                UpdateRequiredItemContainer(requiredItem1Container, requiredItemData, required.Value, available);
+                UpdateRequiredItemContainer(requiredItem1Container, requiredItemData, available,0);
                 requiredItem1Container.gameObject.SetActive(true);
             }
             else
@@ -344,10 +350,11 @@ public class ConstructeurUsing : NetworkBehaviour
         {
             if (requiredList.Count > 1)
             {
+                Debug.Log("conternaire2Try");
                 var required = requiredList[1];
                 int available = availableResources.ContainsKey(required.Key) ? availableResources[required.Key] : 0;
                 InventoryItemData requiredItemData = GetItemDataByName(required.Key);
-                UpdateRequiredItemContainer(requiredItem2Container, requiredItemData, required.Value, available);
+                UpdateRequiredItemContainer(requiredItem2Container, requiredItemData, available,1);
                 requiredItem2Container.gameObject.SetActive(true);
             }
             else
@@ -360,7 +367,7 @@ public class ConstructeurUsing : NetworkBehaviour
         UpdateCraftStatus();
     }
     
-    private void UpdateRequiredItemContainer(Transform container, InventoryItemData itemData, int requiredAmount, int availableAmount)
+    private void UpdateRequiredItemContainer(Transform container, InventoryItemData itemData, int availableAmount,int index)
     {
         if (container == null) return;
         
@@ -370,28 +377,30 @@ public class ConstructeurUsing : NetworkBehaviour
         Image itemIcon = container.Find("Icon")?.GetComponent<Image>();
         Image backgroundImage = container.GetComponent<Image>();
         
-        // Si les composants ne sont pas trouvés avec cette structure, essayer l'ancienne
-        if (nameText == null)
-            nameText = container.Find("ItemName")?.GetComponent<TextMeshProUGUI>();
-        if (quantityText == null)
-            quantityText = container.Find("Quantity")?.GetComponent<TextMeshProUGUI>();
-        
         // Configurer le nom de l'item
-        if (nameText != null && itemData != null)
+        if (itemData != null)
         {
-            nameText.text = itemData.itemName;
+            if (index == 0) requiredItem1Text.text = itemData.itemName;
+            else if (index == 1) requiredItem2Text.text = itemData.itemName;
         }
-        else if (nameText != null)
+        else 
         {
-            nameText.text = "Item inconnu";
+            if (index == 0) requiredItem1Text.text = "Item inconnu";
+            else if (index == 1) requiredItem2Text.text = "Item inconnu";
         }
         
         // Configurer la quantité
-        if (quantityText != null)
+
+        if (index == 0)
         {
-            quantityText.text = $"{availableAmount}/{requiredAmount}";
-            // Changer la couleur selon la disponibilité
-            quantityText.color = availableAmount >= requiredAmount ? Color.green : Color.red;
+            requiredItem1NbText.text = $"{itemData.itemNb}";
+            requiredItem1NbText.color = availableAmount >= itemData.itemNb ? Color.green : Color.red;
+        }
+        else if (index == 1)
+        {
+            requiredItem2NbText.text = $"{itemData.itemNb}";
+            requiredItem2NbText.color = availableAmount >= itemData.itemNb ? Color.green : Color.red;
+            
         }
         
         // Configurer l'icône
@@ -421,7 +430,7 @@ public class ConstructeurUsing : NetworkBehaviour
         // Changer la couleur de fond selon la disponibilité
         if (backgroundImage != null)
         {
-            Color bgColor = availableAmount >= requiredAmount ? 
+            Color bgColor = availableAmount >= itemData.itemNb ? 
                 new Color(0.2f, 0.8f, 0.2f, 0.3f) : // Vert transparent
                 new Color(0.8f, 0.2f, 0.2f, 0.3f);   // Rouge transparent
             backgroundImage.color = bgColor;

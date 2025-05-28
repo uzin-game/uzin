@@ -65,7 +65,7 @@ public class Craft : NetworkBehaviour
                 }
                 if (questmanager!= null && questmanager.currentQuestIndex == 8)
                 {
-                    if (re == SystemeNav)
+                    if (re.product.itemName == SystemeNav.product.itemName)
                     {
                         questmanager.Quests[8].Progress(1f); 
                     }
@@ -73,7 +73,7 @@ public class Craft : NetworkBehaviour
 
                 if (questmanager!= null && questmanager.currentQuestIndex == 9)
                 {
-                    if (re == Direction)
+                    if (re.product.itemName == Direction.product.itemName)
                     {
                         questmanager.Quests[9].Progress(1f);
                     }
@@ -81,7 +81,7 @@ public class Craft : NetworkBehaviour
 
                 if (questmanager!= null && questmanager.currentQuestIndex == 10)
                 {
-                    if (re == Chassis)
+                    if (re.product.itemName == Chassis.product.itemName)
                     {
                         questmanager.Quests[10].Progress(1f);
                     }
@@ -89,7 +89,7 @@ public class Craft : NetworkBehaviour
 
                 if (questmanager!= null && questmanager.currentQuestIndex == 11)
                 {
-                    if (re == Fusee)
+                    if (re.product.itemName == Fusee.product.itemName)
                     {
                         questmanager.Quests[11].Progress(1f);
                         questmanager.ShowWinScreen();

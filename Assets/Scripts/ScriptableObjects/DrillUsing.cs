@@ -201,7 +201,7 @@ public class DrillUsing : NetworkBehaviour
         }
         if (product.itemName == CopperOre.itemName)
         {
-            prefabIndex = 2;
+            prefabIndex = 1;
         }
 
         if (product.itemName == CoalItem.itemName)

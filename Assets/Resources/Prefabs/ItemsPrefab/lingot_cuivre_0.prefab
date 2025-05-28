@@ -238,3 +238,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349f28b8c21596046b721432bd636797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  networkObject: {fileID: -6020753348867694051}
+  rb: {fileID: -3095996670154889772}
+  item: {fileID: 11400000, guid: e2e076c8061e52f438688461388b5836, type: 2}
+  distanceProximiteRecherche: 2
+  profondeurMaxRecherche: 10
+  enableDebugLogs: 1

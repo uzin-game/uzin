@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6263832303537417744}
   - component: {fileID: -9015254961652204305}
   - component: {fileID: 264104520925821625}
+  - component: {fileID: 592756297296043927}
   m_Layer: 0
   m_Name: lingot_or_0
   m_TagString: Untagged
@@ -225,3 +226,22 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &592756297296043927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362888722024467429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349f28b8c21596046b721432bd636797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  networkObject: {fileID: -9015254961652204305}
+  rb: {fileID: 8267117236042982504}
+  item: {fileID: 11400000, guid: 12bc60a22c6a8d348a90a5e85ed13c07, type: 2}
+  distanceProximiteRecherche: 2
+  profondeurMaxRecherche: 10
+  enableDebugLogs: 1

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7741f9dde2ea7154f9d4f8dbd52a4a02, type: 3}
   m_Name: "Fus\xE9e"
   m_EditorClassIdentifier: 
-  product: {fileID: 11400000, guid: e47a710076f5a33479353155534e39f4, type: 2}
+  product: {fileID: 11400000, guid: 642c17a201c4c484a873f9460a1d1cd3, type: 2}
   amount: 1
   Ressources:
   - {fileID: 11400000, guid: e47a710076f5a33479353155534e39f4, type: 2}
-  - {fileID: 11400000, guid: 4e1f942414bcf024e9253ef0a94b7b8c, type: 2}
+  - {fileID: 11400000, guid: 2330950440122394daa4971a5205a1f2, type: 2}

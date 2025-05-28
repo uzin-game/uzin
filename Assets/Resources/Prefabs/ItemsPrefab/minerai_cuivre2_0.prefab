@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -4953783823913495790}
   - component: {fileID: -1769543361765456572}
   - component: {fileID: -4845148521321682536}
+  - component: {fileID: 3955690116888296338}
   m_Layer: 0
   m_Name: minerai_cuivre2_0
   m_TagString: Untagged
@@ -225,3 +226,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3955690116888296338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437225750716893009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349f28b8c21596046b721432bd636797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  networkObject: {fileID: -2092122401956508763}
+  rb: {fileID: -4845148521321682536}
+  item: {fileID: 11400000, guid: bb6a1492ddc1b474f9a282c2ccf265de, type: 2}
+  distanceProximiteRecherche: 2
+  profondeurMaxRecherche: 10
+  enableDebugLogs: 1
