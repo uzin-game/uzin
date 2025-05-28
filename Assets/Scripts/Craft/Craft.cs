@@ -16,6 +16,10 @@ public class Craft : NetworkBehaviour
     public QuestManager questmanager;
     public CraftingRecipes Toldefer;
     public CraftingRecipes bouts;
+    public CraftingRecipes SystemeNav;
+    public CraftingRecipes Direction;
+    public CraftingRecipes Fusee;
+    public CraftingRecipes Chassis;
     public void execute()
     {
         Debug.Log("Craft");
@@ -58,6 +62,38 @@ public class Craft : NetworkBehaviour
                 if (questmanager != null && questmanager.currentQuestIndex == 8 && re.product.itemName == bouts.product.itemName)
                 {
                     questmanager.Quests[8].Progress(1f);
+                }
+                if (questmanager!= null && questmanager.currentQuestIndex == 8)
+                {
+                    if (re == SystemeNav)
+                    {
+                        questmanager.Quests[8].Progress(1f); 
+                    }
+                }
+
+                if (questmanager!= null && questmanager.currentQuestIndex == 9)
+                {
+                    if (re == Direction)
+                    {
+                        questmanager.Quests[9].Progress(1f);
+                    }
+                }
+
+                if (questmanager!= null && questmanager.currentQuestIndex == 10)
+                {
+                    if (re == Chassis)
+                    {
+                        questmanager.Quests[10].Progress(1f);
+                    }
+                }
+
+                if (questmanager!= null && questmanager.currentQuestIndex == 11)
+                {
+                    if (re == Fusee)
+                    {
+                        questmanager.Quests[11].Progress(1f);
+                        questmanager.ShowWinScreen();
+                    }
                 }
             }
             else

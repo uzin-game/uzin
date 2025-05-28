@@ -895,14 +895,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a313747c21b2934ea7d3ae9f23c9fcd, type: 2}
   - {fileID: 11400000, guid: 56a64aee3e26d27418e663471e2f7b31, type: 2}
   - {fileID: 11400000, guid: 2e7a06488401cef44bdbad928ebd35c1, type: 2}
-  boutDeChassis: {fileID: 0}
-  boutsDeMoteur: {fileID: 0}
-  systemeNav: {fileID: 0}
+  Direction: {fileID: 11400000, guid: 6a313747c21b2934ea7d3ae9f23c9fcd, type: 2}
+  Fusee: {fileID: 11400000, guid: 660cb984f80e88744b05260782902f98, type: 2}
+  SystemeNav: {fileID: 11400000, guid: fa5a75d7c766540498e8c8f76c871421, type: 2}
+  Chassis: {fileID: 11400000, guid: 9c22b65ada624ab4094073d2c2bee346, type: 2}
   craftUIPanel: {fileID: 5399416545648375091}
   requiredItem1Container: {fileID: 54113897810656025}
   requiredItem2Container: {fileID: 4045288849303339524}
   recipeNameText: {fileID: 350482472801653181}
   craftStatusText: {fileID: 5012756853707975143}
+  questManager: {fileID: 0}
   craftProgressBar: {fileID: 5131928947205973858}
   progressBarController: {fileID: 2222483691329164032}
 --- !u!1 &3411756428391837826
@@ -2338,10 +2340,7 @@ RectTransform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6929506111397837939}
   - {fileID: 7607126190538896300}
-  - {fileID: 54113897810656025}
-  - {fileID: 4045288849303339524}
   - {fileID: 8085788818987579898}
   - {fileID: 6909601857537656179}
   - {fileID: 4223049503433424681}
@@ -2361,6 +2360,9 @@ RectTransform:
   - {fileID: 4530428162708474849}
   - {fileID: 3568636814407696777}
   - {fileID: 7088342884934898743}
+  - {fileID: 6929506111397837939}
+  - {fileID: 54113897810656025}
+  - {fileID: 4045288849303339524}
   - {fileID: 333280325887868557}
   - {fileID: 3197621647035241097}
   - {fileID: 4942220340236872594}
@@ -5436,15 +5438,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 745.4999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 745.4999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 745.4999
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 562643555729329818, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7734,6 +7736,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
       propertyPath: isOccupied
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584360761702946874, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}
+      propertyPath: machineProperty
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5098230523294521656, guid: a9452ce0fe0cbe744b85b9be995fd10e, type: 3}

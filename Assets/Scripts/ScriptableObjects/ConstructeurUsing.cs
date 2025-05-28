@@ -15,9 +15,10 @@ public class ConstructeurUsing : NetworkBehaviour
     public GameObject CardOut;
     public TMP_Dropdown dropdown;
     public CraftingRecipes[] craftingRecipes;
-    public GameObject boutDeChassis;
-    public GameObject boutsDeMoteur;
-    public GameObject systemeNav;
+    public CraftingRecipes Direction;
+    public CraftingRecipes Fusee;
+    public CraftingRecipes SystemeNav;
+    public CraftingRecipes Chassis;
     
     [Header("UI Elements")]
     public GameObject craftUIPanel; // Panel contenant l'UI du craft
@@ -25,7 +26,7 @@ public class ConstructeurUsing : NetworkBehaviour
     public Transform requiredItem2Container; // Container pour le deuxième élément requis
     public TextMeshProUGUI recipeNameText; // Nom de la recette
     public TextMeshProUGUI craftStatusText; // Statut du craft (peut crafter ou non)
-    private QuestManager questManager;
+    public QuestManager questManager;
     private float lastCraftTime = 0f;
     private float craftCooldown = 3f;
     private bool isCrafting = false;
@@ -258,20 +259,36 @@ public class ConstructeurUsing : NetworkBehaviour
             }
         }
 
-        if (Recipe.product.itemName == boutDeChassis.GetComponent<CardManager>().itemData.itemName)
+        if (questManager!= null && questManager.currentQuestIndex == 8)
         {
-            questManager = FindFirstObjectByType<QuestManager>();
-            if (questManager.currentQuestIndex == 8)
+            if (Recipe == SystemeNav)
             {
-                questManager.Quests[8].Progress(1f);
+                questManager.Quests[8].Progress(1f); 
             }
         }
-        if (Recipe.product.itemName == boutsDeMoteur.GetComponent<CardManager>().itemData.itemName)
+
+        if (questManager!= null && questManager.currentQuestIndex == 9)
         {
-            questManager = FindFirstObjectByType<QuestManager>();
-            if (questManager.currentQuestIndex == 9)
+            if (Recipe == Direction)
             {
                 questManager.Quests[9].Progress(1f);
+            }
+        }
+
+        if (questManager!= null && questManager.currentQuestIndex == 10)
+        {
+            if (Recipe == Chassis)
+            {
+                questManager.Quests[10].Progress(1f);
+            }
+        }
+
+        if (questManager!= null && questManager.currentQuestIndex == 11)
+        {
+            if (Recipe == Fusee)
+            {
+                questManager.Quests[11].Progress(1f);
+                questManager.ShowWinScreen();
             }
         }
     
